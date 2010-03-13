@@ -78,7 +78,7 @@
 		}
 		
 		public function captureImageFrame():BitmapData {
-			var bitmapData: BitmapData = new BitmapData(258, 292, true, 0xFFFFFF);
+			var bitmapData: BitmapData = new BitmapData(732, 903, true, 0xFFFFFF);
 			bitmapData.draw(imageFrameContainerMovie, null, null, null, null, true);
 			
 			return bitmapData;

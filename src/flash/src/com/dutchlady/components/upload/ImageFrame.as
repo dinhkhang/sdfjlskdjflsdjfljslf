@@ -25,6 +25,8 @@
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			imageHolder.mask = maskMovie;
 			
+			maskMovie.visible = false;
+			
 			hideLoading();
 			
 			transformTool = new TransformTool();
@@ -76,8 +78,10 @@
 			hideLoading();
 			trace("imageLoadCompleteHandler " + event);
 			imageHolder.addChild(event.target.content);
-			imageHolder.width = 140;
-			imageHolder.height = 93;
+			imageHolder.width = 396;
+			imageHolder.height = 265;
+			
+			transformTool.target = imageHolder;
 		}
 		
 		private function showLoading():void {
