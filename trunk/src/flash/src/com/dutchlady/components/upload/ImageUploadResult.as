@@ -25,6 +25,7 @@
 		public var uploadedImageUrl: String = "";
 		
 		private var downloadFileRef: FileReference;
+		private var isDownloaded: Boolean = false;
 		
 		public function ImageUploadResult() {
 			loadingMovie.visible = false;
@@ -57,8 +58,11 @@
 			loadingMovie.visible = false;
 			
 			// update donate
-			var service: AppServices = new AppServices(Configuration.instance.updateDonateServiceUrl);
-			service.updateDonate("Save-To-My-Computer");
+			if (!isDownloaded) {
+				isDownloaded = true;
+				var service: AppServices = new AppServices(Configuration.instance.updateDonateServiceUrl);
+				service.updateDonate("Save-To-My-Computer");
+			}
 		}
 		
 		private function iLoveDutchLadyButtonClickHandler(event: MouseEvent): void {
