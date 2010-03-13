@@ -1,0 +1,369 @@
+﻿package com.dutchlady.components.milkbox {
+	import com.dutchlady.common.GlobalVars;
+	import com.dutchlady.events.PageEvent;
+	import fl.transitions.easing.Strong;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.display.Loader;
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.filters.BlurFilter;
+	import flash.geom.ColorTransform;
+	import flash.geom.Rectangle;
+	import flash.net.URLRequest;
+	import flash.ui.Mouse;
+	import flash.utils.Timer;
+	import gs.TweenLite;
+	import org.papervision3d.cameras.CameraType;
+	import org.papervision3d.cameras.DebugCamera3D;
+	import org.papervision3d.core.geom.renderables.Vertex3D;
+	import org.papervision3d.core.math.Number3D;
+	import org.papervision3d.core.proto.MaterialObject3D;
+	import org.papervision3d.events.InteractiveScene3DEvent;
+	import org.papervision3d.lights.PointLight3D;
+	import org.papervision3d.materials.ColorMaterial;
+	import org.papervision3d.materials.MovieMaterial;
+	import org.papervision3d.materials.shadematerials.FlatShadeMaterial;
+	import org.papervision3d.materials.shaders.FlatShader;
+	import org.papervision3d.materials.shaders.ShadedMaterial;
+	import org.papervision3d.materials.utils.MaterialsList;
+	import org.papervision3d.objects.DisplayObject3D;
+	import org.papervision3d.objects.primitives.Cube;
+	import org.papervision3d.objects.primitives.Plane;
+	import org.papervision3d.view.BasicView;
+	import org.papervision3d.view.Viewport3D;
+
+	/**
+	 * ...
+	 * @author Hai Nguyen
+	 */
+	public class MilkBox extends BasicView {
+		public static const CREATION_COMPLETE: String = "creationComplete";
+		
+		private var box: Cube;
+		private var pointLight: PointLight3D;
+		
+		private var isInBox: Boolean = false;
+		private var isMouseDown: Boolean = false;
+		private var is3DSceneDirty: Boolean = false;
+		private var isAutoRotate: Boolean = false;
+		private var lastMouseX: Number;
+		private var offsetX: Number;
+		private var timer: Timer;
+		private var newBoxRotationAngle: Number = 0;
+		
+		public var zoomInIcon: ZoomInIcon;
+		public var leftRotationIcon: LeftRotationIcon;
+		public var rightRotationIcon: RightRotationIcon;
+		
+		private var heartAssetLoader: Loader;
+		private var shareAssetLoader: Loader;
+		private var storyAssetLoader: Loader;
+		private var tourAssetLoader: Loader;
+		
+		public var isRollOver: Boolean = true;
+		
+		public function MilkBox() {
+			super(600, 600, false, true, CameraType.TARGET);
+			
+			GlobalVars.milkBox = this;
+			
+			viewport.interactive = true;
+			camera.z = 780;
+			camera.y = -60;
+			var target: DisplayObject3D = DisplayObject3D.ZERO;
+			target.y = 50;
+			camera.target = target;
+			loadMaterial();
+			
+			leftRotationIcon = new LeftRotationIcon();
+			leftRotationIcon.addEventListener(MouseEvent.CLICK, leftRotationIconClickHandler);
+			addChild(leftRotationIcon);
+			
+			rightRotationIcon = new RightRotationIcon();
+			rightRotationIcon.addEventListener(MouseEvent.CLICK, rightRotationIconClickHandler);
+			addChild(rightRotationIcon);
+			
+			zoomInIcon = new ZoomInIcon();
+			zoomInIcon.mouseChildren = false;
+			zoomInIcon.mouseEnabled = false;
+			addChild(zoomInIcon);
+			
+			hideCustomCursor();
+			
+			timer = new Timer(3000);
+			timer.addEventListener(TimerEvent.TIMER, timerHandler);
+		}
+		
+		private function rightRotationIconClickHandler(event: MouseEvent): void {
+			newBoxRotationAngle -= 90;
+		}
+		
+		private function leftRotationIconClickHandler(event: MouseEvent): void {
+			newBoxRotationAngle += 90;
+		}
+		
+		private function timerHandler(event: TimerEvent): void {
+			timer.reset();
+			isAutoRotate = true;
+		}
+		
+		private function loadMaterial():void {
+			trace("loadMaterial");
+			heartAssetLoader = new Loader();
+			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, heartAssetLoadCompleteHandler);
+			heartAssetLoader.load(new URLRequest("iLove.swf"));
+		}
+		
+		private function heartAssetLoadCompleteHandler(event: Event): void {
+			trace("heartAssetLoadCompleteHandler");
+			shareAssetLoader = new Loader();
+			shareAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shareAssetLoadCompleteHandler);
+			shareAssetLoader.load(new URLRequest("images/share.jpg"));
+		}
+		
+		private function shareAssetLoadCompleteHandler(event: Event): void {
+			trace("shareAssetLoadCompleteHandler");
+			storyAssetLoader = new Loader();
+			storyAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
+			storyAssetLoader.load(new URLRequest("images/story.jpg"));
+		}
+		
+		private function storyAssetLoadCompleteHandler(event: Event): void {
+			trace("storyAssetLoadCompleteHandler");
+			tourAssetLoader = new Loader();
+			tourAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, tourAssetLoadCompleteHandler);
+			tourAssetLoader.load(new URLRequest("box04.swf"));
+		}
+		
+		private function tourAssetLoadCompleteHandler(event: Event): void {
+			trace("tourAssetLoadCompleteHandler");
+			init3DWorld();
+		}
+		
+		private function createBoxFaceMatetial(content: DisplayObject, materialName: String, light: PointLight3D):MaterialObject3D {
+			var material: MovieMaterial = new MovieMaterial(content);
+			material.interactive = true;
+			material.oneSide = true;
+			//heartMaterial.smooth = true;
+			material.name = materialName;
+			
+			return material
+			
+			//var flatShader: FlatShader = new FlatShader(light, 0xFFFFFF, 0x999999);
+			//var flatShadedMaterial: ShadedMaterial = new ShadedMaterial(material, flatShader);
+			//
+			//flatShadedMaterial.interactive = true;
+			//flatShadedMaterial.oneSide = true;
+			//flatShadedMaterial.name = materialName;
+			//return flatShadedMaterial;
+		}
+		
+		private function init3DWorld(): void {
+			pointLight = new PointLight3D(true, false);
+			pointLight.z = 3000;
+			//scene.addChild(pointLight);
+			
+			var heartMaterial: MaterialObject3D = createBoxFaceMatetial(heartAssetLoader.contentLoaderInfo.content, "heart", pointLight);
+			//heartMaterial.interactive = true;
+			//heartMaterial.oneSide = true;
+			//heartMaterial.smooth = true;
+			//heartMaterial.name = "heart";
+			
+			var shareMaterial: MaterialObject3D = createBoxFaceMatetial(shareAssetLoader.contentLoaderInfo.content, "share", pointLight);
+			//var shareMaterial: MovieMaterial = new MovieMaterial(shareAssetLoader.contentLoaderInfo.content);
+			//shareMaterial.interactive = true;
+			//shareMaterial.oneSide = true;
+			//shareMaterial.smooth = true;
+			//shareMaterial.name = "share";
+			
+			var storyMaterial: MaterialObject3D = createBoxFaceMatetial(storyAssetLoader.contentLoaderInfo.content, "story", pointLight);
+			//var storyMaterial: MovieMaterial = new MovieMaterial(storyAssetLoader.contentLoaderInfo.content);
+			//storyMaterial.interactive = true;
+			//storyMaterial.oneSide = true;
+			//storyMaterial.smooth = true;
+			//storyMaterial.name = "story";
+			
+			var tourMaterial: MaterialObject3D = createBoxFaceMatetial(tourAssetLoader.contentLoaderInfo.content, "tour", pointLight);
+			//var tourMaterial: MovieMaterial = new MovieMaterial(tourAssetLoader.contentLoaderInfo.content, false, true);
+			//tourMaterial.interactive = true;
+			//tourMaterial.oneSide = true;
+			//tourMaterial.smooth = true;
+			//tourMaterial.name = "tour";
+			
+			var materials: MaterialsList = new MaterialsList(
+			{
+				front: heartMaterial,
+				back: tourMaterial,
+				right: storyMaterial,
+				left: shareMaterial
+			} );
+			
+			box = new Cube(materials, 400, 400, 600, 15, 15, 15, 0, Cube.BOTTOM | Cube.TOP);
+			box.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, boxClickHandler);
+			box.rotationY = -25;
+			scene.addChild(box);
+			
+			is3DSceneDirty = true;
+			
+			newBoxRotationAngle = box.rotationY;
+			startRendering();
+			dispatchEvent(new Event(CREATION_COMPLETE));
+			
+			this.mouseEnabled = true;
+			this.useHandCursor = true;
+			//this.addEventListener(MouseEvent.MOUSE_DOWN, boxMouseDownHandler);
+			//this.addEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
+			//this.addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
+		}
+		
+		private function boxClickHandler(event: InteractiveScene3DEvent): void {
+			trace("boxClickHandler");
+			switch (event.face3d.material.name) {
+				case "heart":
+					navigateToHeartFace();
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP));
+					break;
+				case "story":
+					navigateToStoryFace();
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP));
+					break;
+				case "share":
+					navigateToShareFace();
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP));
+					break;
+				case "tour":
+					navigateToTourFace();
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP));
+					break;
+				default:
+					break;
+			}
+		}
+		
+		private function zoomInBoxFace(material: MaterialObject3D):void {
+			var bitmapData: BitmapData = material.bitmap.clone();
+			
+			
+		}
+		
+		//private function rollOutHandler(event: MouseEvent): void {
+			//hideCustomCursor();
+			//isInBox = false;
+		//}
+		//
+		//private function rollOverHandler(event: MouseEvent): void {
+			//showCustomCursor();
+			//isInBox = true;
+		//}
+		
+		private function boxMouseDownHandler(event: MouseEvent): void {
+			lastMouseX =  this.mouseX;
+			isMouseDown = true;
+			stage.addEventListener(MouseEvent.MOUSE_UP, stageMouseUpHandler);
+		}
+		
+		private function stageMouseUpHandler(event: MouseEvent): void {
+			isMouseDown = false;
+			stage.removeEventListener(MouseEvent.MOUSE_UP, stageMouseUpHandler);
+		}
+		
+		private function checkMouseInBox():Boolean {
+			if (100 <= this.mouseX && this.mouseX <= 500 &&
+				110 <= this.mouseY && this.mouseY <= 538) return true;
+				
+			return false;
+		}
+		
+		override protected function onRenderTick(event: Event = null):void {
+			/*if (isMouseDown) {
+				offsetX = this.mouseX - lastMouseX;
+				box.rotationY -= offsetX / 4;
+				
+				lastMouseX = this.mouseX;
+			}*/
+			//box.rotationY--;
+			if (!isRollOver)	return;
+			if (checkMouseInBox()) {
+				if (!isInBox) {
+					isInBox = true;
+					if (this.mouseX < (this.width / 2)) newBoxRotationAngle -= 10;
+					else newBoxRotationAngle += 10;
+				}
+				//newBoxRotationAngle += (this.mouseX - (this.width / 2)) / 50;
+				showCustomCursor();
+				
+				isAutoRotate = false;
+				timer.reset();
+			} else {
+				isInBox = false;
+				hideCustomCursor();
+				
+				if (isAutoRotate) {
+					newBoxRotationAngle -= 0.2;
+				} timer.start();
+			}
+			
+			newBoxRotationAngle %= 360;
+			if (newBoxRotationAngle != box.rotationY) {
+				box.rotationY += (newBoxRotationAngle - box.rotationY) / 10;
+				is3DSceneDirty = true;
+			}
+			
+			if (is3DSceneDirty) {
+				renderer.renderScene(scene, _camera, viewport);
+				is3DSceneDirty = false;
+			}
+			
+			alignCustomCursor();
+		}
+		
+		private function alignCustomCursor():void {
+			zoomInIcon.x = this.mouseX - zoomInIcon.width / 2;
+			zoomInIcon.y = this.mouseY - zoomInIcon.height / 2;
+			
+			leftRotationIcon.x = 120;
+			leftRotationIcon.y = 300;
+			
+			rightRotationIcon.x = 450;
+			rightRotationIcon.y = 300;
+		}
+		
+		private function showCustomCursor():void {
+			Mouse.hide();
+			
+			zoomInIcon.visible = true;
+			leftRotationIcon.visible = true;
+			rightRotationIcon.visible = true;
+			alignCustomCursor();
+		}
+		
+		private function hideCustomCursor():void {
+			leftRotationIcon.visible = false;
+			rightRotationIcon.visible = false;
+			zoomInIcon.visible = false;
+			Mouse.show();
+		}
+		
+		public function navigateToHeartFace():void {
+			newBoxRotationAngle = -25;
+		}
+		
+		public function navigateToStoryFace():void {
+			newBoxRotationAngle = -25 - 90;
+		}
+		
+		public function navigateToTourFace():void {
+			newBoxRotationAngle = -25 - 90 - 90;
+		}
+		
+		public function navigateToShareFace():void {
+			newBoxRotationAngle = -25 - 90 - 90 - 90;
+		}
+	}
+
+}

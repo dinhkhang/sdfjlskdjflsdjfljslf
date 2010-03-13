@@ -1,0 +1,97 @@
+﻿1. Bo het coi xay gio <== DONE
+2. Bo nut Luu Hinh khi hoang thanh upload <-- remove
+3. Save toan bo hinh va hop sua trong upload form <== DONE
+4. Luu anh la PNG <== DONE
+5. Update hop sua chua hinh upload <== DONE
+6. Khi nhan nut Toi Yeu Co Gai Ha lan se hoi ban co muon xem tai hinh ve khong
+
+
+
+09-03-2010
+1. Canh website theo resolution
+2. Tracking
+3. Cursor trong hop sua <== DONE
+4. Tich hop sua 4 mat cua hop sua
+5. Den dom dom tren trang hom ko chay <== DONE
+6. So tien canh phai va dien so 0 trong ben trai <==DONE
+7. Xu ly hien zoom khi click vao hop sua
+8. Animation co gai ha lan
+9. Thay trai tim trong phan upload <== DONE
+10. Send to friend
+11. Dom dom nhap nhay <== DONE
+
+
+12. Sau khi upload, click vao ILoveDutchLady thi goi den 1 service de tang so tien
+13. Nhan nut tham gia ung ho se chuyen den trang dang anh
+
+
+
+home page:
+----------------------------
+- dùng logo mới <== DONE
+- bảng điện tử bỏ chữ đồng, để chữ D (mau trang) <== DONE
+- số tiền màu đỏ <== DONE
+- apply giao diện mới trong file DVD (chú ý navigation) <== DONE
+- hộp sữa là khối hình chữ nhật vuông, kích thước 4 mặt như nhau <== DONE
+- khi dịch chuột qua trái - phái, hộp sữa xoay theo <== DONE
+- sau 3 giây không rê chuột vào hộp sữa thì nó tự xoay <== DONE
+- rê chuột vào vùng biên của cái hộp nó hiện ra mũi tên xoay <== DONE
+- hiệu ứng camera zoom khi click vào bốn mặt hộp
+- khi click vào navigation các mặt tương ứng, thì quay về trang chủ, hộp sữa xoay qua mặt đó và zoom ra
+- navigation bỏ cái đăng ảnh
+- logo ở navigation link đến trang chủ
+
+Game 1
+------------------------------
+- Sau khi tải xong, cái phần progress bar mất đi
+- chú ý game 1, trong lúc phần giới thiệu thì game chưa start, nhấn nút start cô gái mới đi vô
+- đuôi bò random như đã nói
+- cắt lại đồng hồ cho rõ
+- hình cô gái khi vắt sữa phải nhỏ lại ngang con bò, giờ trông to quá
+- chỉnh lại khúc cô gái đi thả cỏ như đã nói
+- ráp thêm frame khi có design thêm cô gái đi lại
+- nextlevel, kiểm tra lại
+- check bug game 1
+
+Game 2
+-----------------------------
+- khi thua có thông báo mới
+- resize lại game cho to ra
+- cô gái đi vào đổ sữa
+- đường biên gạch ngang bộ phận chỉ hiện ra khi rê chuột gần chỗ bộ phận
+- dịch đồng hồ qua trái như game 1
+
+4 mặt hộp sữa
+-----------------------------
+- mặt trái tim, không có paging, hộp thoại nhỏ lúc trong hộp chưa zoom
+- hành trình bỏ cái vào game 1 (Tuấn bỏ, Hải update lại background)
+- bổ sung nút zoom-out cố định góc top bên phải
+- hiện bàn tay khi rê chuột vào mặt đã zoom
+- chỉ kéo lên xuống, không kéo qua lại
+- hiệu ứng trược khi kéo lên xuống
+- update lại hành trình cho đúng (Tuấn update trong database)
+- mặt chia sẻ cùng..., có link đến phần đăng ảnh
+
+đăng ảnh
+----------------------------
+- có biểu tượng góc zoom như design
+- coi lại cái save về máy
+- sau khi đăng xong gọi tới update tiền
+
+
+tuấn
+---------------------------
+- làm backend
+- update lai web service
+- sửa design
+- contact phụng
+
+làm sau
+-------------------------
+- send to friend
+- resize
+
+
+
+-------------------
+Khi re chuot qua nut xoat bien mat bieu tuong zoom in/ zoom out
