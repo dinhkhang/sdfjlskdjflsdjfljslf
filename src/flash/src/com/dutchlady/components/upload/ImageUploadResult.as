@@ -35,7 +35,8 @@
 		}
 		
 		private function sendToFriendButtonClickHandler(event: MouseEvent): void {
-			
+			this.visible = false;
+			parent["sendToFriendMovie"].visible = true;
 		}
 		
 		private function saveImageButtonClickHandler(event: MouseEvent): void {

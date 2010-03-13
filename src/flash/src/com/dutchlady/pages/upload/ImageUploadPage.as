@@ -6,6 +6,7 @@
 	import com.dutchlady.components.upload.ImageUploader;
 	import com.dutchlady.components.upload.ImageUploadForm;
 	import com.dutchlady.components.upload.ImageUploadResult;
+	import com.dutchlady.components.upload.SendImageToFriend;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.pages.BasePage;
 	import fl.transitions.easing.None;
@@ -26,13 +27,14 @@
 		public var imageFrameContainerMovie		: MovieClip;
 		public var uploadFormMovie				: ImageUploadForm;
 		public var uploadResultMovie			: ImageUploadResult;
-		public var sendToFriendMovie			: MovieClip;
+		public var sendToFriendMovie			: SendImageToFriend;
 		
 		public var uploadedImageFileName: String = "";
 		
 		public function ImageUploadPage() {
 			uploadResultMovie.visible = false;
-			sendToFriendMovie.visible = true;
+			sendToFriendMovie.visible = false;
+			
 			uploadFormMovie.addEventListener(ImageUploadEvent.UPLOAD_COMPLETE, imageUploadCompleteHandler);
 			uploadFormMovie.addEventListener(ImageUploadEvent.SAVE_IMAGE_PROFILE_COMPLETE, saveImageProfileCompleteHandler);
 		}
@@ -52,7 +54,14 @@
 			uploadFormMovie.visible = true;
 			sendToFriendMovie.visible = true;
 			uploadResultMovie.visible = false;
+	
 			uploadFormMovie.reset();
+			sendToFriendMovie.reset();
+			
+			//
+			//uploadFormMovie.visible = false;
+			//sendToFriendMovie.visible = true;
+			
 		}
 		
 		// OVERRIDE
@@ -78,7 +87,7 @@
 		}
 		
 		public function captureImageFrame():BitmapData {
-			var bitmapData: BitmapData = new BitmapData(732, 903, true, 0xFFFFFF);
+			var bitmapData: BitmapData = new BitmapData(495, 570, true, 0xFFFFFF);
 			bitmapData.draw(imageFrameContainerMovie, null, null, null, null, true);
 			
 			return bitmapData;

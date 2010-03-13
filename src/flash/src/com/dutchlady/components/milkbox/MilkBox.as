@@ -13,6 +13,7 @@
 	import flash.events.TimerEvent;
 	import flash.filters.BlurFilter;
 	import flash.geom.ColorTransform;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.ui.Mouse;
@@ -43,6 +44,12 @@
 	 * @author Hai Nguyen
 	 */
 	public class MilkBox extends BasicView {
+		public static const DELTA: Number = 10;
+		public static const HEART_BOX_FACE_NAME: String = "heart";
+		public static const STORY_BOX_FACE_NAME: String = "story";
+		public static const SHARE_BOX_FACE_NAME: String = "share";
+		public static const TOUR_BOX_FACE_NAME: String = "tour";
+		
 		public static const CREATION_COMPLETE: String = "creationComplete";
 		
 		private var box: Cube;
@@ -52,6 +59,7 @@
 		private var isMouseDown: Boolean = false;
 		private var is3DSceneDirty: Boolean = false;
 		private var isAutoRotate: Boolean = false;
+		private var isRotating: Boolean = false;
 		private var lastMouseX: Number;
 		private var offsetX: Number;
 		private var timer: Timer;
@@ -66,6 +74,8 @@
 		private var storyAssetLoader: Loader;
 		private var tourAssetLoader: Loader;
 		
+		private var selectedBoxFaceName: String = "";
+		
 		public var isRollOver: Boolean = true;
 		
 		public function MilkBox() {
@@ -74,7 +84,7 @@
 			GlobalVars.milkBox = this;
 			
 			viewport.interactive = true;
-			camera.z = 780;
+			camera.z = 720;
 			camera.y = -60;
 			var target: DisplayObject3D = DisplayObject3D.ZERO;
 			target.y = 50;
@@ -101,10 +111,12 @@
 		}
 		
 		private function rightRotationIconClickHandler(event: MouseEvent): void {
+			selectedBoxFaceName = "";
 			newBoxRotationAngle -= 90;
 		}
 		
 		private function leftRotationIconClickHandler(event: MouseEvent): void {
+			selectedBoxFaceName = "";
 			newBoxRotationAngle += 90;
 		}
 		
@@ -224,22 +236,23 @@
 		
 		private function boxClickHandler(event: InteractiveScene3DEvent): void {
 			trace("boxClickHandler");
+			selectedBoxFaceName = event.face3d.material.name;
 			switch (event.face3d.material.name) {
-				case "heart":
+				case HEART_BOX_FACE_NAME:
 					navigateToHeartFace();
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP));
+					//GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP));
 					break;
-				case "story":
+				case STORY_BOX_FACE_NAME:
 					navigateToStoryFace();
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP));
+					//GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP));
 					break;
-				case "share":
+				case SHARE_BOX_FACE_NAME:
 					navigateToShareFace();
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP));
+					//GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP));
 					break;
-				case "tour":
+				case TOUR_BOX_FACE_NAME:
 					navigateToTourFace();
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP));
+					//GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP));
 					break;
 				default:
 					break;
@@ -298,6 +311,12 @@
 				//newBoxRotationAngle += (this.mouseX - (this.width / 2)) / 50;
 				showCustomCursor();
 				
+				var point: Point = localToGlobal(new Point(this.mouseX, this.mouseY));
+				if (leftRotationIcon.hitTestPoint(point.x, point.y) || rightRotationIcon.hitTestPoint(point.x, point.y)) {
+					Mouse.show();
+					zoomInIcon.visible = false;
+				}
+				
 				isAutoRotate = false;
 				timer.reset();
 			} else {
@@ -309,8 +328,12 @@
 				} timer.start();
 			}
 			
-			newBoxRotationAngle %= 360;
-			if (newBoxRotationAngle != box.rotationY) {
+			//newBoxRotationAngle %= 360;
+			isRotating = Math.abs(newBoxRotationAngle - box.rotationY) > DELTA;
+			if (!isRotating) {
+				rotateCompleteHandler();
+			}
+			if (isRotating) {
 				box.rotationY += (newBoxRotationAngle - box.rotationY) / 10;
 				is3DSceneDirty = true;
 			}
@@ -350,20 +373,58 @@
 			Mouse.show();
 		}
 		
+		public function forceBoxToReachToTheEnd():void {
+			newBoxRotationAngle %= 360;
+			box.rotationY = newBoxRotationAngle;
+		}
+		
 		public function navigateToHeartFace():void {
-			newBoxRotationAngle = -25;
+			forceBoxToReachToTheEnd();
+			newBoxRotationAngle = 0;
 		}
 		
 		public function navigateToStoryFace():void {
-			newBoxRotationAngle = -25 - 90;
+			forceBoxToReachToTheEnd();
+			newBoxRotationAngle = 0 - 90;
 		}
 		
 		public function navigateToTourFace():void {
-			newBoxRotationAngle = -25 - 90 - 90;
+			forceBoxToReachToTheEnd();
+			newBoxRotationAngle = 0 - 90 - 90;
 		}
 		
 		public function navigateToShareFace():void {
-			newBoxRotationAngle = -25 - 90 - 90 - 90;
+			forceBoxToReachToTheEnd();
+			newBoxRotationAngle = 0 - 90 - 90 - 90;
+		}
+		
+		public function freeze():void {
+			timer.reset();
+			isAutoRotate = false;
+		}
+		
+		public function unfreeze():void {
+			timer.start();
+		}
+		
+		private function rotateCompleteHandler():void {
+			switch (selectedBoxFaceName) {
+				case HEART_BOX_FACE_NAME:
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP));
+					break;
+				case STORY_BOX_FACE_NAME:
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP));
+					break;
+				case SHARE_BOX_FACE_NAME:
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP));
+					break;
+				case TOUR_BOX_FACE_NAME:
+					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP));
+					break;
+				default:
+					break;
+			}
+			selectedBoxFaceName = "";
 		}
 	}
 
