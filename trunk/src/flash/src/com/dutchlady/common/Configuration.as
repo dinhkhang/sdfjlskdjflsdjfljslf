@@ -61,6 +61,9 @@
 			return defaultGateway + "FlashServices.asmx/UpdateDonate";
 		}
 		
+		public function get sendToFriendServiceUrl():String {
+			return defaultGateway + "FlashServices.asmx/SendToFriend";
+		}
 	}
 
 }

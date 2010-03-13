@@ -37,6 +37,16 @@
 			params[QueryParameter.FUNCTION_NAME] = functionName;
 			invokeService(params);
 		}
+		
+		public function sendToFriend(fromName: String, email: String, profileId: String, content: String, sendToEmails: String):void {
+			var params: Object = { };
+			params[QueryParameter.FROM_NAME] = fromName;
+			params[QueryParameter.EMAIL] = email;
+			params[QueryParameter.PROFILE_ID] = profileId;
+			params[QueryParameter.CONTENT] = content;
+			params[QueryParameter.SEND_TO_EMAILS] = sendToEmails;
+			invokeService(params);
+		}
 	}
 
 }

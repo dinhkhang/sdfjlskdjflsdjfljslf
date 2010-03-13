@@ -78,8 +78,8 @@
 			hideLoading();
 			trace("imageLoadCompleteHandler " + event);
 			imageHolder.addChild(event.target.content);
-			imageHolder.width = 396;
-			imageHolder.height = 265;
+			imageHolder.width = 277;
+			imageHolder.height = 187;
 			
 			transformTool.target = imageHolder;
 		}
