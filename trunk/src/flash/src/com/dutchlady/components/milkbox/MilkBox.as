@@ -375,6 +375,7 @@
 		
 		public function forceBoxToReachToTheEnd():void {
 			newBoxRotationAngle %= 360;
+			if (newBoxRotationAngle > 0) newBoxRotationAngle = newBoxRotationAngle - 360;
 			box.rotationY = newBoxRotationAngle;
 		}
 		
