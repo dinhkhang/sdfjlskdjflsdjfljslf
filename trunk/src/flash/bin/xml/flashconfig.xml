@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<pages>
+		<page name="farm"><![CDATA[home.swf]]></page>
+		<!--<page name="iLove"><![CDATA[iLove.swf]]></page>-->
+		<page name="iLove"><![CDATA[iLove.swf]]></page>
+		<page name="story"><![CDATA[story.swf]]></page>
+		<page name="tour"><![CDATA[box04.swf]]></page>
+		<page name="share"><![CDATA[share.swf]]></page>
+		<page name="getMilk"><![CDATA[getMilk.swf]]></page>
+		<page name="factory"><![CDATA[factory.swf]]></page>
+		<page name="upload"><![CDATA[upload_image.swf]]></page>
+	</pages>
+	
+	<services>
+		<imagesDB><![CDATA[big_heart_service.xml]]></imagesDB>	<!-- URL of BIG HEART's images' service -->
+		<!-- Other services -->
+		<gatewayUrl><![CDATA[http://toiyeucogaihalan.com/staging/FlashAPI/]]></gatewayUrl>
+		<uploadedImageBaseUrl><![CDATA[http://toiyeucogaihalan.com/staging/uploads/]]></uploadedImageBaseUrl>
+	</services>
+</data>
