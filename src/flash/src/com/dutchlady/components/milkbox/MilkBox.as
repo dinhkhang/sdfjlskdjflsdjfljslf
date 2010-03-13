@@ -44,7 +44,7 @@
 	 * @author Hai Nguyen
 	 */
 	public class MilkBox extends BasicView {
-		public static const DELTA: Number = 10;
+		public static const DELTA: Number = 1;
 		public static const HEART_BOX_FACE_NAME: String = "heart";
 		public static const STORY_BOX_FACE_NAME: String = "story";
 		public static const SHARE_BOX_FACE_NAME: String = "share";
