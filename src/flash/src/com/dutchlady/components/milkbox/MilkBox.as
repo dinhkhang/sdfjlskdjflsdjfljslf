@@ -1,5 +1,5 @@
 ﻿package com.dutchlady.components.milkbox {
-	import com.dutchlady.common.GlobalVars;
+	//import com.dutchlady.common.GlobalVars;
 	import com.dutchlady.events.PageEvent;
 	import fl.transitions.easing.Strong;
 	import flash.display.Bitmap;
@@ -77,11 +77,12 @@
 		private var selectedBoxFaceName: String = "";
 		
 		public var isRollOver: Boolean = true;
+		private var isMouseClick:Boolean = false;
 		
 		public function MilkBox() {
 			super(600, 600, false, true, CameraType.TARGET);
 			
-			GlobalVars.milkBox = this;
+			//HomePage(homePageMovie).milkBox = this;
 			
 			viewport.interactive = true;
 			camera.z = 720;
@@ -236,6 +237,7 @@
 		
 		private function boxClickHandler(event: InteractiveScene3DEvent): void {
 			trace("boxClickHandler");
+			isMouseClick = true;
 			selectedBoxFaceName = event.face3d.material.name;
 			switch (event.face3d.material.name) {
 				case HEART_BOX_FACE_NAME:
@@ -409,23 +411,26 @@
 		}
 		
 		private function rotateCompleteHandler():void {
-			switch (selectedBoxFaceName) {
-				case HEART_BOX_FACE_NAME:
-					this.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP, true));
-					break;
-				case STORY_BOX_FACE_NAME:
-					this.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP, true));
-					break;
-				case SHARE_BOX_FACE_NAME:
-					this.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP, true));
-					break;
-				case TOUR_BOX_FACE_NAME:
-					this.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP, true));
-					break;
-				default:
-					break;
+			if (isMouseClick) {
+				switch (selectedBoxFaceName) {
+					case HEART_BOX_FACE_NAME:
+						this.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP, true));
+						break;
+					case STORY_BOX_FACE_NAME:
+						this.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP, true));
+						break;
+					case SHARE_BOX_FACE_NAME:
+						this.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP, true));
+						break;
+					case TOUR_BOX_FACE_NAME:
+						this.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP, true));
+						break;
+					default:
+						break;
+				}
 			}
 			selectedBoxFaceName = "";
+			isMouseClick = false;
 		}
 	}
 

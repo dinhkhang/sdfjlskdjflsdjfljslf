@@ -17,7 +17,7 @@
 		public var timer: Timer;
 		
 		public function Clock() {
-			
+			contentMovie.gotoAndStop(1);
 		}
 		
 		private function timerCompleteHandler(event: TimerEvent): void {

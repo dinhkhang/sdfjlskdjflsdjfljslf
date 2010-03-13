@@ -14,12 +14,16 @@
 	 */
 	public class ILove extends MovieClip {
 		
+		public var boardParentMovie: MovieClip;
 		public var boardMovie: ILoveBoard;
 		public var containerMovie: BigHeart;
 		
 		private var xml: XML;
 		
 		public function ILove() {
+			boardMovie = boardParentMovie.boardMovie as ILoveBoard;
+			trace( "boardMovie : " + boardMovie );
+			
 			var urlLoader: URLLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE, xmlLoadCompleteHandler);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
