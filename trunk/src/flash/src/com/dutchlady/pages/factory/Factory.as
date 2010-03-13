@@ -9,6 +9,7 @@
 	import flash.events.MouseEvent;
 	import flash.filters.ColorMatrixFilter;
 	import flash.filters.GlowFilter;
+	import flash.geom.Rectangle;
 	import flash.ui.Mouse;
 	import swfaddress.SWFAddress;
 	/**
@@ -18,14 +19,15 @@
 	public class Factory extends BasePage {
 		
 		public var clockMovie: Clock;
+		public var bgMovie: MovieClip;
 		public var ladyMovie: MovieClip;
 		public var maskMovie: MovieClip;
 		public var boardMovie: MovieClip;
 		public var board2Movie: MovieClip;
-		public var highlight1Movie: MovieClip;
-		public var highlight2Movie: MovieClip;
-		public var highlight3Movie: MovieClip;
-		public var highlight4Movie: MovieClip;
+		//public var highlight1Movie: MovieClip;
+		//public var highlight2Movie: MovieClip;
+		//public var highlight3Movie: MovieClip;
+		//public var highlight4Movie: MovieClip;
 		public var pos1Movie: MovieClip;
 		public var pos2Movie: MovieClip;
 		public var pos3Movie: MovieClip;
@@ -39,7 +41,7 @@
 		public var rightText: MovieClip;
 		
 		private var activeComp: Bitmap;
-		private var glow: GlowFilter = new GlowFilter(0xFFFF00, 0.7, 5, 5);
+		private var glow: GlowFilter = new GlowFilter(0xFFFF00, 1, 10, 10);
 		private var brightness: ColorMatrixFilter = new ColorMatrixFilter([1,0,0,0,20,0,1,0,0,20,0,0,1,0,20,0,0,0,1,0]);
 		
 		public function Factory() {
@@ -131,28 +133,28 @@
 						pos1Movie.alpha = 1;
 						comp1Movie.mouseEnabled = comp1Movie.mouseChildren = false;
 						isRight = true;
-						highlight1Movie.visible = false;
+						//highlight1Movie.visible = false;
 						pos1Movie.filters = [glow];
 					}
 					else if (pos2Movie.hitTestObject(activeComp) && activeComp.name == "2") {
 						pos2Movie.alpha = 1;
 						comp2Movie.mouseEnabled = comp2Movie.mouseChildren = false;
 						isRight = true;
-						highlight2Movie.visible = false;
+						//highlight2Movie.visible = false;
 						pos2Movie.filters = [glow];
 					}
 					else if (pos3Movie.hitTestObject(activeComp) && activeComp.name == "3") {
 						pos3Movie.alpha = 1;
 						comp3Movie.mouseEnabled = comp3Movie.mouseChildren = false;
 						isRight = true;
-						highlight3Movie.visible = false;
+						//highlight3Movie.visible = false;
 						pos3Movie.filters = [glow];
 					}
 					else if (pos4Movie.hitTestObject(activeComp) && activeComp.name == "4") {
 						pos4Movie.alpha = 1;
 						comp4Movie.mouseEnabled = comp4Movie.mouseChildren = false;
 						isRight = true;
-						highlight4Movie.visible = false;
+						//highlight4Movie.visible = false;
 						pos4Movie.filters = [glow];
 					}
 					if (!isRight)	this.getChildByName("comp" + activeComp.name + "Movie").alpha = 1;
@@ -232,7 +234,7 @@
 						break;
 					}
 					var bitmapdata: BitmapData = new BitmapData(compMovie.width, compMovie.height, true, 0xFFFFFF);
-					bitmapdata.draw(compMovie);
+					bitmapdata.draw(compMovie, null, null, null, null, true);
 					activeComp.bitmapData = bitmapdata;
 					
 					this.addChild(activeComp);
@@ -249,10 +251,10 @@
 			highlight2Movie.visible = false;
 			highlight3Movie.visible = false;
 			highlight4Movie.visible = false;*/
-			highlight1Movie.visible = true;
-			highlight2Movie.visible = true;
-			highlight3Movie.visible = true;
-			highlight4Movie.visible = true;
+			//highlight1Movie.visible = true;
+			//highlight2Movie.visible = true;
+			//highlight3Movie.visible = true;
+			//highlight4Movie.visible = true;
 			
 			comp1Movie.alpha = 1;
 			comp2Movie.alpha = 1;
@@ -312,10 +314,10 @@
 				 pos3Movie.alpha == 1 &&
 				 pos4Movie.alpha == 1) {	//	WIN					
 					clockMovie.stopClock();
-					pos1Movie.filters = [];
-					pos2Movie.filters = [];
-					pos3Movie.filters = [];
-					pos4Movie.filters = [];
+					//pos1Movie.filters = [];
+					//pos2Movie.filters = [];
+					//pos3Movie.filters = [];
+					//pos4Movie.filters = [];
 					this.gotoAndPlay(2);
 					this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 					maskMovie.play();

@@ -360,7 +360,7 @@
 		}
 		
 		private function loadPopUp(name: String):void {
-			TweenLite.to(homePageMovie, 1, { scaleX: 3, scaleY: 3,
+			TweenLite.to(homePageMovie, 1, { scaleX: 3.5, scaleY: 3.5,
 											x: (GlobalVars.windowsWidth - homePageMovie.width*3 - 300) / 2,
 											y: (GlobalVars.windowsHeight - homePageMovie.height*3 + 100) / 2,
 											ease: Strong.easeOut, onComplete: function() {
