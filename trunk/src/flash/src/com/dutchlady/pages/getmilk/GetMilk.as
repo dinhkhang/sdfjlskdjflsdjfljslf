@@ -84,29 +84,7 @@
 			cow3Movie.addEventListener(Cow.COW_CLICKED, cowEventHandler);
 			cow4Movie.addEventListener(Cow.COW_CLICKED, cowEventHandler);
 			cow5Movie.addEventListener(Cow.COW_CLICKED, cowEventHandler);
-			
-			clockMovie.addEventListener(Clock.TIME_UP, timeUpHandler);
-			
-			//resultMovie.addEventListener(GetMilk.RETRY, resultHandler);
-			//resultMovie.addEventListener(GetMilk.NEXT_LEVEL, resultHandler);
-			//resultMovie.addEventListener(GetMilk.GO_FACTORY, resultHandler);
 		}
-		
-		//private function resultHandler(event: Event): void {
-			//switch (event.type) {
-				//case GetMilk.RETRY:
-					//resultShowMode(false);
-					//this.gotoAndStop(1);
-				//break;
-				//case GetMilk.NEXT_LEVEL:
-					//resultShowMode(false);
-					//startGame();
-					//this.gotoAndStop(1);
-				//break;
-				//case GetMilk.GO_FACTORY:
-				//break;
-			//}
-		//}
 		
 		private function resultShowMode(value: Boolean): void {
 			resultMovie.alpha = 0;
@@ -141,13 +119,9 @@
 				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
 			}
 			else {
-				//trace( "resultMovie.boardMovie.retryMovie : " + resultMovie.boardMovie.retryMovie );
-				//trace( "resultMovie.boardMovie.goFarmMovie : " + resultMovie.boardMovie.goFarmMovie );
-				//trace( "resultMovie.boardMovie.goFactoryMovie : " + resultMovie.boardMovie.goFactoryMovie );
 				resultMovie.boardMovie.retryMovie.buttonMode = true;
 				resultMovie.boardMovie.goFarmMovie.buttonMode = true;
 				resultMovie.boardMovie.goFactoryMovie.buttonMode = true;
-				
 				
 				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
 				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
@@ -261,8 +235,10 @@
 		}
 		
 		private function timeUpHandler(event: Event): void {
+			clockMovie.removeEventListener(Clock.TIME_UP, timeUpHandler);
 			//	...
-			checkGameResult();
+			//checkGameResult();
+			goLose();
 		}
 		
 		private function cowEventHandler(event: Event): void {
@@ -439,7 +415,7 @@
 			//if (clockMovie.totalTime < 90)	resultMovie.boardMovie.gotoAndStop("win");
 			if (milkMovie.currentFrame == milkMovie.totalFrames)	resultMovie.boardMovie.gotoAndStop("win");
 			else resultMovie.boardMovie.gotoAndStop("half win");
-			this.gotoAndStop("win");
+			//this.gotoAndStop("win");
 			setMouseEnable(false);
 			stopGame();
 			//setTimeout(resultShowMode, 1000, true);
@@ -450,11 +426,11 @@
 		private function goLose(): void {
 			//	Time up LOSE
 			stopGame();
-			//trace("TIME UP: LOSE **************************** ");
+			trace("TIME UP: LOSE **************************** ");
 			resultMovie.boardMovie.gotoAndStop("lose");
 			//if (milkMovie.currentFrame == 1)	resultMovie.boardMovie.gotoAndStop("lose");
 			//else resultMovie.boardMovie.gotoAndStop("half win");
-			this.gotoAndStop("lose");
+			//this.gotoAndStop("lose");
 			setMouseEnable(false);	
 			//setTimeout(resultShowMode, 1000, true);
 			resultShowMode(true);
@@ -491,14 +467,14 @@
 			milkMovie.gotoAndStop(1);
 			busyMode = false;
 			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			coverMovie.visible = true;
+			currentCow = null;
+			currentTrough = null;
 			
 			if (ladyMovie.hasEventListener(DutchLady.ACTION_COMPLETE))	ladyMovie.removeEventListener(DutchLady.ACTION_COMPLETE, ladyActionCompleteHandler);
 			ladyMovie.gotoAndStop(1);
 			ladyMovie.x = GlobalVars.windowsWidth + ladyMovie.width;
 			ladyMovie.y = 370;
-			coverMovie.visible = true;
-			currentCow = null;
-			currentTrough = null;
 			ladyMovie.addEventListener(DutchLady.ACTION_COMPLETE, ladyStartCompleteHandler);
 			ladyMovie.smartWalkTo(new Point(890, 370));
 		}
@@ -507,6 +483,7 @@
 			ladyMovie.removeEventListener(DutchLady.ACTION_COMPLETE, ladyStartCompleteHandler);
 			ladyMovie.gotoAndStop(ladyMovie.NORMAL_RIGHT);
 			ladyMovie.addEventListener(DutchLady.ACTION_COMPLETE, ladyActionCompleteHandler);
+			clockMovie.addEventListener(Clock.TIME_UP, timeUpHandler);
 			clockMovie.startClock(gameTime);
 			coverMovie.visible = false;
 		}

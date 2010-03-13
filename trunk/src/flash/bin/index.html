@@ -10,6 +10,28 @@
 	<script src="js/swfobject.js" type="text/javascript"></script>
 	<script src="js/swfaddress.js" type="text/javascript"></script>
 	<script type="text/javascript">
+		var w = 1002;
+		var h = 668;
+		
+		function getSize() {
+			if (navigator.appName=="Netscape") {
+				w = window.innerWidth;
+				h = window.innerHeight;
+			}
+			if (navigator.appName.indexOf("Microsoft")!=-1) {
+				w = document.documentElement.clientWidth;
+				h = document.documentElement.clientHeight;
+			}
+		}
+		getSize();
+		//window.onresize=resizeHandler;
+		function resizeHandler(evt){
+            if (parseInt(navigator.appVersion)>3) {
+               getSize();
+				document.getElementById(attributes.id).resize(w, h);
+            }
+        }
+		
 		var flashvars = {
 		};
 		var params = {
@@ -23,23 +45,6 @@
 			id:"DutchLady"
 		};
 		swfobject.embedSWF("main.swf", "mainpage", "100%", "100%", "9.0.0", "expressInstall.swf", flashvars, params, attributes);
-		
-		window.onresize=resizeHandler;
-		function resizeHandler(evt){
-			var w = 1024;
-			var h = 768;
-            if (parseInt(navigator.appVersion)>3) {
-                if (navigator.appName=="Netscape") {
-                    w = window.innerWidth;
-                    h = window.innerHeight;
-                }
-                if (navigator.appName.indexOf("Microsoft")!=-1) {
-                    w = document.documentElement.clientWidth;
-                    h = document.documentElement.clientHeight;
-                }
-				document.getElementById(attributes.id).resize(w, h);
-            }
-        }
 		</script>
 	<style>
 		html, body { height:100%; }

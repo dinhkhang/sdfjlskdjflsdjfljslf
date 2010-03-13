@@ -4,6 +4,7 @@
 	import com.dutchlady.components.Popup;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.pages.BasePage;
+	import com.dutchlady.pages.homepage.HomePage;
 	import com.dutchlady.pages.loading.BaseLoading;
 	import com.dutchlady.pages.loading.Game1Loading;
 	import com.dutchlady.pages.loading.NormalLoading;
@@ -168,29 +169,45 @@
 					homePageMovie.mouseCheckingMode = true;
 					//selectedMenuItem(menuMovie.farmMovie);
 					break;
-				case PageEvent.SHOW_HEART_POPUP:
+				///////////////////////////////// POP UP ////////////////////////////
 				case PageEvent.GO_TO_ILOVEPAGE:
-					//GlobalVars.milkBox.navigateToHeartFace();
+				trace( "PageEvent.GO_TO_ILOVEPAGE: : " + PageEvent.GO_TO_ILOVEPAGE );
+					HomePage(homePageMovie).milkBox.navigateToHeartFace();
+					//break;
+				case PageEvent.SHOW_HEART_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp, 1, "iLove");
+					setTimeout(loadPopUp, 1000, "iLove");
 					// Update donate
 					updateDonate("I-Love-Dutch-Lady");
 					break;
-				case PageEvent.SHOW_STORY_POPUP:
+				
 				case PageEvent.GO_TO_STORYPAGE:
+				trace( "PageEvent.GO_TO_STORYPAGE : " + PageEvent.GO_TO_STORYPAGE );
+					HomePage(homePageMovie).milkBox.navigateToStoryFace();
+					//break;
+				case PageEvent.SHOW_STORY_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1,"story");
+					setTimeout(loadPopUp,1000,"story");
 					break;
-				case PageEvent.SHOW_TOUR_POPUP:
+				
 				case PageEvent.GO_TO_TOURPAGE:
+				trace( "PageEvent.GO_TO_TOURPAGE : " + PageEvent.GO_TO_TOURPAGE );
+					HomePage(homePageMovie).milkBox.navigateToTourFace();
+					//break;
+				case PageEvent.SHOW_TOUR_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1,"tour");
+					setTimeout(loadPopUp,1000,"tour");
 					break;
-				case PageEvent.SHOW_SHARE_POPUP:
+				
 				case PageEvent.GO_TO_SHAREPAGE:
+				trace( "PageEvent.GO_TO_SHAREPAGE : " + PageEvent.GO_TO_SHAREPAGE );
+					HomePage(homePageMovie).milkBox.navigateToShareFace();
+					//break;
+				case PageEvent.SHOW_SHARE_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1,"share");
+					setTimeout(loadPopUp,1000,"share");
 					break;
+				//////////////////////////////////////////////////////////////////////
 				case PageEvent.GO_TO_GETMILKPAGE:
 					this.setChildIndex(loadingGame1Movie, this.numChildren - 2);
 					loadingMovie = loadingGame1Movie;
@@ -217,6 +234,8 @@
 		}
 		
 		private function createMenu(): void {
+			menuMovie.visible = true;
+			
 			menuMovie.logoMovie.addEventListener(MouseEvent.ROLL_OVER, menuButtonRollHandler);
 			menuMovie.logoMovie.addEventListener(MouseEvent.ROLL_OUT, menuButtonRollHandler);
 			menuMovie.logoMovie.addEventListener(MouseEvent.CLICK, farmButtonClickHandler);
@@ -261,28 +280,29 @@
 		}
 		
 		private function iLoveButtonClickHandler(event: MouseEvent): void {
-			//this.dispatchEvent(new PageEvent(PageEvent.GO_TO_ILOVEPAGE));
-			SWFAddress.setValue(ILOVEPAGE);
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_ILOVEPAGE));
+			//SWFAddress.setValue(ILOVEPAGE);
 		}
 		
 		private function storyButtonClickHandler(event: MouseEvent): void {
-			//this.dispatchEvent(new PageEvent(PageEvent.GO_TO_STORYPAGE));
-			SWFAddress.setValue(STORYPAGE);
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_STORYPAGE));
+			//SWFAddress.setValue(STORYPAGE);
 		}
 		
 		private function tourButtonClickHandler(event: MouseEvent): void {
-			//this.dispatchEvent(new PageEvent(PageEvent.GO_TO_TOURPAGE));
-			SWFAddress.setValue(TOURPAGE);
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_TOURPAGE));
+			//SWFAddress.setValue(TOURPAGE);
 		}
 		
 		private function shareButtonClickHandler(event: MouseEvent): void {
-			//this.dispatchEvent(new PageEvent(PageEvent.GO_TO_SHAREPAGE));
-			SWFAddress.setValue(SHAREPAGE);
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_SHAREPAGE));
+			//SWFAddress.setValue(SHAREPAGE);
 		}
 		
 		private function init():void {
 			this.mouseEnabled = this.mouseChildren = false;
-			createMenu();
+			//createMenu();
+			menuMovie.visible = false;
 			pageMovieArray = new Array();
 			
 			activeLoading();
@@ -357,7 +377,7 @@
 		private function loadPopUp(name: String):void {
 			TweenLite.to(homePageMovie, 1, { scaleX: 3, scaleY: 3,
 											x: (GlobalVars.windowsWidth - homePageMovie.pageWidth*3 - 200) / 2,
-											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 200) / 2,
+											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 300) / 2,
 											ease: Strong.easeOut, onComplete: function() {
 					var loader: Loader = new Loader();
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, popupCompleteHandler);
@@ -416,7 +436,7 @@
 		
 		private function homepageEventHandler(event: Event): void {
 			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
-			// Comlete
+			createMenu();
 			this.mouseEnabled = this.mouseChildren = true;
 			
 			trace( "homePageMovie : " + homePageMovie );
