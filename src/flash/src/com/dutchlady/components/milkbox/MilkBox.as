@@ -16,6 +16,7 @@
 	import flash.geom.Rectangle;
 	import flash.net.URLRequest;
 	import flash.ui.Mouse;
+	import flash.utils.setTimeout;
 	import flash.utils.Timer;
 	import gs.TweenLite;
 	import org.papervision3d.cameras.CameraType;
@@ -115,34 +116,34 @@
 		private function loadMaterial():void {
 			trace("loadMaterial");
 			heartAssetLoader = new Loader();
-			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, heartAssetLoadCompleteHandler);
+			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
 			heartAssetLoader.load(new URLRequest("iLove.swf"));
 		}
 		
 		private function heartAssetLoadCompleteHandler(event: Event): void {
 			trace("heartAssetLoadCompleteHandler");
 			shareAssetLoader = new Loader();
-			shareAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shareAssetLoadCompleteHandler);
+			shareAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, tourAssetLoadCompleteHandler);
 			shareAssetLoader.load(new URLRequest("images/share.jpg"));
 		}
 		
 		private function shareAssetLoadCompleteHandler(event: Event): void {
 			trace("shareAssetLoadCompleteHandler");
 			storyAssetLoader = new Loader();
-			storyAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
+			storyAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, heartAssetLoadCompleteHandler);
 			storyAssetLoader.load(new URLRequest("images/story.jpg"));
 		}
 		
 		private function storyAssetLoadCompleteHandler(event: Event): void {
 			trace("storyAssetLoadCompleteHandler");
 			tourAssetLoader = new Loader();
-			tourAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, tourAssetLoadCompleteHandler);
+			tourAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shareAssetLoadCompleteHandler);
 			tourAssetLoader.load(new URLRequest("box04.swf"));
 		}
 		
 		private function tourAssetLoadCompleteHandler(event: Event): void {
 			trace("tourAssetLoadCompleteHandler");
-			init3DWorld();
+			setTimeout(init3DWorld,1000);
 		}
 		
 		private function createBoxFaceMatetial(content: DisplayObject, materialName: String, light: PointLight3D):MaterialObject3D {
