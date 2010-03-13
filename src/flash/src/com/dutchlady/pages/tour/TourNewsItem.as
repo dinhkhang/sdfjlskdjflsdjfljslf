@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
 	import flash.text.TextField;
 	/**
@@ -22,10 +23,15 @@
 		public function update(thumbUrl: String, title: String, description: String):void {
 			var loader: Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.INIT, thumbLoadInitHandler);
+			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, thumbLoadIOErrorHandler);
 			loader.load(new URLRequest(thumbUrl));
 			
 			titleText.text = title;
 			descriptionText.text = description;
+		}
+		
+		private function thumbLoadIOErrorHandler(event: IOErrorEvent): void {
+			
 		}
 		
 		private function thumbLoadInitHandler(event: Event): void {
