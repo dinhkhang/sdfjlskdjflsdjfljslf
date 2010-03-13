@@ -410,16 +410,16 @@
 		private function rotateCompleteHandler():void {
 			switch (selectedBoxFaceName) {
 				case HEART_BOX_FACE_NAME:
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP));
+					this.dispatchEvent(new PageEvent(PageEvent.SHOW_HEART_POPUP, true));
 					break;
 				case STORY_BOX_FACE_NAME:
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP));
+					this.dispatchEvent(new PageEvent(PageEvent.SHOW_STORY_POPUP, true));
 					break;
 				case SHARE_BOX_FACE_NAME:
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP));
+					this.dispatchEvent(new PageEvent(PageEvent.SHOW_SHARE_POPUP, true));
 					break;
 				case TOUR_BOX_FACE_NAME:
-					GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP));
+					this.dispatchEvent(new PageEvent(PageEvent.SHOW_TOUR_POPUP, true));
 					break;
 				default:
 					break;

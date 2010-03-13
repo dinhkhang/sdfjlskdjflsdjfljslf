@@ -5,6 +5,8 @@
 	 * @author ... Mr. Coder
 	 */
 	public class BasePage extends MovieClip {
+		public var pageWidth: Number = 1002;
+		public var pageHeight: Number = 668;
 		
 		public function BasePage() {
 			this.visible = false;

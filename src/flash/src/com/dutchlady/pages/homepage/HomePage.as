@@ -51,7 +51,8 @@
 		private function milkBoxCreationCompleteHandler(event: Event): void {
 			milkBox.visible = true;
 			milkBox.alpha = 0;
-			TweenLite.to(milkBox, 2, { alpha: 1, ease: None.easeNone} );
+			TweenLite.to(milkBox, 2, { alpha: 1, ease: None.easeNone } );
+			this.dispatchEvent(new Event(Event.COMPLETE));
 		}
 		
 		// OVERRIDE

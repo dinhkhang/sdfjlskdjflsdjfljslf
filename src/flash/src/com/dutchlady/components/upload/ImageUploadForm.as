@@ -22,6 +22,7 @@
 	import flash.text.TextField;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
+	import swfaddress.SWFAddress;
 	/**
 	 * ...
 	 * @author Hai Nguyen
@@ -81,7 +82,8 @@
 		}
 		
 		private function cancelButtonClickHandler(event: MouseEvent): void {
-			GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE));
+			//GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE));
+			SWFAddress.setValue("nong-trai");
 		}
 		
 		public function reset():void {

@@ -61,7 +61,7 @@
 		private var siteParam: String;
 		
 		public function MainTimeLine() {
-			GlobalVars.mainTimeLine = this;
+			//GlobalVars.mainTimeLine = this;
 			init();
 			initEvents();
 			
@@ -170,32 +170,26 @@
 					break;
 				case PageEvent.SHOW_HEART_POPUP:
 				case PageEvent.GO_TO_ILOVEPAGE:
-					GlobalVars.milkBox.navigateToHeartFace();
+					//GlobalVars.milkBox.navigateToHeartFace();
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp, 2000, "iLove");
+					setTimeout(loadPopUp, 1, "iLove");
 					// Update donate
 					updateDonate("I-Love-Dutch-Lady");
 					break;
 				case PageEvent.SHOW_STORY_POPUP:
 				case PageEvent.GO_TO_STORYPAGE:
 					SWFAddress.setValue(HOMEPAGE);
-					GlobalVars.milkBox.navigateToStoryFace();
-					setTimeout(loadPopUp,2000,"story");
-					//selectedMenuItem(menuMovie.storyMovie);
+					setTimeout(loadPopUp,1,"story");
 					break;
 				case PageEvent.SHOW_TOUR_POPUP:
 				case PageEvent.GO_TO_TOURPAGE:
 					SWFAddress.setValue(HOMEPAGE);
-					GlobalVars.milkBox.navigateToTourFace();
-					setTimeout(loadPopUp,2000,"tour");
-					//selectedMenuItem(menuMovie.tourMovie);
+					setTimeout(loadPopUp,1,"tour");
 					break;
 				case PageEvent.SHOW_SHARE_POPUP:
 				case PageEvent.GO_TO_SHAREPAGE:
 					SWFAddress.setValue(HOMEPAGE);
-					GlobalVars.milkBox.navigateToShareFace();
-					setTimeout(loadPopUp,2000,"share");
-					//selectedMenuItem(menuMovie.shareMovie);
+					setTimeout(loadPopUp,1,"share");
 					break;
 				case PageEvent.GO_TO_GETMILKPAGE:
 					this.setChildIndex(loadingGame1Movie, this.numChildren - 2);
@@ -287,6 +281,7 @@
 		}
 		
 		private function init():void {
+			this.mouseEnabled = this.mouseChildren = false;
 			createMenu();
 			pageMovieArray = new Array();
 			
@@ -360,9 +355,9 @@
 		}
 		
 		private function loadPopUp(name: String):void {
-			TweenLite.to(homePageMovie, 1, { scaleX: 3.5, scaleY: 3.5,
-											x: (GlobalVars.windowsWidth - homePageMovie.width*3 - 300) / 2,
-											y: (GlobalVars.windowsHeight - homePageMovie.height*3 + 100) / 2,
+			TweenLite.to(homePageMovie, 1, { scaleX: 3, scaleY: 3,
+											x: (GlobalVars.windowsWidth - homePageMovie.pageWidth*3 - 200) / 2,
+											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 200) / 2,
 											ease: Strong.easeOut, onComplete: function() {
 					var loader: Loader = new Loader();
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, popupCompleteHandler);
@@ -387,7 +382,6 @@
 			currentPopUp = null;
 			currentPageMovie = homePageMovie;
 			
-			trace( "GO_TO_HOMEPAGE : " + currentPageMovie );
 			if (SWFAddress.getValue().split("/")[1] == HOMEPAGE) {
 				pageContainerMovie.setChildIndex(homePageMovie, pageContainerMovie.numChildren - 1);
 				TweenLite.to(homePageMovie, 1, { scaleX: 1, scaleY: 1, x: 0, y:0, ease: Strong.easeOut } );
@@ -413,10 +407,18 @@
 		
 		private function homepageCompleteHandler(event: Event): void {
 			homePageMovie = event.currentTarget.loader.content as BasePage;
+			homePageMovie.addEventListener(Event.COMPLETE, homepageEventHandler);
 			homePageMovie.addEventListener(PageEvent.STAR_BEGIN_PAGE, pageEventHandler);
 			homePageMovie.addEventListener(PageEvent.COMPLETE_BEGIN_PAGE, pageEventHandler);
 			homePageMovie.addEventListener(PageEvent.START_END_PAGE, pageEventHandler);
 			homePageMovie.addEventListener(PageEvent.COMPLETE_END_PAGE, pageEventHandler);
+		}
+		
+		private function homepageEventHandler(event: Event): void {
+			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
+			// Comlete
+			this.mouseEnabled = this.mouseChildren = true;
+			
 			trace( "homePageMovie : " + homePageMovie );
 			pageMovieArray["farm"] = homePageMovie;
 			pageContainerMovie.addChild(homePageMovie);

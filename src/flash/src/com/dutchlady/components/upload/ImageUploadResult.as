@@ -62,7 +62,7 @@
 		}
 		
 		private function iLoveDutchLadyButtonClickHandler(event: MouseEvent): void {
-			GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.GO_TO_ILOVEPAGE));
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_ILOVEPAGE, true));
 		}
 		
 	}
