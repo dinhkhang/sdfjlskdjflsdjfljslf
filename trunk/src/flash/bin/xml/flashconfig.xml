@@ -15,7 +15,7 @@
 	<services>
 		<imagesDB><![CDATA[big_heart_service.xml]]></imagesDB>	<!-- URL of BIG HEART's images' service -->
 		<!-- Other services -->
-		<gatewayUrl><![CDATA[http://toiyeucogaihalan.com/staging/FlashAPI/]]></gatewayUrl>
-		<uploadedImageBaseUrl><![CDATA[http://toiyeucogaihalan.com/staging/uploads/]]></uploadedImageBaseUrl>
+		<gatewayUrl><![CDATA[http://demo.intelligent-content.net/FlashAPI/]]></gatewayUrl>
+		<uploadedImageBaseUrl><![CDATA[http://demo.intelligent-content.net/uploads/]]></uploadedImageBaseUrl>
 	</services>
 </data>
