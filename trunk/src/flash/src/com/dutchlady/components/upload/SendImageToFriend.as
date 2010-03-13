@@ -165,7 +165,7 @@
 		}
 		
 		private function closeButtonClickHandler(event: MouseEvent):void {
-			GlobalVars.mainTimeLine.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE));
+			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE, true));
 		}
 	}
 }
