@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<video><![CDATA[...]]></video>
+	<block>
+		<thumbnail><![CDATA[images/hinh1.jpg]]></thumbnail>
+		<title><![CDATA[Lorem Ipsum is simply dummy text the printing]]></title>
+		<content><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.]]></content>
+	</block>
+	<block>
+		<thumbnail><![CDATA[images/hinh2.jpg]]></thumbnail>
+		<title><![CDATA[Lorem Ipsum is simply dummy text the printing]]></title>
+		<content><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.]]></content>
+	</block>
+	<block>
+		<thumbnail><![CDATA[images/hinh2.jpg]]></thumbnail>
+		<title><![CDATA[Lorem Ipsum is simply dummy text the printing]]></title>
+		<content><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.]]></content>
+	</block>
+	<block>
+		<thumbnail><![CDATA[images/hinh1.jpg]]></thumbnail>
+		<title><![CDATA[Lorem Ipsum is simply dummy text the printing]]></title>
+		<content><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry.]]></content>
+	</block>
+</data>
