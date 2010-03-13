@@ -13,6 +13,8 @@
 		//public static var mainTimeLine		: MainTimeLine;
 		public static var milkBox			: MilkBox;
 		
+		public static var uploadedProfileId: Number;
+		
 		public function GlobalVars() {
 			
 		}

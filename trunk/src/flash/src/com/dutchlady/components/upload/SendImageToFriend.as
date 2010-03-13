@@ -141,7 +141,7 @@
 				if (StringUtil.trim(receiverEmail2Text.text) != "") receiverEmails += ";" + receiverEmail2Text.text;
 				if (StringUtil.trim(receiverEmail3Text.text) != "") receiverEmails += ";" + receiverEmail3Text.text;
 				
-				service.sendToFriend(senderFullnameText.text, senderEmailText.text, "", "", receiverEmails);
+				service.sendToFriend(senderFullnameText.text, senderEmailText.text, GlobalVars.uploadedProfileId.toString(), "", receiverEmails);
 				
 				outputText.text = "Đang gửi";//LanguageManager.instance.getText("sendToFriendSending");
 				sendButton.mouseEnabled = false;

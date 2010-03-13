@@ -133,6 +133,8 @@
 			hideLoading();
 			
 			trace("sendProfileResultHandler " + event.result);
+			var xml: XML = new XML(event.result);
+			GlobalVars.uploadedProfileId = Number(xml.toString());
 			var photoUrl: String = Configuration.instance.uploadedImageBaseUrl + uploader.imageGuid + "_download.png";
 			dispatchEvent(new ImageUploadEvent(ImageUploadEvent.SAVE_IMAGE_PROFILE_COMPLETE, "", photoUrl));
 		}
