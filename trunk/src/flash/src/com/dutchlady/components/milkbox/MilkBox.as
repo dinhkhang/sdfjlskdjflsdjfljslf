@@ -216,7 +216,7 @@
 				left: shareMaterial
 			} );
 			
-			box = new Cube(materials, 400, 400, 600, 15, 15, 15, 0, Cube.BOTTOM | Cube.TOP);
+			box = new Cube(materials, 400, 250, 600, 15, 15, 15, 0, Cube.BOTTOM | Cube.TOP);
 			box.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, boxClickHandler);
 			box.rotationY = -25;
 			scene.addChild(box);
