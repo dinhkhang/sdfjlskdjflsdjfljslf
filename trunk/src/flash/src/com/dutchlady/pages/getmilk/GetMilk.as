@@ -91,47 +91,34 @@
 			resultMovie.visible = value;
 			if (value)	TweenLite.to(resultMovie, 2, {alpha: 1} );
 			busyMode = false;
-			if (resultMovie.boardMovie.currentLabel == "half win") {
-				resultMovie.boardMovie.nextLevelMovie.buttonMode = true;
-				resultMovie.boardMovie.retryMovie.buttonMode = true;
-				resultMovie.boardMovie.goFactoryMovie.buttonMode = true;
-				
-				resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-			}
-			else if (resultMovie.boardMovie.currentLabel == "lose") {
-				resultMovie.boardMovie.retryMovie.buttonMode = true;
-				resultMovie.boardMovie.goFarmMovie.buttonMode = true;
-				resultMovie.boardMovie.goFactoryMovie.buttonMode = false;
-				
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+			
+			resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
+			resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
+			resultMovie.boardMovie.nextLevelMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+			
+			resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
+			resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
+			resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+			
+			resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
+			resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
+			resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+			
+			resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
+			resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
+			resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+			
+			resultMovie.boardMovie.nextLevelMovie.buttonMode = true;
+			resultMovie.boardMovie.retryMovie.buttonMode = true;
+			resultMovie.boardMovie.goFactoryMovie.buttonMode = true;
+			resultMovie.boardMovie.goFarmMovie.buttonMode = true;
+			
+			if (resultMovie.boardMovie.currentLabel == "win") {
+				resultMovie.boardMovie.retryMovie.buttonMode = false;
 			}
 			else {
-				resultMovie.boardMovie.retryMovie.buttonMode = true;
-				resultMovie.boardMovie.goFarmMovie.buttonMode = true;
-				resultMovie.boardMovie.goFactoryMovie.buttonMode = true;
-				
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.retryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.goFarmMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OVER, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.ROLL_OUT, resultMouseHandler);
-				resultMovie.boardMovie.goFactoryMovie.addEventListener(MouseEvent.CLICK, resultMouseHandler);
+				resultMovie.boardMovie.nextLevelMovie.buttonMode = false;
+				resultMovie.boardMovie.goFactoryMovie.buttonMode = false;
 			}
 		}
 		
@@ -236,8 +223,6 @@
 		
 		private function timeUpHandler(event: Event): void {
 			clockMovie.removeEventListener(Clock.TIME_UP, timeUpHandler);
-			//	...
-			//checkGameResult();
 			goLose();
 		}
 		
@@ -396,43 +381,31 @@
 		
 		public function checkGameResult(): void {
 			if (gameOver)	return;
-			if (clockMovie.contentMovie.currentFrame < clockMovie.contentMovie.totalFrames) {
-				if (milkMovie.currentFrame == milkMovie.totalFrames) {
-					goWin();
-				}
-				if (cow1Movie.isGoAway && cow2Movie.isGoAway && cow3Movie.isGoAway && cow4Movie.isGoAway && cow5Movie.isGoAway) {
-					goLose();
-				}
-			}
-			else {
+			if (cow1Movie.isGoAway && cow2Movie.isGoAway && cow3Movie.isGoAway && cow4Movie.isGoAway && cow5Movie.isGoAway) {
 				goLose();
+			}
+			if (milkMovie.currentFrame == milkMovie.totalFrames) {
+				goWin();
 			}
 		}
 		
 		private function goWin(): void {
 			//	WIN
 			trace("WIN **************************** ");
-			//if (clockMovie.totalTime < 90)	resultMovie.boardMovie.gotoAndStop("win");
-			if (milkMovie.currentFrame == milkMovie.totalFrames)	resultMovie.boardMovie.gotoAndStop("win");
-			else resultMovie.boardMovie.gotoAndStop("half win");
-			//this.gotoAndStop("win");
+			resultMovie.boardMovie.gotoAndStop("win");
 			setMouseEnable(false);
 			stopGame();
-			//setTimeout(resultShowMode, 1000, true);
 			resultShowMode(true);
 			gameOver = true;
 		}
 		
 		private function goLose(): void {
 			//	Time up LOSE
-			stopGame();
 			trace("TIME UP: LOSE **************************** ");
-			resultMovie.boardMovie.gotoAndStop("lose");
-			//if (milkMovie.currentFrame == 1)	resultMovie.boardMovie.gotoAndStop("lose");
-			//else resultMovie.boardMovie.gotoAndStop("half win");
-			//this.gotoAndStop("lose");
+			if (milkMovie.currentFrame > 1) resultMovie.boardMovie.gotoAndStop("half win");
+			else resultMovie.boardMovie.gotoAndStop("lose");
 			setMouseEnable(false);	
-			//setTimeout(resultShowMode, 1000, true);
+			stopGame();
 			resultShowMode(true);
 			gameOver = true;
 		}
@@ -495,9 +468,9 @@
 		
 		public function set busyMode(value: Boolean): void {
 			coverMovie.visible = value;
-			busyMovie.visible = value;
-			if (value)	Mouse.hide();
-			else	Mouse.show();
+			//busyMovie.visible = value;
+			if (value)	this.dispatchEvent(new PageEvent(PageEvent.CURSOR_BUSY, true));
+			else	this.dispatchEvent(new PageEvent(PageEvent.CURSOR_NORMAL, true));
 		}
 		
 		// OVERRIDE		

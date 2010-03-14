@@ -1,4 +1,4 @@
-package com.senocular.display {
+﻿package com.senocular.display {
 	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -1306,7 +1306,7 @@ class TransformToolInternalControl extends TransformToolControl {
 	}
 	
 	private function controlMove(event:Event):void {
-		if (interactionMethod && _transformTool.currentControl == this) {
+		if (interactionMethod && (_transformTool.currentControl == this)) {
 			interactionMethod();
 		}
 	}
