@@ -117,10 +117,14 @@
 			var oldY: Number;
 			// resize menu
 			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
-			menuMovie.y = 30;
+			menuMovie.y = (668 - GlobalVars.windowsHeight) / 2 + 20;
+
+			//if (currentPageMovie)	currentPageMovie.resize();
+			//if (currentPopUp)	currentPopUp.resize();
 			
-			if (currentPageMovie)	currentPageMovie.resize();
-			if (currentPopUp)	currentPopUp.resize();
+			//TEST
+			GlobalVars.windowsWidth = 1002;
+			GlobalVars.windowsHeight = 668;
 		}
 		
 		private function cursorEventHandler(event: PageEvent): void {
@@ -137,6 +141,7 @@
 		private function enterFrameHandler(event: Event): void {
 			cursorMovie.x = this.mouseX;
 			cursorMovie.y = this.mouseY;
+			this.setChildIndex(menuMovie, this.numChildren - 1);
 			this.setChildIndex(cursorMovie, this.numChildren - 1);
 		}
 		
@@ -481,6 +486,7 @@
 			homePageMovie.visible = true;
 			currentPageMovie = homePageMovie;
 			createMenu();
+			this.stage.dispatchEvent(new Event(Event.RESIZE));
 		}
 		
 		private function homepageEventHandler(event: Event): void {
