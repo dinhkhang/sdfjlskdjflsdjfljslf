@@ -46,8 +46,8 @@
 			
 			flvPlayback.buttonMode = true;
 			flvPlayback.autoPlay = true;
-			//	TODO: Update video link below
-			//flvPlayback.source = data.....toString();
+			//flvPlayback.source = "http://www.toiyeucogaihalan.com/staging/video/DL_Heart_S30s.flv";
+			trace( "flvPlayback.source : " + flvPlayback.source );
 			flvPlayback.addEventListener(MouseEvent.CLICK, videoClickHandler);
 			playButton.visible = false;
 			playButton.addEventListener(MouseEvent.CLICK, playClickHandler);

@@ -25,20 +25,11 @@
 			
 			searchButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			startButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
-			
-			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+
 		}
 		
-		private function addedToStageHandler(event: Event): void {
-			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-		}
-		
-		private function enterFrameHandler(event: Event): void {
-			var point: Point = new Point(GlobalVars.windowsWidth - this.width, GlobalVars.windowsHeight - this.height);
-			point = this.parent.globalToLocal(point);
-			this.x = point.x;
-			this.y= point.y;
+		private function hideShowClickHandler(event: MouseEvent): void {
+			this.dispatchEvent(new Event("hide_show", true));
 		}
 		
 		private function buttonClickHandler(event: MouseEvent): void {
