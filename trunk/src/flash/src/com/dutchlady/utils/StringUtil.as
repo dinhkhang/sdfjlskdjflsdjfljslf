@@ -1,167 +1,146 @@
 ﻿package com.dutchlady.utils {
-	import br.com.stimuli.string.printf;
+	import flash.text.TextField;
+	
 	/**
-	 * <p>
-	 * In Vng Flash Framework, the <code>StringUtil</code> class
-	 * assumes responsibilities:
-	 * <ul>
-	 * <li>Supplying some string utilities.</li>
-	 * </ul>
-	 * </p>
-	 * <p>
-	 * @example
-	 * <listing>
-	 * 
-	 * import com.vng.framework.utils.StringUtil;
-	 * 
-	 * var src: String = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-	 * trace(StringUtil.truncate(src, 100));// return "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been..."
-	 * </listing>
-	 * </p>
-	 * @author Hai Nguyen
-	 */
+	* ...
+	* @author quy.tran - pyramid-consulting
+	*/
 	public class StringUtil {
 		
-		/**
-        *   Very similiar to printf
-        *   @param 		message	The string to be substituted.
-        *   @param 		args	The objects to be substituted, can be positional or by properties inside the object (in which case only one object can be passed)
-        *   @return 			The formatted and substituted string.
-        *   @example
-		*   <br />
-        *   import com.vng.framework.utils.StringUtil;<br /><br />
-        *   
-		*   // objects are substituted in the order they appear<br />
-        *   StringUtil.format("This is an %s library for creating %s", "Actioscript 3.0", "strings");<br />
-        *   // outputs: "This is an Actioscript 3.0 library for creating strings";<br /><br />
-        *   
-		*   // you can also format numbers:<br />
-        *   StringUtil.format("You can also display numbers like PI: %f, and format them to a fixed precision, such as PI with 3 decimal places %.3f", Math.PI, Math.PI);<br />
-        *   // outputs: " You can also display numbers like PI: 3.141592653589793, and format them to a fixed precision, such as PI with 3 decimal places 3.142"<br /><br />
-        *   
-		*   // Instead of position (the order of arguments to printf, you can also use properties of an object):<br />
-        *   var userInfo : Object = {"name": "Arthur Debert", "email": "arthur&#64;stimuli.com.br", "website":"http://www.stimuli.com.br/", "ocupation": "developer"};<br />
-        *   StringUtil.format("My name is %(name)s and I am a %(ocupation)s. You can read more on my personal %(website)s, or reach me through my %(email)s", userInfo);<br />
-        *   // outputs: "My name is Arthur Debert and I am a developer. You can read more on my personal http://www.stimuli.com.br/, or reach me through my arthur&#64;stimuli.com.br"<br /><br />
-        *   
-		*   // you can also use date parts:<br />
-        *   var date : Date = new Date();<br />
-        *   StringUtil.format("Today is %d/%m/%Y", date, date, date);
-        */
-		public static function format(message: String, ...args):String {
-			args.unshift(message);
-			return printf.apply(null, args);
+		public function StringUtil() {
+			
 		}
 		
-		/**
-		 * Remove leading and trailing spaces
-		 * @param	source	String needs to be removed leading and trailing spaces.
-		 * @return
-		 */
-		public static function trim(source:String):String {
-			if (!source) { 
-				return ""; 
-			}
-			return source.replace(/^\s+|\s+$/g, '');
-		}
-
-		/**
-		 * Remove leading spaces
-		 * @param	source	String needs to be removed leading space.
-		 * @return
-		 */
-		public static function trimLeft(source:String):String {
-			if (!source) { 
-				return ""; 
-			}
-			return source.replace(/^\s+/, '');
-		}
-
-		/**
-		 * Remove trailing spaces
-		 * @param	source	String needs to be removed trailing space.
-		 * @return
-		 */
-		public static function trimRight(source:String):String {
-			if (!source) { 
-				return ""; 
-			}
-			return source.replace(/\s+$/, '');
+		public static function replace(orgString: String, find: String, replace: String): String {
+			return orgString.split(find).join(replace);
 		}
 		
-		/**
-		 * Truncate source string and attach suffix after to form a new string fit in a specific length.
-		 * @param	source		Original string.
-		 * @param	length		The length storing enough some WORDS of source string and suffix.
-		 * @param	suffix		The suffix added after truncating source string.
-		 * @return
-		 */
-		public static function truncate(source:String, length:uint, suffix:String = "..."):String {
-			if (source == null) { 
-				return ""; 
+		public static function leftTrim(orgString: String): String {
+			var s: String = orgString;
+		
+			while(s.length > 0 && s.charAt(0) == " ")
+				s = s.substring(1);	
+			return s;
+		}
+		
+		public static function rightTrim(orgString: String): String {
+			var s: String = orgString;
+		
+			while(s.length > 0 && s.charAt(s.length-1) == " ")
+				s = s.substring(0, s.length - 1);	
+				
+			return s;		
+		}
+		
+		public static function trim(orgString: String): String {
+			var s: String = orgString;
+			
+			while (s.indexOf("  ") >= 0) {
+				s = replace(s, "  ", " ");
 			}
-			length -= suffix.length;
-			var trunc:String = source;
-			if (trunc.length > length) {
-				trunc = trunc.substr(0, length);
-				if (/[^\s]/.test(source.charAt(length))) {
-					trunc = trimRight(trunc.replace(/\w+$|\s+$/, ''));
+			s = leftTrim(s);
+			s = rightTrim(s);
+			
+			return s;
+		}
+		
+		public static function capitolize(s:String) :String {
+			var firstLetter:String = s.substr(0, 1).toUpperCase();
+			return (firstLetter + s.substr(1, s.length));
+		}
+		
+		public static function titleCase(s:String, delimiter:String = " ") :String {
+			var newStr:String = s;
+			var arr:Array = s.split(delimiter);
+			for (var i:int = 0; i < arr.length; i++) {
+				if (arr[i] != "") {
+					arr[i] = capitolize(arr[i]);
 				}
-				trunc += suffix;
 			}
+			newStr = arr.join(delimiter);
+			return (newStr);
+		}
+		
+		public static function dateFormat(src: String): String {
+			var arr: Array = src.split("-");
+			return digitFormat(arr[0]) + "-" + digitFormat(arr[1]) + "-" + arr[2];
+		}
+		
+		public static function digitFormat(src: String): String {
+			return (src.length < 2) ? ("0" + src) : src;
+		}
+		
+		// autocut content in order to fit TextField
+		public static function fixStringInTextField(tf: TextField, source: String, maxLine: int = 1): String {		
+			var result: String = "";		
+			var s1: String = source;
+			var s2: String;
+			var a1: Array;
+			//var maxLine: Number = 1;
+			var i: uint;
+			a1 = s1.split(" ");
+			s1 = ""; 
+			s2 = "";
 
-			return trunc;
-		}
-		
-		/**
-		 * Change the first character of source string to uppercase.
-		 * @param	s	Original string.
-		 * @return
-		 */
-		public static function toProperCase(s: String): String {
-			return s.replace(/(^| )[a-z]/mg, function (m: String, ... rest): String {
-				return m.toUpperCase();
-			});
-		} 
-		
-		/**
-		 * Replace all matched strings with a specific content.
-		 * @param	src		Original string.
-		 * @param	from	Pattern string needs to be replaced.
-		 * @param	to		String is used to replace.
-		 * @return
-		 */
-		public static function replace(src: String, from: String, to: String): String {
-			var reg: RegExp = new RegExp(from, "g");
-			return src.replace(reg, to);
-		}
-		
-		/**
-		 * Parse a text which has prefix and/or suffix
-		 * @param	s		the input text
-		 * @param	prefix	prefix
-		 * @param	suffix	suffix
-		 * @return	an object whose properties contain 3 parts of the text: mainText, prefix and suffix.<br/>
-		 * If both prefix and suffix are not found, return null.
-		 */
-		public static function parseTextWithAffixes(s: String, prefix: String = null, suffix: String = null ): Object {
-			var regStr: String = "(?P<mainText>.+)";
-			if (prefix) regStr = "^(?P<prefix>\\s*" + prefix + ")" + regStr;
-			if (suffix) regStr = regStr + "(?P<suffix>" + suffix + "\\s*)$";
-			var reg: RegExp = new RegExp(regStr);
-			var result: Object = reg.exec(s);
+			if (tf.multiline) {
+				////////trace(( "------------ multiline :" );
+				tf.text = source;
+				if (tf.maxScrollV > maxLine) {
+					for (i = 0; i < a1.length; i++) {
+						s1 += a1[i] + " ";
+						if (i > 1) {
+							s2 = s2 + a1[i - 1] + " ";
+						} else {
+							s2 = a1[0] + " ";
+						}
+						tf.text = s1 + "...";
+						if (tf.maxScrollV > maxLine) {
+							break;
+						}
+
+					}
+					result = trim(s2) + "...";
+				} else {
+					if (tf.textWidth < tf.width) return source;
+					for (i = 0; i < a1.length; i++) {
+						s1 += a1[i] + " ";
+						tf.text = s1 + "...";
+						if (tf.maxScrollV > maxLine) {
+							////////trace(( "------------ i :" + a1[i] );
+							break;
+						}
+						if (i > 0) {
+							s2 = s2 + a1[i] + " ";
+						} else {
+							s2 = a1[0] + " ";
+						}
+					}
+					////////trace(("i " + i + " : " + (a1.length - 1));
+					////////trace(("i " + i + " : " + a1[a1.length - 1]);
+					result = trim(s2) + "...";
+				}
+			} else {
+				////////trace(( "------------ single line :" );
+				tf.text = source;			
+				if (tf.textWidth < tf.width) return source;
+				for (i = 0; i < a1.length; i++) {
+					s1 += a1[i] + " ";
+					tf.text = s1 + "...";
+					if (tf.textWidth > tf.width) {
+						break;
+					}
+					if (i > 0) {
+						s2 = s2 + a1[i] + " ";
+					} else {
+						s2 = a1[0] + " ";
+					}
+
+				}
+				result = trim(s2) + "...";
+			}
+			//tf.text;
 			return result;
 		}
-		
-		/**
-		 * Remove CR from a pair of new line maker CRLF to avoid double new line
-		 * @param	src	String needs to be removed CR from a pair of new line maker CRLF to avoid double new line.
-		 * @return
-		 */
-		public static function trimNewLine(src: String): String {
-			var newStr: String = replace(src, "\r\n", "\n");
-			return newStr;
-		}
 	}
-
+	
 }
