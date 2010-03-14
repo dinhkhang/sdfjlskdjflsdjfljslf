@@ -65,7 +65,7 @@
 		private var timer: Timer;
 		private var newBoxRotationAngle: Number = 0;
 		
-		public var zoomInIcon: ZoomInIcon;
+		//public var zoomInIcon: ZoomInIcon;
 		public var leftRotationIcon: LeftRotationIcon;
 		public var rightRotationIcon: RightRotationIcon;
 		
@@ -82,8 +82,6 @@
 		public function MilkBox() {
 			super(600, 600, false, true, CameraType.TARGET);
 			
-			//HomePage(homePageMovie).milkBox = this;
-			
 			viewport.interactive = true;
 			camera.z = 720;
 			camera.y = -60;
@@ -91,32 +89,30 @@
 			target.y = 50;
 			camera.target = target;
 			loadMaterial();
-			
-			leftRotationIcon = new LeftRotationIcon();
-			leftRotationIcon.addEventListener(MouseEvent.CLICK, leftRotationIconClickHandler);
-			addChild(leftRotationIcon);
-			
-			rightRotationIcon = new RightRotationIcon();
-			rightRotationIcon.addEventListener(MouseEvent.CLICK, rightRotationIconClickHandler);
-			addChild(rightRotationIcon);
-			
-			zoomInIcon = new ZoomInIcon();
-			zoomInIcon.mouseChildren = false;
-			zoomInIcon.mouseEnabled = false;
-			addChild(zoomInIcon);
-			
-			hideCustomCursor();
-			
 			timer = new Timer(3000);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
 		}
 		
+		private function leftRotationIconRollHandler(event: MouseEvent): void {
+			trace( "event : " + event.target );
+			var type: String = (event.type == MouseEvent.ROLL_OVER) ? PageEvent.CURSOR_ROTATE_LEFT : PageEvent.CURSOR_NORMAL;
+			this.dispatchEvent(new PageEvent(type, true));
+		}
+		
+		private function rightRotationIconRollHandler(event: MouseEvent): void {
+			trace( "event : " + event.target );
+			var type: String = (event.type == MouseEvent.ROLL_OVER) ? PageEvent.CURSOR_ROTATE_RIGHT : PageEvent.CURSOR_NORMAL;
+			this.dispatchEvent(new PageEvent(type, true));
+		}
+		
 		private function rightRotationIconClickHandler(event: MouseEvent): void {
+			trace( "event : " + event.target );
 			selectedBoxFaceName = "";
 			newBoxRotationAngle -= 90;
 		}
 		
 		private function leftRotationIconClickHandler(event: MouseEvent): void {
+			trace( "event : " + event.target );
 			selectedBoxFaceName = "";
 			newBoxRotationAngle += 90;
 		}
@@ -233,6 +229,25 @@
 			//this.addEventListener(MouseEvent.MOUSE_DOWN, boxMouseDownHandler);
 			//this.addEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
 			//this.addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
+			
+			//////////////////////////////////////
+			rightRotationIcon = new RightRotationIcon();
+			rightRotationIcon.addEventListener(MouseEvent.ROLL_OVER, rightRotationIconRollHandler);
+			rightRotationIcon.addEventListener(MouseEvent.ROLL_OUT, rightRotationIconRollHandler);
+			rightRotationIcon.addEventListener(MouseEvent.CLICK, rightRotationIconClickHandler);
+			addChild(rightRotationIcon);
+			rightRotationIcon.x = 450;
+			rightRotationIcon.y = 300;
+			rightRotationIcon.alpha = 0;
+			
+			leftRotationIcon = new LeftRotationIcon();
+			leftRotationIcon.addEventListener(MouseEvent.ROLL_OVER, leftRotationIconRollHandler);
+			leftRotationIcon.addEventListener(MouseEvent.MOUSE_OUT, leftRotationIconRollHandler);
+			leftRotationIcon.addEventListener(MouseEvent.CLICK, leftRotationIconClickHandler);
+			addChild(leftRotationIcon);
+			leftRotationIcon.x = 120;
+			leftRotationIcon.y = 300;
+			leftRotationIcon.alpha = 0;
 		}
 		
 		private function boxClickHandler(event: InteractiveScene3DEvent): void {
@@ -311,19 +326,19 @@
 					else newBoxRotationAngle += 10;
 				}
 				//newBoxRotationAngle += (this.mouseX - (this.width / 2)) / 50;
-				showCustomCursor();
+				//showCustomCursor();
 				
 				var point: Point = localToGlobal(new Point(this.mouseX, this.mouseY));
 				if (leftRotationIcon.hitTestPoint(point.x, point.y) || rightRotationIcon.hitTestPoint(point.x, point.y)) {
-					Mouse.show();
-					zoomInIcon.visible = false;
+					//Mouse.show();
+					//zoomInIcon.visible = false;
 				}
 				
 				isAutoRotate = false;
 				timer.reset();
 			} else {
 				isInBox = false;
-				hideCustomCursor();
+				//hideCustomCursor();
 				
 				if (isAutoRotate) {
 					newBoxRotationAngle -= 0.2;
@@ -345,34 +360,39 @@
 				is3DSceneDirty = false;
 			}
 			
-			alignCustomCursor();
+			//alignCustomCursor();
 		}
 		
 		private function alignCustomCursor():void {
-			zoomInIcon.x = this.mouseX - zoomInIcon.width / 2;
-			zoomInIcon.y = this.mouseY - zoomInIcon.height / 2;
+			//zoomInIcon.x = this.mouseX - zoomInIcon.width / 2;
+			//zoomInIcon.y = this.mouseY - zoomInIcon.height / 2;
+			//zoomInIcon.visible = false;
 			
 			leftRotationIcon.x = 120;
 			leftRotationIcon.y = 300;
+			this.setChildIndex(leftRotationIcon, this.numChildren - 1);
+			//leftRotationIcon.alpha = 0;
 			
 			rightRotationIcon.x = 450;
 			rightRotationIcon.y = 300;
+			this.setChildIndex(rightRotationIcon, this.numChildren - 1);
+			//rightRotationIcon.alpha = 0;
 		}
 		
 		private function showCustomCursor():void {
-			Mouse.hide();
+			//Mouse.hide();
 			
-			zoomInIcon.visible = true;
-			leftRotationIcon.visible = true;
-			rightRotationIcon.visible = true;
-			alignCustomCursor();
+			//zoomInIcon.visible = true;
+			//leftRotationIcon.visible = true;
+			//rightRotationIcon.visible = true;
+			//alignCustomCursor();
 		}
 		
 		private function hideCustomCursor():void {
-			leftRotationIcon.visible = false;
-			rightRotationIcon.visible = false;
-			zoomInIcon.visible = false;
-			Mouse.show();
+			//leftRotationIcon.visible = false;
+			//rightRotationIcon.visible = false;
+			//zoomInIcon.visible = false;
+			//Mouse.show();
 		}
 		
 		public function forceBoxToReachToTheEnd():void {

@@ -109,6 +109,7 @@
 						case boardMovie.retryMovie:
 						case board2Movie.retryMovie:
 							init();
+							startGame();
 						break;
 						case boardMovie.goPackageMovie:
 							SWFAddress.setValue("upload-photo");
@@ -162,7 +163,7 @@
 				case Event.MOUSE_LEAVE:
 					this.removeChild(activeComp);
 					activeComp = null;
-					Mouse.show();
+					this.dispatchEvent(new PageEvent(PageEvent.CURSOR_NORMAL, true));
 				break;
 				case MouseEvent.MOUSE_MOVE:
 					activeComp.x = this.mouseX - activeComp.width / 2;
@@ -240,7 +241,7 @@
 					this.addChild(activeComp);
 					activeComp.x = this.mouseX - activeComp.width / 2;
 					activeComp.y = this.mouseY - activeComp.height / 2;
-					Mouse.hide();
+					this.dispatchEvent(new PageEvent(PageEvent.CURSOR_NULL, true));
 					event.currentTarget.alpha = 0;
 				break;
 			}

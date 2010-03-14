@@ -16,9 +16,9 @@
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
-	import flash.external.ExternalInterface;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.ui.Mouse;
 	import flash.utils.setTimeout;
 	import gs.easing.Strong;
 	import gs.TweenLite;
@@ -51,7 +51,7 @@
 		private var pageMovieArray: Array;			//	array contains child-pages (loader).
 		
 		public var pageContainerMovie: MovieClip;	//	Container of pages.
-		//public var handCursorMovie: MovieClip;		
+		public var cursorMovie: MovieClip;		
 		public var loadingGame1Movie: Game1Loading;
 		public var loadingGame2Movie: Game1Loading;
 		public var normalLoading: NormalLoading;
@@ -90,7 +90,54 @@
 			loadingGame1Movie.addEventListener(PageEvent.PAGE_LOADING_COMPLETE, game1LoadCompleteHandler);
 			loadingGame2Movie.addEventListener(PageEvent.PAGE_LOADING_COMPLETE, game1LoadCompleteHandler);
 			
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			this.addEventListener(PageEvent.CURSOR_NORMAL, cursorEventHandler);
+			this.addEventListener(PageEvent.CURSOR_BUSY, cursorEventHandler);
+			this.addEventListener(PageEvent.CURSOR_SPAN, cursorEventHandler);
+			this.addEventListener(PageEvent.CURSOR_ROTATE_LEFT, cursorEventHandler);
+			this.addEventListener(PageEvent.CURSOR_ROTATE_RIGHT, cursorEventHandler);
+			this.addEventListener(PageEvent.CURSOR_NULL, cursorEventHandler);
+			
 			SWFAddress.addEventListener(SWFAddressEvent.INIT, initSWFAddressHandler);
+		}
+		
+		private function addedToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			stage.addEventListener(Event.RESIZE, resizeHandler);
+			menuMovie.bgMovie.width = stage.stageWidth;
+		}
+		
+		private function resizeHandler(event: Event): void {
+			trace("stageWidth: " + stage.stageWidth + " stageHeight: " + stage.stageHeight);  
+			GlobalVars.windowsWidth = stage.stageWidth;
+			GlobalVars.windowsHeight = stage.stageHeight;
+			
+			var oldX: Number;
+			var oldY: Number;
+			// resize menu
+			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
+			menuMovie.y = 30;
+			
+			if (currentPageMovie)	currentPageMovie.resize();
+			if (currentPopUp)	currentPopUp.resize();
+		}
+		
+		private function cursorEventHandler(event: PageEvent): void {
+			/*switch (event.type) {
+				case PageEvent.CURSOR_NORMAL:
+				case PageEvent.CURSOR_BUSY:
+				case PageEvent.CURSOR_SPAN:
+				case PageEvent.CURSOR_ROTATE_LEFT:
+				case PageEvent.CURSOR_ROTATE_RIGHT:
+			}*/
+			cursorMovie.gotoAndStop(event.type);
+		}
+		
+		private function enterFrameHandler(event: Event): void {
+			cursorMovie.x = this.mouseX;
+			cursorMovie.y = this.mouseY;
+			this.setChildIndex(cursorMovie, this.numChildren - 1);
 		}
 		
 		private function initSWFAddressHandler(event: SWFAddressEvent): void {
@@ -301,6 +348,8 @@
 		
 		private function init():void {
 			this.mouseEnabled = this.mouseChildren = false;
+			cursorMovie.mouseChildren = cursorMovie.mouseEnabled = false;
+			Mouse.hide();
 			//createMenu();
 			menuMovie.visible = false;
 			pageMovieArray = new Array();
@@ -312,10 +361,6 @@
 			//GlobalVars.windowsWidth = 1280;
 			//GlobalVars.windowsHeight = 700;
 			
-			if (ExternalInterface.available) {
-				ExternalInterface.addCallback("resize", resize);				
-			}
-			
 			// Use flashVars: xmlPath = "......"
 			// If not exist, use default flashconfig.xml
 			var url: String = String(this.loaderInfo.parameters["xmlPath"]);
@@ -325,15 +370,6 @@
 			
 			//selectedMenuItem(menuMovie.farmMovie);
 			menuMovie.uploadMovie.visible = false;
-		}
-		
-		private function resize(w: Number = -1, h: Number = -1):void {
-			//if (w > 0)	GlobalVars.windowsWidth = w;
-			//trace( "GlobalVars.windowsWidth : " + GlobalVars.windowsWidth );
-			//if (h > 0)	GlobalVars.windowsHeight = h;
-			//trace( "GlobalVars.windowsHeight : " + GlobalVars.windowsHeight );
-			//if (currentPageMovie)	currentPageMovie.resize();
-			//menuMovie.bgMovie.width = GlobalVars.windowsWidth;
 		}
 		
 		private function loadXML(url: String):void {
@@ -378,7 +414,7 @@
 			TweenLite.to(homePageMovie, 1, { scaleX: 3, scaleY: 3,
 											x: (GlobalVars.windowsWidth - homePageMovie.pageWidth*3 - 200) / 2,
 											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 300) / 2,
-											ease: Strong.easeOut, onComplete: function() {
+											ease: Strong.easeOut, onUpdate: updateHandler, onComplete: function() {
 					var loader: Loader = new Loader();
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, popupCompleteHandler);
 					loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, loaderProgessHandler);
@@ -389,12 +425,16 @@
 				} } );
 		}
 		
+		private function updateHandler():void {
+			//	...
+		}
+		
 		private function popupCompleteHandler(event: Event): void {
 			var popup: Popup = new Popup(event.currentTarget.loader.content);
 			pageContainerMovie.addChild(popup);
-			//popup.x = (this.stage.stageWidth - popup.width) / 2;
 			popup.addEventListener(PageEvent.POPUP_CLOSE, popupCloseHandler);
 			currentPopUp = popup;
+			this.stage.dispatchEvent(new Event(Event.RESIZE));
 		}
 		
 		private function popupCloseHandler(event: PageEvent): void {
@@ -419,8 +459,10 @@
 		}
 		
 		public function loadHomePage(): void {
+			loadingMovie = normalLoading;
 			var loader: Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, homepageCompleteHandler);
+			loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, loaderProgessHandler);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			loader.load(new URLRequest(xml.pages.page.(@name == "farm").toString()));
 		}
@@ -432,24 +474,20 @@
 			homePageMovie.addEventListener(PageEvent.COMPLETE_BEGIN_PAGE, pageEventHandler);
 			homePageMovie.addEventListener(PageEvent.START_END_PAGE, pageEventHandler);
 			homePageMovie.addEventListener(PageEvent.COMPLETE_END_PAGE, pageEventHandler);
-		}
-		
-		private function homepageEventHandler(event: Event): void {
-			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
-			createMenu();
-			this.mouseEnabled = this.mouseChildren = true;
 			
 			trace( "homePageMovie : " + homePageMovie );
 			pageMovieArray["farm"] = homePageMovie;
 			pageContainerMovie.addChild(homePageMovie);
 			homePageMovie.visible = true;
 			currentPageMovie = homePageMovie;
+			createMenu();
+		}
+		
+		private function homepageEventHandler(event: Event): void {
+			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
+			this.mouseEnabled = this.mouseChildren = true;
+			
 			SWFAddress.addEventListener(SWFAddressEvent.CHANGE, addressChangeHandler);
-			resize();
-			if (ExternalInterface.available) {
-				ExternalInterface.addCallback("resize", resize);
-				ExternalInterface.call("resizeHandler");
-			}
 		}
 		
 		private function loaderProgessHandler(event: ProgressEvent): void {			
@@ -524,26 +562,7 @@
 				break;
 			}
 		}
-		
-		/*private function nextPage():void {
-			currentPageName++;
-			if (currentPageName == xml.pages.page.length())	currentPageName--;
-			else {
-				if (currentPageName == pageMovieArray.length)	loadPage(currentPageName);
-				else {
-					currentPageMovie.startEndPage();
-				}
-			}
-		}
-		
-		private function backPage():void {
-			currentPageName--;
-			if (currentPageName < 0) currentPageName = 0;
-			else {
-				currentPageMovie.startEndPage();
-			}
-		}
-		*/
+
 		private function ioErrorHandler(event: IOErrorEvent): void {
 			trace(event.text);
 		}

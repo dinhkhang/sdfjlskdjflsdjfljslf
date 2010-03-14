@@ -31,6 +31,14 @@
 		public static const START_END_PAGE: String = "start_end_page";
 		public static const COMPLETE_END_PAGE: String = "complete_end_page";
 		
+		// Mouse Cursors
+		public static const CURSOR_NORMAL: String = "cursor_normal";
+		public static const CURSOR_BUSY: String = "cursor_busy";
+		public static const CURSOR_SPAN: String = "cursor_span";
+		public static const CURSOR_ROTATE_LEFT: String = "cursor_rotate_left";
+		public static const CURSOR_ROTATE_RIGHT: String = "cursor_rotate_right";
+		public static const CURSOR_NULL: String = "cursor_null";
+		
 		public static const PAGE_LOADING_COMPLETE: String = "page_loading_complete";
 		
 		public function PageEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) { 
