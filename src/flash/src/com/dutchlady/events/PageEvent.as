@@ -39,6 +39,9 @@
 		public static const CURSOR_ROTATE_RIGHT: String = "cursor_rotate_right";
 		public static const CURSOR_NULL: String = "cursor_null";
 		
+		// Heart event
+		public static const ILOVE_SEARCH: String = "ilove_search";
+		
 		public static const PAGE_LOADING_COMPLETE: String = "page_loading_complete";
 		
 		public function PageEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) { 
