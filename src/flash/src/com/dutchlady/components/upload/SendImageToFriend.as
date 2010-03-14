@@ -165,7 +165,9 @@
 		}
 		
 		private function closeButtonClickHandler(event: MouseEvent):void {
-			this.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE, true));
+			//this.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE, true));
+			this.visible = false;
+			parent["uploadResultMovie"].visible = true;
 		}
 	}
 }
