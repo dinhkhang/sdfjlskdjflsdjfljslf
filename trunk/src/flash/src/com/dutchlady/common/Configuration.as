@@ -34,7 +34,7 @@
 		}
 		
 		public function get uploadedThumbBaseUrl(): String {
-			return uploadedImageBaseUrl + "thumbnails/";
+			return uploadedImageBaseUrl;
 		}
 		
 		public function get imageUploadServiceUrl():String {
