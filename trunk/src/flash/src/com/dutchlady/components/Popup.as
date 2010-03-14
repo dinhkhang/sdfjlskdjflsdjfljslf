@@ -53,7 +53,10 @@
 			coverMovie.graphics.endFill();
 			contentMovie.addChildAt(coverMovie, 0);
 			
-			if (contentMovie is ILove)	ILove(contentMovie).boardParentMovie.visible = true;
+			if (contentMovie is ILove)	{
+				ILove(contentMovie).boardParentMovie.visible = true;
+				ILove(contentMovie).combox.visible = true;
+			}
 			
 			oldY = contentMovie.y;
 			newY = contentMovie.y;
