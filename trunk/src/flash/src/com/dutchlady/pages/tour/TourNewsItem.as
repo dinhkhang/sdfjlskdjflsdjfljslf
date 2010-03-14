@@ -69,7 +69,7 @@
 		private function clickHandler(event: MouseEvent): void {
 			trace("TourNewsItem clickHandler");
 			var url: String = Configuration.instance.viewTourItemUrl + "?id=" + tourId;
-			navigateToURL(new URLRequest(url), "_blank");
+			//navigateToURL(new URLRequest(url), "_blank");
 		}
 	}
 

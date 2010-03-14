@@ -162,7 +162,7 @@
 			//heartMaterial.smooth = true;
 			material.name = materialName;
 			
-			return material
+			return material;
 			
 			//var flatShader: FlatShader = new FlatShader(light, 0xFFFFFF, 0x999999);
 			//var flatShadedMaterial: ShadedMaterial = new ShadedMaterial(material, flatShader);
