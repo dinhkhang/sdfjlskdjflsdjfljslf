@@ -1,5 +1,6 @@
 ﻿package com.dutchlady.pages.tour {
 	import com.dutchlady.common.Configuration;
+	import com.dutchlady.utils.StringUtil;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
@@ -33,8 +34,8 @@
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, thumbLoadIOErrorHandler);
 			loader.load(new URLRequest(thumbUrl));
 			
-			titleText.text = title;
-			descriptionText.text = description;
+			titleText.text = StringUtil.fixStringInTextField(titleText, title);
+			descriptionText.text = StringUtil.fixStringInTextField(descriptionText, description);
 			
 			this.addEventListener(MouseEvent.ROLL_OVER, rollOverHanlder);
 			this.addEventListener(MouseEvent.ROLL_OUT, rollOutHanlder);
