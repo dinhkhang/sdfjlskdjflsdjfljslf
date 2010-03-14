@@ -36,7 +36,7 @@
 			for (var i: int = 0; i < newsList.length(); i++) {
 				contentXml = newsList[i];
 				item = new TourNewsItem();
-				item.update(contentXml.ns::PhotoUrl, contentXml.ns::Title, contentXml.ns::Description);
+				item.update(contentXml.ns::Id, contentXml.ns::PhotoUrl, contentXml.ns::Title, contentXml.ns::Description);
 				item.y = posY;
 				
 				posY += item.height + 10;
