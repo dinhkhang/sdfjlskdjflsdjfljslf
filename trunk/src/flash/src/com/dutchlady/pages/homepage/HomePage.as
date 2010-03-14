@@ -1,4 +1,5 @@
 ﻿package com.dutchlady.pages.homepage {
+	import com.dutchlady.common.GlobalVars;
 	import com.dutchlady.components.milkbox.MilkBox;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.pages.BasePage;
@@ -84,6 +85,12 @@
 		
 		override public function set mouseCheckingMode(value: Boolean): void {
 			milkBox.isRollOver = value;
+		}
+		
+		override public function resize(): void {
+			super.resize();
+			fireFlyMovie.x = GlobalVars.windowsWidth + (1002 - GlobalVars.windowsWidth) / 2 - fireFlyMovie.width - 20; 
+			fireFlyMovie.y = (668 - GlobalVars.windowsHeight) / 2 + 50; 
 		}
 	}
 

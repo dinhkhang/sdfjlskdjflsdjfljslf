@@ -9,38 +9,71 @@
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
+	import gs.TweenLite;
+	import swfaddress.SWFAddress;
 	/**
 	 * ...
 	 * @author ... Mr. Coder
 	 */
 	public class ILoveBoard extends MovieClip {
-		
+		public var buttonMovie: MovieClip
+		public var boardMovie: MovieClip
 		public var emailText: TextField;
 		public var searchButton: SimpleButton;
 		public var startButton: SimpleButton;
 		
 		public function ILoveBoard() {
+			this.stop();
+			emailText = boardMovie.emailText;
+			searchButton = boardMovie.searchButton;
+			startButton = boardMovie.startButton;
+			buttonMovie.buttonMode = true;
+			buttonMovie.addEventListener(MouseEvent.CLICK, buttonClickHandler);
+			
 			emailText.addEventListener(FocusEvent.FOCUS_IN, emailFocusHandler);
 			emailText.addEventListener(FocusEvent.FOCUS_OUT, emailFocusHandler);
 			
 			searchButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			startButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 
+			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
-		private function hideShowClickHandler(event: MouseEvent): void {
-			this.dispatchEvent(new Event("hide_show", true));
+		private function enterFrameHandler(event: Event): void {
+			var point: Point = new Point(GlobalVars.windowsWidth - this.width, GlobalVars.windowsHeight - this.height);
+			point = this.parent.globalToLocal(point);
+			this.x = point.x;
+			this.y = point.y;
 		}
-		
+
 		private function buttonClickHandler(event: MouseEvent): void {
 			switch (event.currentTarget) {
+				case buttonMovie:
+					if  (boardMovie.x == 0) {
+						TweenLite.to(boardMovie, 1, { x:boardMovie.width + 20, onUpdate: updateHandler, onComplete: completeHandler} );
+						//buttonMovie.gotoAndStop(2);
+					}
+					else {
+						TweenLite.to(boardMovie, 1, { x:0, onUpdate: updateHandler, onComplete: completeHandler} );
+						//buttonMovie.gotoAndStop(1);
+					}
+				break;
 				case searchButton:
 					this.dispatchEvent(new PageEvent(PageEvent.ILOVE_SEARCH, true));
 					break;
 				case startButton:
-					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_UPLOADPAGE, true));
+					SWFAddress.setValue("upload-photo");
 					break;
 			}
+		}
+		
+		private function completeHandler():void {
+			//if (buttonMovie.currentFrame == 1) buttonMovie.gotoAndStop(2);
+			//else buttonMovie.gotoAndStop(1);
+		}
+		
+		private function updateHandler():void {
+			buttonMovie.x = boardMovie.x - buttonMovie.width;
 		}
 		
 		private function emailFocusHandler(event: FocusEvent): void {

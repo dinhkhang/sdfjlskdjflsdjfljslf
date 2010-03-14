@@ -120,7 +120,7 @@
 			// resize menu
 			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
 			menuMovie.y = (668 - GlobalVars.windowsHeight) / 2 + 20;
-
+			homePageMovie.resize();
 			//if (currentPageMovie)	currentPageMovie.resize();
 			//if (currentPopUp)	currentPopUp.resize();
 			
