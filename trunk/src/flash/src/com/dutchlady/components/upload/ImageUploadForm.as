@@ -113,6 +113,7 @@
 			} else {
 				// Save image
 				var bitmapData: BitmapData = ImageUploadPage(parent).captureImageFrame();
+				GlobalVars.capturedImage = bitmapData;
 				
 				var data: ByteArray = PNGEncoder.encode(bitmapData);
 				showLoading();

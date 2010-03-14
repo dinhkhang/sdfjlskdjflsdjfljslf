@@ -1,4 +1,5 @@
 ﻿package com.dutchlady.common {
+	import flash.display.BitmapData;
 	//import com.dutchlady.components.milkbox.MilkBox;
 	//import com.dutchlady.MainTimeLine;
 	/**
@@ -14,6 +15,7 @@
 		//public static var milkBox			: MilkBox;
 		
 		public static var uploadedProfileId: Number;
+		public static var capturedImage: BitmapData = null;
 		
 		public function GlobalVars() {
 			
