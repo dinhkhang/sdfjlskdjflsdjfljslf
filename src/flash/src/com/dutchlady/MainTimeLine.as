@@ -9,6 +9,8 @@
 	import com.dutchlady.pages.loading.Game1Loading;
 	import com.dutchlady.pages.loading.NormalLoading;
 	import com.dutchlady.services.AppServices;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -200,6 +202,32 @@
 			service.updateDonate(functionName);
 		}
 		
+		private function showUploadedImage():void {
+			var bitmapData: BitmapData = GlobalVars.capturedImage;
+			
+			GlobalVars.capturedImage = null;
+			
+			//bitmapData = new BitmapData(495, 570, true, 0xFFFFFF);
+			//bitmapData.draw(this);
+			if (!bitmapData) return;
+			
+			var bitmap: Bitmap = new Bitmap(bitmapData);
+			bitmap.x = GlobalVars.windowsWidth / 2 - bitmap.width / 2 + 50;
+			bitmap.y = GlobalVars.windowsHeight / 2 - bitmap.height / 2 + 50;
+			this.addChild(bitmap);
+			
+			TweenLite.to(bitmap, 1, { scaleX: 0.05, scaleY: 0.05, onUpdate: showUploadedImageUpdateHanlder, onUpdateParams:[bitmap], onComplete: showUploadedImageCompleteHanlder, onCompleteParams: [bitmap] } );
+		}
+		
+		private function showUploadedImageUpdateHanlder(bitmap: Bitmap):void {
+			bitmap.x = GlobalVars.windowsWidth / 2 - bitmap.width / 2 + 50;
+			bitmap.y = GlobalVars.windowsHeight / 2 - bitmap.height / 2 + 50;
+		}
+		
+		private function showUploadedImageCompleteHanlder(bitmap: Bitmap):void {
+			this.removeChild(bitmap);
+		}
+		
 		private function goToPageHandler(event: PageEvent): void {
 			if (currentPopUp)	currentPopUp.zoomOutButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 			if (loadingMovie)	loadingMovie.visible = false;
@@ -225,6 +253,7 @@
 				case PageEvent.GO_TO_ILOVEPAGE:
 				trace( "PageEvent.GO_TO_ILOVEPAGE: : " + PageEvent.GO_TO_ILOVEPAGE );
 					HomePage(homePageMovie).milkBox.navigateToHeartFace();
+					showUploadedImage();
 					//break;
 				case PageEvent.SHOW_HEART_POPUP:
 					SWFAddress.setValue(HOMEPAGE);

@@ -155,8 +155,8 @@
 			setTimeout(init3DWorld,1000);
 		}
 		
-		private function createBoxFaceMatetial(content: DisplayObject, materialName: String, light: PointLight3D):MaterialObject3D {
-			var material: MovieMaterial = new MovieMaterial(content);
+		private function createBoxFaceMatetial(content: DisplayObject, materialName: String, light: PointLight3D, animated: Boolean = false):MaterialObject3D {
+			var material: MovieMaterial = new MovieMaterial(content, false, animated);
 			material.interactive = true;
 			material.oneSide = true;
 			//heartMaterial.smooth = true;
@@ -178,7 +178,7 @@
 			pointLight.z = 3000;
 			//scene.addChild(pointLight);
 			
-			var heartMaterial: MaterialObject3D = createBoxFaceMatetial(heartAssetLoader.contentLoaderInfo.content, "heart", pointLight);
+			var heartMaterial: MaterialObject3D = createBoxFaceMatetial(heartAssetLoader.contentLoaderInfo.content, "heart", pointLight, true);
 			//heartMaterial.interactive = true;
 			//heartMaterial.oneSide = true;
 			//heartMaterial.smooth = true;
