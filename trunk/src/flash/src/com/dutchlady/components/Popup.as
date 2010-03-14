@@ -27,7 +27,7 @@
 		public function Popup(movie: MovieClip) {			
 			zoomOutButton = new ZoomOutButton();
 			contentMovie = movie;
-			//oldW = contentMovie.width;
+			oldW = contentMovie.width;
 			this.addChild(contentMovie);
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 		}
@@ -96,14 +96,11 @@
 		private function contentMoveHandler(event: MouseEvent): void {
 			newY += (contentMovie.mouseY - oldMouseY);
 			oldMouseY = contentMovie.mouseY;
-			var max: Number = 0;
-			var min: Number = GlobalVars.windowsHeight - contentMovie.height;
-			if (newY > max)	newY = max;
-			if (newY < min) newY = min;
-			//this.dispatchEvent(new PageEvent(PageEvent.CURSOR_SPAN, true));
 		}
 		
 		private function enterFramerHandler(event: Event): void {
+			newY = Math.min(newY, 0);
+			newY = Math.max(newY, GlobalVars.windowsHeight - contentMovie.height);
 			contentMovie.y += (newY - oldY) * 0.2;
 			oldY = contentMovie.y;
 		}
@@ -118,14 +115,10 @@
 		
 		public function resize(): void {
 			contentMovie.width = GlobalVars.windowsWidth;
-			trace( "contentMovie.width : " + contentMovie.width );
 			contentMovie.scaleY = contentMovie.scaleX;
-			contentMovie.x += (oldW - GlobalVars.windowsWidth) / 2;
-			trace( "GlobalVars.windowsWidth : " + GlobalVars.windowsWidth );
-			trace( "contentMovie.x : " + contentMovie.x );
-			trace( "oldW : " + oldW );
+			contentMovie.x = (oldW - GlobalVars.windowsWidth) / 2;
 			
-			zoomOutButton.x = GlobalVars.windowsWidth - zoomOutButton.width / 2 + contentMovie.x;
+			zoomOutButton.x = GlobalVars.windowsWidth - (GlobalVars.windowsWidth - oldW)/2 - zoomOutButton.width / 2;
 			zoomOutButton.y = zoomOutButton.height;
 		}
 	}
