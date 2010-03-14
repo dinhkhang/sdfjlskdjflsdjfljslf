@@ -94,25 +94,25 @@
 		}
 		
 		private function leftRotationIconRollHandler(event: MouseEvent): void {
-			trace( "event : " + event.target );
+			//trace( "event : " + event.target );
 			var type: String = (event.type == MouseEvent.ROLL_OVER) ? PageEvent.CURSOR_ROTATE_LEFT : PageEvent.CURSOR_NORMAL;
 			this.dispatchEvent(new PageEvent(type, true));
 		}
 		
 		private function rightRotationIconRollHandler(event: MouseEvent): void {
-			trace( "event : " + event.target );
+			//trace( "event : " + event.target );
 			var type: String = (event.type == MouseEvent.ROLL_OVER) ? PageEvent.CURSOR_ROTATE_RIGHT : PageEvent.CURSOR_NORMAL;
 			this.dispatchEvent(new PageEvent(type, true));
 		}
 		
 		private function rightRotationIconClickHandler(event: MouseEvent): void {
-			trace( "event : " + event.target );
+			//trace( "event : " + event.target );
 			selectedBoxFaceName = "";
 			newBoxRotationAngle -= 90;
 		}
 		
 		private function leftRotationIconClickHandler(event: MouseEvent): void {
-			trace( "event : " + event.target );
+			//trace( "event : " + event.target );
 			selectedBoxFaceName = "";
 			newBoxRotationAngle += 90;
 		}
@@ -123,7 +123,7 @@
 		}
 		
 		private function loadMaterial():void {
-			trace("loadMaterial");
+			//trace("loadMaterial");
 			heartAssetLoader = new Loader();
 			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
 			heartAssetLoader.load(new URLRequest("iLove.swf"));
@@ -251,7 +251,7 @@
 		}
 		
 		private function boxClickHandler(event: InteractiveScene3DEvent): void {
-			trace("boxClickHandler");
+			//trace("boxClickHandler");
 			isMouseClick = true;
 			selectedBoxFaceName = event.face3d.material.name;
 			switch (event.face3d.material.name) {

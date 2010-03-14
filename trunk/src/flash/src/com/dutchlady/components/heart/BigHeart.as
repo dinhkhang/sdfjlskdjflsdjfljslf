@@ -32,6 +32,7 @@
 		}
 		
 		public function setData(xml: XML): void {
+			init();
 			urlArray = new Array();
 			for each (var item: XML in xml.list.imageUrl) {
 				urlArray.push(item.toString());

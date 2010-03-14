@@ -35,6 +35,7 @@
 		private function buttonClickHandler(event: MouseEvent): void {
 			switch (event.currentTarget) {
 				case searchButton:
+					this.dispatchEvent(new PageEvent(PageEvent.ILOVE_SEARCH, true));
 					break;
 				case startButton:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_UPLOADPAGE, true));
