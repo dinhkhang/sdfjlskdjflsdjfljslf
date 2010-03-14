@@ -4,6 +4,7 @@
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
+	import gs.TweenLite;
 	//import gs.TweenLite;
 	/**
 	 * ...
@@ -64,9 +65,9 @@
 			loader.x = -loader.width / 2;
 			loader.y = -loader.height / 2;
 			movie.thumbMovie.addChild(loader);
-			//movie.alpha = 0;
+			movie.alpha = 0;
 			movie.visible = true;
-			//TweenLite.to(movie, 0.5, {alpha: 1} );
+			TweenLite.to(movie, 0.5, {alpha: 1} );
 		}
 		
 		private function loaderIOErrorHandler(event: IOErrorEvent): void {

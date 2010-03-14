@@ -28,8 +28,12 @@
 			invokeService();
 		}
 		
-		public function getProfile():void {
-			invokeService();
+		public function getProfile(keyword: String = "", pageSize: int = 10, pageIndex: int = 1):void {
+			var params: Object = { };
+			params["keyword"] = keyword;
+			params["pageSize"] = pageSize;
+			params["pageIndex"] = pageIndex;
+			invokeService(params);
 		}
 		
 		public function updateDonate(functionName: String):void {
