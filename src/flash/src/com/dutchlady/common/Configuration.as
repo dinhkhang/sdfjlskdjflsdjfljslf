@@ -64,6 +64,10 @@
 		public function get sendToFriendServiceUrl():String {
 			return defaultGateway + "FlashServices.asmx/SendToFriend";
 		}
+		
+		public function get viewTourItemUrl():String {
+			return configXml.services.viewTourItemUrl[0].toString();
+		}
 	}
 
 }

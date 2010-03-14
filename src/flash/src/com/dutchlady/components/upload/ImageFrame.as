@@ -18,6 +18,7 @@
 		public var imageHolder		: MovieClip;
 		public var loader			: Loader;
 		public var loadingMovie		: MovieClip;
+		public var borderMovie		: MovieClip;
 		
 		private var transformTool	: TransformTool;
 		
@@ -43,7 +44,7 @@
 		}
 		
 		private function stageMouseDownHandler(event: MouseEvent): void {
-			if (event.target == imageHolder || event.target == this || event.target is TransformToolControl) {
+			if (event.target == borderMovie || event.target == imageHolder || event.target == this || event.target is TransformToolControl) {
 				imageHolder.mask = null;
 				
 				transformTool.target = imageHolder;
