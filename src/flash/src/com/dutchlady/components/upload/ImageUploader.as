@@ -57,7 +57,7 @@
 			
 			imageGuid = GUID.create();
 			//var request: URLRequest = new URLRequest("http://localhost:64293/FlashAPI/UploadImage.aspx?Guid=" + guid);
-			uploadedImageUrl = Configuration.instance.uploadedImageBaseUrl + imageGuid + ".png";
+			uploadedImageUrl = Configuration.instance.uploadedImageBaseUrl + "originals/" + imageGuid + ".png";
 			var request: URLRequest = new URLRequest(Configuration.instance.imageUploadServiceUrl + "?Guid=" + imageGuid);
 			request.method = URLRequestMethod.POST;
 			

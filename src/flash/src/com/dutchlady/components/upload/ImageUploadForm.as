@@ -122,7 +122,7 @@
 		}
 		
 		private function saveImageCompleteHandler(event: ImageUploadEvent): void {
-			var photoUrl: String = Configuration.instance.uploadedThumbBaseUrl + uploader.imageGuid + ".png";
+			var photoUrl: String = Configuration.instance.uploadedImageBaseUrl + uploader.imageGuid + ".png";
 			trace("uploaded image: " + photoUrl);
 			var service: AppServices = new AppServices(Configuration.instance.sendProfileServiceUrl);
 			service.addEventListener(HttpServiceEvent.RESULT, sendProfileResultHandler);
