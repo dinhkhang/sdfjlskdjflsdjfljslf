@@ -23,6 +23,7 @@
 		public var containerMovie: BigHeart;
 		public var combox: ComboBox;
 		
+		private var currentPageIndex:int = 0;
 		private var xml: XML;
 		
 		public function ILove() {			
@@ -32,7 +33,6 @@
 			urlLoader.load(new URLRequest("xml/big_heart_service.xml"));*/
 			
 			boardParentMovie.visible = false;
-			
 			boardParentMovie.buttonMovie.buttonMode = true;
 			boardParentMovie.buttonMovie.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			
@@ -51,6 +51,7 @@
 			var service: AppServices = new AppServices(Configuration.instance.getProfileServiceUrl);
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
+			currentPageIndex = combox.selectedIndex;
 			service.getProfile("", 10, combox.selectedItem.data);
 		}
 		
@@ -78,12 +79,13 @@
 			var ns: Namespace = xml.namespace();
 			var numPage: int;
 			numPage = Math.ceil(int(xml.ns::string[0].toString()) / 10);
-			trace( "numPage : " + numPage );
-			if (numPage && boardParentMovie.visible) {
-				combox.visible = true;
+			if (numPage) {
+				combox.removeAll();
 				for (var i: int = 1; i <= numPage; i++) {
+					trace( "Add Item i : " + i );
 					combox.addItem( {label: i.toString(), data: i} );
 				}
+				combox.selectedIndex = currentPageIndex;
 			}
 		}
 		
