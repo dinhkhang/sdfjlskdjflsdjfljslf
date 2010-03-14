@@ -33,9 +33,13 @@
 		
 		public function setData(xml: XML): void {
 			init();
+			var ns: Namespace = xml.namespace();
+			
 			urlArray = new Array();
-			for each (var item: XML in xml.list.imageUrl) {
-				urlArray.push(item.toString());
+			var count: int = xml.ns::string.length();
+			for (var i: int = 1; i < count; i++) {
+				urlArray.push(xml.ns::string[i].toString().split("|")[1].replace(".png","_thumbnail.png") );
+				trace(urlArray[urlArray.length - 1]);
 			}
 			processURLArray();
 		}
@@ -63,9 +67,11 @@
 			var loader: Loader = event.currentTarget.loader;
 			var i: int = int(loader.name);
 			var movie: MovieClip = itemArray[i];
+			loader.scaleX = loader.scaleY = movie.width / loader.width;
 			loader.x = -loader.width / 2;
 			loader.y = -loader.height / 2;
-			movie.thumbMovie.addChild(loader);
+			while (movie.numChildren) movie.removeChildAt(0);
+			movie.addChild(loader);
 			movie.alpha = 0;
 			movie.visible = true;
 			TweenLite.to(movie, 0.5, {alpha: 1} );

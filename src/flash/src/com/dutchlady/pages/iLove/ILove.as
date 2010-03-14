@@ -5,6 +5,7 @@
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.http.HttpServiceEvent;
 	import com.dutchlady.services.AppServices;
+	import fl.controls.ComboBox;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -18,8 +19,9 @@
 	 */
 	public class ILove extends MovieClip {
 		
-		public var boardParentMovie: MovieClip;
+		public var boardParentMovie: ILoveBoard;
 		public var containerMovie: BigHeart;
+		public var combox: ComboBox;
 		
 		private var xml: XML;
 		
@@ -29,26 +31,27 @@
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			urlLoader.load(new URLRequest("xml/big_heart_service.xml"));*/
 			
-			trace( "boardParentMovie : " + boardParentMovie );
 			boardParentMovie.visible = false;
 			
 			boardParentMovie.buttonMovie.buttonMode = true;
 			boardParentMovie.buttonMovie.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			
-			this.addEventListener(Event.CHANGE, changeHandler);
 			this.addEventListener(PageEvent.ILOVE_SEARCH, searchHandler);
 			
 			var service: AppServices = new AppServices(Configuration.instance.getProfileServiceUrl);
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
 			service.getProfile();
+			
+			combox.visible = false;
+			combox.addEventListener(Event.CHANGE, comboxChangeHandler);
 		}
 		
-		private function changeHandler(event: Event): void {
-			var point: Point = new Point(GlobalVars.windowsWidth - this.width, GlobalVars.windowsHeight - this.height);
-			point = this.globalToLocal(point);
-			boardParentMovie.x = point.x;
-			boardParentMovie.y = point.y;
+		private function comboxChangeHandler(event: Event): void {
+			var service: AppServices = new AppServices(Configuration.instance.getProfileServiceUrl);
+			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
+			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
+			service.getProfile("", 10, combox.selectedItem.data);
 		}
 		
 		private function searchHandler(event: PageEvent): void {
@@ -71,8 +74,17 @@
 		
 		private function getDataResultHandler(event: HttpServiceEvent): void {
 			xml = new XML(String(event.result));
-			trace( "xml : " + xml );
 			containerMovie.setData(xml);
+			var ns: Namespace = xml.namespace();
+			var numPage: int;
+			numPage = Math.ceil(int(xml.ns::string[0].toString()) / 10);
+			trace( "numPage : " + numPage );
+			if (numPage && boardParentMovie.visible) {
+				combox.visible = true;
+				for (var i: int = 1; i <= numPage; i++) {
+					combox.addItem( {label: i.toString(), data: i} );
+				}
+			}
 		}
 		
 		private function xmlLoadCompleteHandler(event: Event): void {
