@@ -19,8 +19,8 @@
 		<gatewayUrl><![CDATA[http://demo.intelligent-content.net/FlashAPI/]]></gatewayUrl>
 		<uploadedImageBaseUrl><![CDATA[http://demo.intelligent-content.net/uploads/]]></uploadedImageBaseUrl>
 		-->
-		<gatewayUrl><![CDATA[http://demo.intelligent-content.net/FlashAPI/]]></gatewayUrl>
-		<uploadedImageBaseUrl><![CDATA[http://demo.intelligent-content.net/uploads/]]></uploadedImageBaseUrl>
+		<gatewayUrl><![CDATA[http://fs.toiyeucogaihalan.com//FlashAPI/]]></gatewayUrl>
+		<uploadedImageBaseUrl><![CDATA[http://fs.toiyeucogaihalan.com//uploads/]]></uploadedImageBaseUrl>
 		<viewTourItemUrl><![CDATA[http://demo.intelligent-content.net/hanhtrinh.aspx]]></viewTourItemUrl>
 	</services>
 </data>
