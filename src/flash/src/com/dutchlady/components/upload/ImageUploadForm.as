@@ -48,6 +48,14 @@
 		private var uploader				: ImageUploader;
 		
 		public function ImageUploadForm() {
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+		
+		private function addedToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			
+			imageUrlText.tabEnabled = false;
+			
 			fullNameText.tabEnabled = true;
 			fullNameText.tabIndex = 1;
 			

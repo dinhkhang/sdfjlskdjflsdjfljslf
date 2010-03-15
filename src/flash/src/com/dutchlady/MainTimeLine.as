@@ -64,6 +64,8 @@
 		private var siteParam: String;
 		
 		public function MainTimeLine() {
+			stage.stageFocusRect = false;
+			
 			//GlobalVars.mainTimeLine = this;
 			init();
 			initEvents();
