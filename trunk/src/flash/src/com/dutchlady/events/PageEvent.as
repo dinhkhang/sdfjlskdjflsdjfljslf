@@ -38,6 +38,7 @@
 		public static const CURSOR_ROTATE_LEFT: String = "cursor_rotate_left";
 		public static const CURSOR_ROTATE_RIGHT: String = "cursor_rotate_right";
 		public static const CURSOR_NULL: String = "cursor_null";
+		public static const CURSOR_ZOOM: String = "cursor_zoom";
 		
 		// Heart event
 		public static const ILOVE_SEARCH: String = "ilove_search";

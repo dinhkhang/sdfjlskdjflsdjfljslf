@@ -1,5 +1,6 @@
 ﻿package com.dutchlady.pages.tour {
 	import com.dutchlady.common.Configuration;
+	import com.dutchlady.common.GlobalVars;
 	import com.dutchlady.utils.StringUtil;
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
@@ -22,6 +23,8 @@
 		public var descriptionText	: TextField;
 		
 		private var tourId: String;
+		private var title: String;
+		private var description: String;
 		
 		public function TourNewsItem() {
 		}
@@ -34,6 +37,8 @@
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, thumbLoadIOErrorHandler);
 			loader.load(new URLRequest(thumbUrl));
 			
+			this.title = title;
+			this.description = description;
 			titleText.text = StringUtil.fixStringInTextField(titleText, title);
 			descriptionText.text = StringUtil.fixStringInTextField(descriptionText, description);
 			
@@ -68,9 +73,20 @@
 		}
 		
 		private function clickHandler(event: MouseEvent): void {
-			trace("TourNewsItem clickHandler");
-			var url: String = Configuration.instance.viewTourItemUrl + "?id=" + tourId;
+			//trace("TourNewsItem clickHandler");
+			//var url: String = Configuration.instance.viewTourItemUrl + "?id=" + tourId;
 			//navigateToURL(new URLRequest(url), "_blank");
+			var popup: TourPopUp = new TourPopUp('<font size="20">' + title + '</font><br/>' + description);
+			popup.addEventListener(Event.CLOSE, popupCloseHandler, false, 0, true);
+			//this.mouseChildren = this.mouseEnabled = false;
+			this.stage.addChild(popup);
+			popup.x = GlobalVars.movieWidth / 2;
+			popup.y = GlobalVars.movieHeight / 2;
+		}
+		
+		private function popupCloseHandler(event: Event): void {
+			//this.mouseChildren = this.mouseEnabled = true;
+			this.stage.removeChild(event.currentTarget as TourPopUp);
 		}
 	}
 

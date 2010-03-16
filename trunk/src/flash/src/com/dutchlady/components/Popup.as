@@ -62,8 +62,8 @@
 			this.addEventListener(Event.ENTER_FRAME, enterFramerHandler, false, 0, true);
 			
 			this.addChild(zoomOutButton);
-			zoomOutButton.x = GlobalVars.windowsWidth - zoomOutButton.width / 2;
-			zoomOutButton.y = zoomOutButton.height;
+			zoomOutButton.x = GlobalVars.windowsWidth - zoomOutButton.width;
+			zoomOutButton.y = zoomOutButton.height * 2;
 			zoomOutButton.addEventListener(MouseEvent.CLICK, zoomOutClickHandler);
 		}
 		

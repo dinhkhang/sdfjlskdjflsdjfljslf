@@ -120,8 +120,8 @@
 															stage.removeChild(zoomMovie);
 														});
 			stage.addChild(zoomMovie);			
-			zoomMovie.x = 1002/2;
-			zoomMovie.y = 668/2;
+			zoomMovie.x = GlobalVars.movieWidth/2;
+			zoomMovie.y = GlobalVars.movieHeight/2;
 			zoomMovie.alpha = 0;
 			TweenLite.to(zoomMovie, 1, {alpha: 1} );
 		}

@@ -101,13 +101,6 @@
 			loadingGame2Movie.addEventListener(PageEvent.PAGE_LOADING_COMPLETE, game1LoadCompleteHandler);
 			
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
-			this.addEventListener(PageEvent.CURSOR_NORMAL, cursorEventHandler);
-			this.addEventListener(PageEvent.CURSOR_BUSY, cursorEventHandler);
-			this.addEventListener(PageEvent.CURSOR_SPAN, cursorEventHandler);
-			this.addEventListener(PageEvent.CURSOR_ROTATE_LEFT, cursorEventHandler);
-			this.addEventListener(PageEvent.CURSOR_ROTATE_RIGHT, cursorEventHandler);
-			this.addEventListener(PageEvent.CURSOR_NULL, cursorEventHandler);
 			
 			SWFAddress.addEventListener(SWFAddressEvent.INIT, initSWFAddressHandler);
 		}
@@ -116,6 +109,17 @@
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			stage.addEventListener(Event.RESIZE, resizeHandler);
 			menuMovie.bgMovie.width = stage.stageWidth;
+			
+			cursorMovie = new MouseCursor();
+			cursorMovie.mouseChildren = cursorMovie.mouseEnabled = false;
+			stage.addChild(cursorMovie);
+			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_NORMAL, cursorEventHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_BUSY, cursorEventHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_SPAN, cursorEventHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_ROTATE_LEFT, cursorEventHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_ROTATE_RIGHT, cursorEventHandler);
+			this.stage.addEventListener(PageEvent.CURSOR_NULL, cursorEventHandler);
 		}
 		
 		private function resizeHandler(event: Event): void {
@@ -127,24 +131,17 @@
 			var oldY: Number;
 			// resize menu
 			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
-			menuMovie.y = (668 - GlobalVars.windowsHeight) / 2 + 20;
+			menuMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 20;
 			homePageMovie.resize();
 			//if (currentPageMovie)	currentPageMovie.resize();
 			//if (currentPopUp)	currentPopUp.resize();
 			
 			//TEST
-			GlobalVars.windowsWidth = 1002;
-			GlobalVars.windowsHeight = 668;
+			GlobalVars.windowsWidth = GlobalVars.movieWidth;
+			GlobalVars.windowsHeight = GlobalVars.movieHeight;
 		}
 		
 		private function cursorEventHandler(event: PageEvent): void {
-			/*switch (event.type) {
-				case PageEvent.CURSOR_NORMAL:
-				case PageEvent.CURSOR_BUSY:
-				case PageEvent.CURSOR_SPAN:
-				case PageEvent.CURSOR_ROTATE_LEFT:
-				case PageEvent.CURSOR_ROTATE_RIGHT:
-			}*/
 			cursorMovie.gotoAndStop(event.type);
 		}
 		
@@ -152,7 +149,7 @@
 			cursorMovie.x = this.mouseX;
 			cursorMovie.y = this.mouseY;
 			this.setChildIndex(menuMovie, this.numChildren - 1);
-			this.setChildIndex(cursorMovie, this.numChildren - 1);
+			this.stage.setChildIndex(cursorMovie, this.numChildren - 1);
 		}
 		
 		private function initSWFAddressHandler(event: SWFAddressEvent): void {
@@ -396,18 +393,14 @@
 		
 		private function init():void {
 			this.mouseEnabled = this.mouseChildren = false;
-			cursorMovie.mouseChildren = cursorMovie.mouseEnabled = false;
 			Mouse.hide();
-			//createMenu();
 			menuMovie.visible = false;
 			pageMovieArray = new Array();
 			
 			activeLoading();
 			
-			GlobalVars.windowsWidth = 1002;
-			GlobalVars.windowsHeight = 668;
-			//GlobalVars.windowsWidth = 1280;
-			//GlobalVars.windowsHeight = 700;
+			GlobalVars.windowsWidth = GlobalVars.movieWidth;
+			GlobalVars.windowsHeight = GlobalVars.movieHeight;
 			
 			// Use flashVars: xmlPath = "......"
 			// If not exist, use default flashconfig.xml

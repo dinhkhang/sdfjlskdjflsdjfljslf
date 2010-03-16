@@ -1,12 +1,13 @@
 ﻿package com.dutchlady.pages {
+	import com.dutchlady.common.GlobalVars;
 	import flash.display.MovieClip;
 	/**
 	 * ...
 	 * @author ... Mr. Coder
 	 */
 	public class BasePage extends MovieClip {
-		public var pageWidth: Number = 1002;
-		public var pageHeight: Number = 668;
+		public var pageWidth: Number = GlobalVars.movieWidth;
+		public var pageHeight: Number = GlobalVars.movieHeight;
 		
 		public function BasePage() {
 			this.visible = false;
