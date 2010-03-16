@@ -23,11 +23,16 @@
 		public var fireFlyMovie: MovieClip;
 		
 		public function HomePage() {
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+		
+		private function addedToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			//TweenLite.to(fireFlyMovie, 2, { x: 70, ease: None.easeNone, onComplete: fireFlyTweenCompleteHandler } );
 			milkBox = new MilkBox();
 			milkBox.x = -300;
 			milkBox.y = -300;
-			milkBox.visible = false;
+			//milkBox.visible = false;
 			milkBox.addEventListener(MilkBox.CREATION_COMPLETE, milkBoxCreationCompleteHandler);
 			milkBoxHolder.y = 290;
 			milkBoxHolder.addChild(milkBox);
@@ -50,9 +55,9 @@
 		}
 		
 		private function milkBoxCreationCompleteHandler(event: Event): void {
-			milkBox.visible = true;
-			milkBox.alpha = 0;
-			TweenLite.to(milkBox, 2, { alpha: 1, ease: None.easeNone } );
+			//milkBox.visible = true;
+			//milkBox.alpha = 0;
+			//TweenLite.to(milkBox, 2, { alpha: 1, ease: None.easeNone } );
 			this.dispatchEvent(new Event(Event.COMPLETE));
 		}
 		

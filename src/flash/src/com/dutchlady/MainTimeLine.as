@@ -70,14 +70,8 @@
 			
 			Tracker.trackLandingPage();
 			
-			stage.stageFocusRect = false;
-			
 			//GlobalVars.mainTimeLine = this;
-			init();
 			initEvents();
-			
-			zoomInBoxFaceHolder = new Sprite();
-			addChild(zoomInBoxFaceHolder);
 		}
 		
 		private function initEvents():void {
@@ -106,10 +100,13 @@
 		}
 		
 		private function addedToStageHandler(event: Event): void {
+			init();
+			zoomInBoxFaceHolder = new Sprite();
+			addChild(zoomInBoxFaceHolder);
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			stage.addEventListener(Event.RESIZE, resizeHandler);
 			menuMovie.bgMovie.width = stage.stageWidth;
-			
+			stage.stageFocusRect = false;
 			cursorMovie = new MouseCursor();
 			cursorMovie.mouseChildren = cursorMovie.mouseEnabled = false;
 			stage.addChild(cursorMovie);
@@ -135,6 +132,11 @@
 			homePageMovie.resize();
 			//if (currentPageMovie)	currentPageMovie.resize();
 			//if (currentPopUp)	currentPopUp.resize();
+			//	resize loading(s)
+			loadingGame1Movie.boardMovie.y = menuMovie.y + menuMovie.height;
+			loadingGame1Movie.loadingMovie.y = loadingGame1Movie.boardMovie.y + loadingGame1Movie.boardMovie.height + 20;
+			loadingGame2Movie.boardMovie.y = menuMovie.y + menuMovie.height; 
+			loadingGame2Movie.loadingMovie.y = loadingGame2Movie.boardMovie.y + loadingGame2Movie.boardMovie.height + 20;
 			
 			//TEST
 			GlobalVars.windowsWidth = GlobalVars.movieWidth;

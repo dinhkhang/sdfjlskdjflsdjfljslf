@@ -153,7 +153,7 @@
 		
 		private function tourAssetLoadCompleteHandler(event: Event): void {
 			trace("tourAssetLoadCompleteHandler");
-			setTimeout(init3DWorld,1000);
+			init3DWorld();
 		}
 		
 		private function createBoxFaceMatetial(content: DisplayObject, materialName: String, light: PointLight3D, animated: Boolean = false):MaterialObject3D {

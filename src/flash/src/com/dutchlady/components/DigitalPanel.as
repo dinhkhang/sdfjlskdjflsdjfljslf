@@ -3,6 +3,7 @@
 	import com.dutchlady.http.HttpServiceEvent;
 	import com.dutchlady.services.AppServices;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -28,6 +29,11 @@
 			contentText.autoSize = TextFieldAutoSize.RIGHT;
 			missingZeroText.autoSize = TextFieldAutoSize.RIGHT;
 			update("");
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		}
+		
+		private function addedToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			getData();
 		}
 		

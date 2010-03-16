@@ -1,0 +1,15 @@
+﻿<flash_project name="Flash Project" version="1">
+    <project_folder name="bin" expanded="true">
+        <project_file path="../bin/main.swf" filetype="swf" />
+    </project_folder>
+    <project_file path="./upload_image.fla" filetype="fla" profile="" />
+    <project_file path="./standard.fla" filetype="fla" profile="" />
+    <project_file path="./share.fla" filetype="fla" profile="" />
+    <project_file path="./mainpage.fla" filetype="fla" profile="" />
+    <project_file path="./iLove.fla" filetype="fla" profile="" />
+    <project_file path="./home.fla" filetype="fla" profile="" />
+    <project_file path="./factory.fla" filetype="fla" profile="" />
+    <project_file path="./box04.fla" filetype="fla" profile="" />
+    <project_file path="./getmilk.fla" filetype="fla" profile="" />
+    <project_file path="./preloader.fla" filetype="fla" profile="" />
+</flash_project>
