@@ -79,7 +79,7 @@
 			var popup: TourPopUp = new TourPopUp('<font size="20">' + title + '</font><br/>' + description);
 			popup.addEventListener(Event.CLOSE, popupCloseHandler, false, 0, true);
 			//this.mouseChildren = this.mouseEnabled = false;
-			this.stage.addChild(popup);
+			this.stage.addChildAt(popup, 1);
 			popup.x = GlobalVars.movieWidth / 2;
 			popup.y = GlobalVars.movieHeight / 2;
 		}
