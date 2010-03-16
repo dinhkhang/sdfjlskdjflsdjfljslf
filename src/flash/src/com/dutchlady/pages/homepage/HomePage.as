@@ -29,7 +29,7 @@
 			milkBox.y = -300;
 			milkBox.visible = false;
 			milkBox.addEventListener(MilkBox.CREATION_COMPLETE, milkBoxCreationCompleteHandler);
-			milkBoxHolder.y = 310;
+			milkBoxHolder.y = 290;
 			milkBoxHolder.addChild(milkBox);
 			
 			game1Button.addEventListener(MouseEvent.CLICK, gameClickHandler);

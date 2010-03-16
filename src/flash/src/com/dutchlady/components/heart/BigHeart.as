@@ -1,5 +1,6 @@
 ﻿package com.dutchlady.components.heart {
 	import com.dutchlady.common.GlobalVars;
+	import com.dutchlady.events.PageEvent;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -20,7 +21,10 @@
 		
 		public var itemArray: Array;	// Array of all movieclips inside big heart
 		public var urlArray: Array;
+		public var profileIdArray: Array;
 		public var isSearchMode: Boolean = false;
+		
+		private var downloadFileRef: FileReference;
 		
 		public function BigHeart() {
 			init();			
@@ -44,21 +48,30 @@
 		
 		private function sendToFriendClickHandler(event: MouseEvent): void {
 			//	
+			var profileId: String = profileIdArray[int(event.currentTarget.parent.thumbMovie.getChildAt(0).name)];
+			var newEvent: PageEvent = new PageEvent(PageEvent.ILOVE_SEND_TO_FRIEND, true);
+			newEvent.profileId = profileId;
+			dispatchEvent(newEvent);
 		}
 		
 		private function saveImageClickHandler(event: MouseEvent): void {
-			var downloadFileRef: FileReference = new FileReference();			
-			downloadFileRef.download(new URLRequest(urlArray[int(event.currentTarget.parent.thumbMovie.getChildAt(0).name)].replace("_thumbnail.png",".png")), "dutch_lady.png");
+			downloadFileRef = new FileReference();	
+			var url: String = urlArray[int(event.currentTarget.parent.thumbMovie.getChildAt(0).name)].replace("_thumbnail.png", "_download.png");
+			downloadFileRef.download(new URLRequest(url), "dutch_lady.png");
 		}
 		
 		public function setData(xml: XML): void {
 			init();
 			var ns: Namespace = xml.namespace();
+			var list: Array;
 			
 			urlArray = new Array();
+			profileIdArray = new Array();
 			var count: int = xml.ns::string.length();
 			for (var i: int = 1; i < count; i++) {
-				urlArray.push(xml.ns::string[i].toString().split("|")[1].replace(".png","_thumbnail.png") );
+				list = xml.ns::string[i].toString().split("|");
+				profileIdArray.push(list[0]);
+				urlArray.push(list[1].replace(".png", "_thumbnail.png") );
 				//trace(urlArray[urlArray.length - 1]);
 			}
 			processURLArray();

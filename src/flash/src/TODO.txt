@@ -100,7 +100,7 @@ Khi re chuot qua nut xoat bien mat bieu tuong zoom in/ zoom out
 
 
 # slide 5
-# slide 9: cai hop thut vao trong hoi kho vi cai bong da o co dinh o 1 vi tri
+# slide 9: cai hop thut vao trong hoi kho vi cai bong da o co dinh o 1 vi tri <--DONE
 # slide 13 <--- DONE
 # slide 14 <-- DONE
 # slide 18 <-- DONE

@@ -23,6 +23,7 @@
 		public var boardParentMovie: ILoveBoard;
 		public var containerMovie: BigHeart;
 		public var combox: ComboBox;
+		public var sendToFriendMovie: SendSearchedImageToFriend;
 		
 		private var currentPageIndex:int = 0;
 		private var xml: XML;
@@ -43,6 +44,13 @@
 			combox.addEventListener(Event.CHANGE, comboxChangeHandler);
 			
 			containerMovie.mouseEnabled = containerMovie.mouseChildren = false;
+			
+			sendToFriendMovie.visible = false;
+			this.addEventListener(PageEvent.ILOVE_SEND_TO_FRIEND, sendToFriendHandler);
+		}
+		
+		private function sendToFriendHandler(event: PageEvent): void {
+			showSendToFriend(event.profileId);
 		}
 		
 		private function comboxChangeHandler(event: Event): void {
@@ -114,7 +122,16 @@
 			combox.visible = true;
 			boardParentMovie.autoXY = true;
 			containerMovie.mouseEnabled = containerMovie.mouseChildren = true;
-		} 
+		}
+		
+		private function showSendToFriend(profileId: String):void {
+			var point: Point = new Point((GlobalVars.windowsWidth - sendToFriendMovie.width) / 2 , (GlobalVars.windowsHeight - sendToFriendMovie.height) / 2);
+			point = this.globalToLocal(point);
+			sendToFriendMovie.x = point.x;
+			sendToFriendMovie.y = point.y;
+			sendToFriendMovie.profileId = profileId;
+			sendToFriendMovie.visible = true;
+		}
 	}
 
 }
