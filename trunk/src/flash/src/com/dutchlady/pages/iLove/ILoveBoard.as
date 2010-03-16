@@ -36,7 +36,6 @@
 			searchButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 			startButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
 
-			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}
 		
 		private function enterFrameHandler(event: Event): void {
@@ -88,6 +87,10 @@
 			}
 		}
 		
+		public function set autoXY(value): void {
+			if (value)	this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			else this.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+		}
 	}
 
 }

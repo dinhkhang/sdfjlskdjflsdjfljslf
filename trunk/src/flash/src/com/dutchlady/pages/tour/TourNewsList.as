@@ -5,6 +5,7 @@
 	import fl.video.FLVPlayback;
 	import flash.display.SimpleButton;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	/**
 	 * ...
@@ -21,6 +22,13 @@
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
 			service.getTourNews();
+			
+			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+		}
+		
+		private function removedFromStageHandler(event: Event): void {
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			flvPlayback.stop();
 		}
 		
 		private function getDataResultHandler(event: HttpServiceEvent): void {
@@ -44,23 +52,15 @@
 				addChild(item);
 			}
 			
-			flvPlayback.buttonMode = true;
-			flvPlayback.autoPlay = true;
-			//flvPlayback.source = "http://www.toiyeucogaihalan.com/staging/video/DL_Heart_S30s.flv";
-			trace( "flvPlayback.source : " + flvPlayback.source );
-			flvPlayback.addEventListener(MouseEvent.CLICK, videoClickHandler);
-			playButton.visible = false;
+			//playButton.alpha = 0;
 			playButton.addEventListener(MouseEvent.CLICK, playClickHandler);
 		}
-		
-		private function videoClickHandler(event: MouseEvent): void {
-			flvPlayback.pause();
-			playButton.visible = true;
-		}
-		
+
 		private function playClickHandler(event: MouseEvent): void {
-			flvPlayback.play();
-			playButton.visible = false;
+			if (playButton.alpha == 1)	flvPlayback.play();
+			else flvPlayback.stop();
+			if(playButton.alpha == 1)	playButton.alpha = 0;
+			else	playButton.alpha = 1;
 		}
 		
 		private function getDataFaultHandler(event: HttpServiceEvent): void {

@@ -1,14 +1,11 @@
 ﻿package com.dutchlady.components {
 	import com.dutchlady.common.GlobalVars;
-	import com.dutchlady.components.milkbox.HandCursor;
 	import com.dutchlady.events.PageEvent;
-	import com.dutchlady.pages.iLove.ILove;
-	import fl.transitions.Tween;
+	import com.dutchlady.pages.BasePopUp;
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.ui.Mouse;
 	import gs.TweenLite;
 	/**
 	 * ...
@@ -53,10 +50,11 @@
 			coverMovie.graphics.endFill();
 			contentMovie.addChildAt(coverMovie, 0);
 			
-			if (contentMovie is ILove)	{
+			/*if (contentMovie is ILove)	{
 				ILove(contentMovie).boardParentMovie.visible = true;
 				ILove(contentMovie).combox.visible = true;
-			}
+			}*/
+			if (contentMovie is BasePopUp)	BasePopUp(contentMovie).playPopUp();
 			
 			oldY = contentMovie.y;
 			newY = contentMovie.y;

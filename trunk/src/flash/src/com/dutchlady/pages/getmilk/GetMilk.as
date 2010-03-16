@@ -413,24 +413,6 @@
 		public function startGame(time:Number = 90): void {
 			gameTime = time;
 			
-			/*cow1Movie.goWaitingForGrass();
-			cow2Movie.goWaitingForGrass();
-			cow3Movie.goWaitingForGrass();
-			cow4Movie.goWaitingForGrass();
-			cow5Movie.goWaitingForGrass();
-			
-			trough1Movie.overable = true;
-			trough2Movie.overable = true;
-			trough3Movie.overable = true;
-			trough4Movie.overable = true;
-			trough5Movie.overable = true;
-			
-			trough1Movie.isGoAway = false;
-			trough2Movie.isGoAway = false;
-			trough3Movie.isGoAway = false;
-			trough4Movie.isGoAway = false;
-			trough5Movie.isGoAway = false;*/
-			
 			grassCow1.reset();
 			grassCow2.reset();
 			grassCow3.reset();
@@ -450,6 +432,8 @@
 			ladyMovie.y = 370;
 			ladyMovie.addEventListener(DutchLady.ACTION_COMPLETE, ladyStartCompleteHandler);
 			ladyMovie.smartWalkTo(new Point(890, 370));
+			
+			resultMovie.visible = false;
 		}
 		
 		private function ladyStartCompleteHandler(event: Event): void {
