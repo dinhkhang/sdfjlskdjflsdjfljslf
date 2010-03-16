@@ -17,13 +17,19 @@
 		public var flvPlayback: FLVPlayback;
 		
 		public function TourNewsList() {
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);			
+			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			
 			var service: AppServices = new AppServices(Configuration.instance.getTourNewsServiceUrl);
 			//var service: AppServices = new AppServices("http://demo.intelligent-content.net/flashapi/FlashServices.asmx/GetContents");
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
 			service.getTourNews();
+		}
+		
+		private function addedToStageHandler(event: Event): void {
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
-			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 		}
 		
 		private function removedFromStageHandler(event: Event): void {
@@ -44,6 +50,8 @@
 			for (var i: int = 0; i < newsList.length(); i++) {
 				contentXml = newsList[i];
 				item = new TourNewsItem();
+				item.title = contentXml.ns::Title;
+				item.body = contentXml.ns::Body;
 				item.update(contentXml.ns::Id, contentXml.ns::PhotoUrl, contentXml.ns::Title, contentXml.ns::Description);
 				item.y = posY;
 				

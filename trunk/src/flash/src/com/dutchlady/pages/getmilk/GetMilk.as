@@ -12,6 +12,8 @@
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Mouse;
+	import flash.utils.clearInterval;
+	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	import gs.TweenLite;
 	/**
@@ -59,8 +61,8 @@
 		private var orderArray1: Array;
 		private var orderArray2: Array;
 		private var gameTime: Number;
-		
-		private var gameOver: Boolean = false;
+		private var timeout: uint;
+		private var gameOver: Boolean = true;
 		
 		public function GetMilk() {
 			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);			
@@ -434,6 +436,9 @@
 			ladyMovie.smartWalkTo(new Point(890, 370));
 			
 			resultMovie.visible = false;
+			gameOver = false;
+			
+			timeout = setInterval(checkGameResult, 1000);
 		}
 		
 		private function ladyStartCompleteHandler(event: Event): void {
@@ -446,6 +451,7 @@
 		}
 		
 		private function stopGame(): void {
+			clearInterval(timeout);
 			clockMovie.stopClock();
 			this.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
 		}

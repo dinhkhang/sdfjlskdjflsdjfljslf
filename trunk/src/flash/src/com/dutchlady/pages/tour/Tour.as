@@ -13,7 +13,7 @@
 		public var containerMovie: TourNewsContainer;
 		
 		public function Tour() {
-
+			this.mouseEnabled = this.mouseChildren = false;
 		}
 	
 		override public function playPopUp(): void {
@@ -22,6 +22,8 @@
 			listMovie.flvPlayback.visible = true;
 			listMovie.playButton.visible = true;
 			listMovie.playButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			
+			this.mouseEnabled = this.mouseChildren = true;
 		}
 	}
 }

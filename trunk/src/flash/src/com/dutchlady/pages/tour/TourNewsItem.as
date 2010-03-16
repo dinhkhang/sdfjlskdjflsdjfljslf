@@ -23,8 +23,8 @@
 		public var descriptionText	: TextField;
 		
 		private var tourId: String;
-		private var title: String;
-		private var description: String;
+		public var title: String;
+		public var body: String;
 		
 		public function TourNewsItem() {
 		}
@@ -37,10 +37,10 @@
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, thumbLoadIOErrorHandler);
 			loader.load(new URLRequest(thumbUrl));
 			
-			this.title = title;
-			this.description = description;
+			//this.title = title;
+			//this.description = description;
 			titleText.text = StringUtil.fixStringInTextField(titleText, title);
-			descriptionText.text = StringUtil.fixStringInTextField(descriptionText, description);
+			descriptionText.text = StringUtil.fixStringInTextField(descriptionText, description, 2);
 			
 			this.addEventListener(MouseEvent.ROLL_OVER, rollOverHanlder);
 			this.addEventListener(MouseEvent.ROLL_OUT, rollOutHanlder);
@@ -49,7 +49,7 @@
 		
 		private function rollOverHanlder(event: MouseEvent): void {
 			var colorTrans: ColorTransform = titleText.transform.colorTransform;
-			colorTrans.color = 0xFF0000;
+			colorTrans.color = 0x0000FF;
 			titleText.transform.colorTransform = colorTrans;
 		}
 		
@@ -76,7 +76,7 @@
 			//trace("TourNewsItem clickHandler");
 			//var url: String = Configuration.instance.viewTourItemUrl + "?id=" + tourId;
 			//navigateToURL(new URLRequest(url), "_blank");
-			var popup: TourPopUp = new TourPopUp('<font size="20">' + title + '</font><br/>' + description);
+			var popup: TourPopUp = new TourPopUp('<font size="20">' + title + '</font><br/><br/><br/>' + body);
 			popup.addEventListener(Event.CLOSE, popupCloseHandler, false, 0, true);
 			//this.mouseChildren = this.mouseEnabled = false;
 			this.stage.addChildAt(popup, 1);

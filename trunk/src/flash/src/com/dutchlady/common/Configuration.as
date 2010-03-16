@@ -21,7 +21,8 @@
 		}
 		
 		public function get defaultGateway():String {
-			return configXml.services.gatewayUrl[0].toString();
+			if (configXml)	return configXml.services.gatewayUrl[0].toString();
+			else return "http://fs.toiyeucogaihalan.com//FlashAPI/";
 			//return "http://demo.intelligent-content.net/FlashAPI/FlashServices.asmx";
 		}
 		
@@ -30,7 +31,8 @@
 		}
 		
 		public function get uploadedImageBaseUrl(): String {
-			return configXml.services.uploadedImageBaseUrl[0];
+			if (configXml)	return configXml.services.uploadedImageBaseUrl[0];
+			else return "http://fs.toiyeucogaihalan.com//uploads/";
 		}
 		
 		public function get uploadedThumbBaseUrl(): String {
@@ -66,7 +68,8 @@
 		}
 		
 		public function get viewTourItemUrl():String {
-			return configXml.services.viewTourItemUrl[0].toString();
+			if (configXml)	return configXml.services.viewTourItemUrl[0].toString();
+			else return "http://demo.intelligent-content.net/hanhtrinh.aspx";
 		}
 	}
 
