@@ -42,8 +42,11 @@
 		
 		// Heart event
 		public static const ILOVE_SEARCH: String = "ilove_search";
+		public static const ILOVE_SEND_TO_FRIEND: String = "ilove_send_to_friend";
 		
 		public static const PAGE_LOADING_COMPLETE: String = "page_loading_complete";
+		
+		public var profileId: String;
 		
 		public function PageEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) { 
 			super(type, bubbles, cancelable);
