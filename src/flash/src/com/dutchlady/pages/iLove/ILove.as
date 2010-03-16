@@ -4,6 +4,7 @@
 	import com.dutchlady.components.heart.BigHeart;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.http.HttpServiceEvent;
+	import com.dutchlady.pages.BasePopUp;
 	import com.dutchlady.services.AppServices;
 	import fl.controls.ComboBox;
 	import flash.display.MovieClip;
@@ -17,7 +18,7 @@
 	 * ...
 	 * @author ... Mr. Coder
 	 */
-	public class ILove extends MovieClip {
+	public class ILove extends BasePopUp {
 		
 		public var boardParentMovie: ILoveBoard;
 		public var containerMovie: BigHeart;
@@ -27,11 +28,6 @@
 		private var xml: XML;
 		
 		public function ILove() {			
-			/*var urlLoader: URLLoader = new URLLoader();
-			urlLoader.addEventListener(Event.COMPLETE, xmlLoadCompleteHandler);
-			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			urlLoader.load(new URLRequest("xml/big_heart_service.xml"));*/
-			
 			boardParentMovie.visible = false;
 			boardParentMovie.buttonMovie.buttonMode = true;
 			boardParentMovie.buttonMovie.addEventListener(MouseEvent.CLICK, buttonClickHandler);
@@ -45,6 +41,8 @@
 			
 			combox.visible = false;
 			combox.addEventListener(Event.CHANGE, comboxChangeHandler);
+			
+			containerMovie.mouseEnabled = containerMovie.mouseChildren = false;
 		}
 		
 		private function comboxChangeHandler(event: Event): void {
@@ -52,7 +50,7 @@
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
 			currentPageIndex = combox.selectedIndex;
-			service.getProfile("", 10, combox.selectedItem.data);
+			service.getProfile("", 10, combox.selectedItem.data);			
 		}
 		
 		private function searchHandler(event: PageEvent): void {
@@ -61,6 +59,7 @@
 			service.addEventListener(HttpServiceEvent.RESULT, getDataResultHandler);
 			service.addEventListener(HttpServiceEvent.FAULT, getDataFaultHandler);
 			service.getProfile(target.emailText.text);
+			containerMovie.isSearchMode = true;
 		}
 		
 		private function buttonClickHandler(event: MouseEvent): void {
@@ -74,7 +73,7 @@
 		}
 		
 		private function getDataResultHandler(event: HttpServiceEvent): void {
-			xml = new XML(String(event.result));
+			xml = new XML(String(event.result));			
 			containerMovie.setData(xml);
 			var ns: Namespace = xml.namespace();
 			var numPage: int;
@@ -82,7 +81,6 @@
 			if (numPage) {
 				combox.removeAll();
 				for (var i: int = 1; i <= numPage; i++) {
-					trace( "Add Item i : " + i );
 					combox.addItem( {label: i.toString(), data: i} );
 				}
 				combox.selectedIndex = currentPageIndex;
@@ -109,6 +107,14 @@
 			super.y = value;
 			//orderBoard();
 		}
+		
+		override public function playPopUp(): void {
+			super.playPopUp();
+			boardParentMovie.visible = true;
+			combox.visible = true;
+			boardParentMovie.autoXY = true;
+			containerMovie.mouseEnabled = containerMovie.mouseChildren = true;
+		} 
 	}
 
 }

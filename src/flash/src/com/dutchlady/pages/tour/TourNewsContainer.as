@@ -11,6 +11,7 @@
 	 * @author Hai Nguyen
 	 */
 	public class TourNewsContainer extends Sprite {
+		public var listMovie: TourNewsList;
 		
 		public function TourNewsContainer() {
 		}		
