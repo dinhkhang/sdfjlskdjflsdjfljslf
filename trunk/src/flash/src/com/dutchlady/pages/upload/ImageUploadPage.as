@@ -52,11 +52,17 @@
 		
 		private function reset():void {
 			uploadFormMovie.visible = true;
+			uploadFormMovie.tabChildren = true;
+			
 			sendToFriendMovie.visible = true;
+			sendToFriendMovie.tabChildren = false;
+			
 			uploadResultMovie.visible = false;
 	
 			uploadFormMovie.reset();
 			sendToFriendMovie.reset();
+			
+			
 			
 			//
 			//uploadFormMovie.visible = false;

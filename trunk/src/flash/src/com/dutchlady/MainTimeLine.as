@@ -226,7 +226,7 @@
 			bitmap.y = GlobalVars.windowsHeight / 2 - bitmap.height / 2 + 50;
 			this.addChild(bitmap);
 			
-			TweenLite.to(bitmap, 1, { scaleX: 0.05, scaleY: 0.05, onUpdate: showUploadedImageUpdateHanlder, onUpdateParams:[bitmap], onComplete: showUploadedImageCompleteHanlder, onCompleteParams: [bitmap] } );
+			TweenLite.to(bitmap, 2.5, { scaleX: 0.05, scaleY: 0.05, onUpdate: showUploadedImageUpdateHanlder, onUpdateParams:[bitmap], onComplete: showUploadedImageCompleteHanlder, onCompleteParams: [bitmap] } );
 		}
 		
 		private function showUploadedImageUpdateHanlder(bitmap: Bitmap):void {
