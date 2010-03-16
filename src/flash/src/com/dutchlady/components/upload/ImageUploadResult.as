@@ -39,6 +39,12 @@
 		private function sendToFriendButtonClickHandler(event: MouseEvent): void {
 			this.visible = false;
 			parent["sendToFriendMovie"].visible = true;
+			parent["sendToFriendMovie"].tabChildren = true;
+			
+			if (parent["uploadFormMovie"]) {
+				parent["sendToFriendMovie"].senderFullnameText.text = parent["uploadFormMovie"].fullNameText.text;
+				parent["sendToFriendMovie"].senderEmailText.text = parent["uploadFormMovie"].emailText.text;
+			}
 		}
 		
 		private function saveImageButtonClickHandler(event: MouseEvent): void {

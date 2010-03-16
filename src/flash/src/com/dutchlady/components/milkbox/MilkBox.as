@@ -11,6 +11,7 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.filters.BitmapFilterQuality;
 	import flash.filters.BlurFilter;
 	import flash.geom.ColorTransform;
 	import flash.geom.Point;
@@ -161,6 +162,7 @@
 			material.oneSide = true;
 			//heartMaterial.smooth = true;
 			material.name = materialName;
+			material.bitmap.applyFilter(material.bitmap, material.bitmap.rect, new Point(0, 0), new BlurFilter(4, 4, BitmapFilterQuality.LOW));
 			
 			return material;
 			

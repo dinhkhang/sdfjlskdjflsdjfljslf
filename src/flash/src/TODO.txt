@@ -96,3 +96,15 @@ làm sau
 -------------------
 Khi re chuot qua nut xoat bien mat bieu tuong zoom in/ zoom out
   
+
+
+
+# slide 5
+# slide 9: cai hop thut vao trong hoi kho vi cai bong da o co dinh o 1 vi tri
+# slide 13 <--- DONE
+# slide 14 <-- DONE
+# slide 18 <-- DONE
+# slide 19: cai nay se mat thoi gian nhieu nguyen nhan viec dong bo viec quay kho' <-- DONE
+# slide 27
+# slide 28 <-- DONE
+# slide 29: cai nay hau nhu khong the vi chat luong render trong 3D bi gioi han <-- DONE
