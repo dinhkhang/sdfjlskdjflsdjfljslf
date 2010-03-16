@@ -21,6 +21,7 @@
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.system.Security;
 	import flash.ui.Mouse;
 	import flash.utils.setTimeout;
 	import gs.easing.Strong;
@@ -65,6 +66,8 @@
 		private var siteParam: String;
 		
 		public function MainTimeLine() {
+			Security.loadPolicyFile("http://www.toiyeucogaihalan.com/crossdomain.xml");
+			
 			Tracker.trackLandingPage();
 			
 			stage.stageFocusRect = false;
