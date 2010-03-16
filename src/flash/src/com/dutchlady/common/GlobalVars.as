@@ -7,7 +7,8 @@
 	 * @author ... Mr. Coder
 	 */
 	public class GlobalVars{
-		
+		public static const movieWidth		: Number = 1002;
+		public static const movieHeight		: Number = 668;
 		public static var windowsWidth		: Number;
 		public static var windowsHeight		: Number;
 		

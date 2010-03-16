@@ -329,7 +329,7 @@
 				}
 				//newBoxRotationAngle += (this.mouseX - (this.width / 2)) / 50;
 				//showCustomCursor();
-				
+				this.dispatchEvent(new PageEvent(PageEvent.CURSOR_ZOOM, true));
 				var point: Point = localToGlobal(new Point(this.mouseX, this.mouseY));
 				if (leftRotationIcon.hitTestPoint(point.x, point.y) || rightRotationIcon.hitTestPoint(point.x, point.y)) {
 					//Mouse.show();
@@ -341,7 +341,7 @@
 			} else {
 				isInBox = false;
 				//hideCustomCursor();
-				
+				this.dispatchEvent(new PageEvent(PageEvent.CURSOR_NORMAL, true));
 				if (isAutoRotate) {
 					newBoxRotationAngle -= 0.2;
 				} timer.start();
