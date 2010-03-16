@@ -1,4 +1,5 @@
 ﻿package com.dutchlady.components.heart {
+	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -71,6 +72,7 @@
 			loader.x = -loader.width / 2;
 			loader.y = -loader.height / 2;
 			while (movie.numChildren) movie.removeChildAt(0);
+			Bitmap(loader.contentLoaderInfo.content).smoothing = true;
 			movie.addChild(loader);
 			movie.alpha = 0;
 			movie.visible = true;

@@ -1,6 +1,7 @@
 ﻿package com.dutchlady.components.upload {
 	import com.dutchlady.common.Configuration;
 	import com.dutchlady.common.GlobalVars;
+	import com.dutchlady.common.Tracker;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.services.AppServices;
 	import flash.display.MovieClip;
@@ -59,6 +60,8 @@
 			
 			// update donate
 			if (!isDownloaded) {
+				Tracker.trackUpdateDonate();
+				
 				isDownloaded = true;
 				var service: AppServices = new AppServices(Configuration.instance.updateDonateServiceUrl);
 				service.updateDonate("Save-To-My-Computer");

@@ -1,6 +1,7 @@
 ﻿package com.dutchlady {
 	import com.dutchlady.common.Configuration;
 	import com.dutchlady.common.GlobalVars;
+	import com.dutchlady.common.Tracker;
 	import com.dutchlady.components.Popup;
 	import com.dutchlady.events.PageEvent;
 	import com.dutchlady.pages.BasePage;
@@ -64,6 +65,8 @@
 		private var siteParam: String;
 		
 		public function MainTimeLine() {
+			Tracker.trackLandingPage();
+			
 			stage.stageFocusRect = false;
 			
 			//GlobalVars.mainTimeLine = this;
@@ -202,6 +205,8 @@
 		private function updateDonate(functionName: String):void {
 			var service: AppServices = new AppServices(Configuration.instance.updateDonateServiceUrl);
 			service.updateDonate(functionName);
+			
+			Tracker.trackUpdateDonate();
 		}
 		
 		private function showUploadedImage():void {
@@ -292,19 +297,23 @@
 					break;
 				//////////////////////////////////////////////////////////////////////
 				case PageEvent.GO_TO_GETMILKPAGE:
+					Tracker.trackPlayGame();
+				
 					this.setChildIndex(loadingGame1Movie, this.numChildren - 2);
 					loadingMovie = loadingGame1Movie;
 					loadPage("getMilk");
 					//selectedMenuItem();
 					break;
 				case PageEvent.GO_TO_FACTORYPAGE:
+					Tracker.trackPlayGame();
+				
 					this.setChildIndex(loadingGame2Movie, this.numChildren - 2);
 					loadingMovie = loadingGame2Movie;
 					loadPage("factory");
 					//selectedMenuItem();
 					break;
 				case PageEvent.GO_TO_UPLOADPAGE:
-				
+					Tracker.trackGotoUploadPage();
 					loadPage("upload");
 					//selectedMenuItem(menuMovie.uploadMovie);
 					break;
