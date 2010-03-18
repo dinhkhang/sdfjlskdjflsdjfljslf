@@ -95,7 +95,9 @@
 		override public function resize(): void {
 			super.resize();
 			fireFlyMovie.x = GlobalVars.windowsWidth + (GlobalVars.movieWidth - GlobalVars.windowsWidth) / 2 - fireFlyMovie.width - 20; 
-			fireFlyMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 50; 
+			fireFlyMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 50;
+			//if (GlobalVars.windowsHeight > GlobalVars.movieHeight)	fireFlyMovie.y -= (GlobalVars.windowsHeight - GlobalVars.movieHeight) / 2;
+			//trace( "fireFlyMovie.y : " + fireFlyMovie.y );
 		}
 	}
 

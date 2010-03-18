@@ -123,17 +123,19 @@
 			trace("stageWidth: " + stage.stageWidth + " stageHeight: " + stage.stageHeight);  
 			GlobalVars.windowsWidth = Math.min(stage.stageWidth, 1280);
 			GlobalVars.windowsHeight = Math.min(stage.stageHeight, 1024);
-			if (GlobalVars.windowsHeight > GlobalVars.movieHeight)	this.y = GlobalVars.windowsHeight - GlobalVars.movieHeight;
-			else this.y = 0;			
+			//if (GlobalVars.windowsHeight > GlobalVars.movieHeight)	this.y = (GlobalVars.windowsHeight - GlobalVars.movieHeight)/2;
+			//else this.y = 0;			
 			
 			var oldX: Number;
 			var oldY: Number;
 			// resize menu
 			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
-			menuMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 20;
-			homePageMovie.resize();
+			menuMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 20 - this.y;
+			
+			if (homePageMovie)		homePageMovie.resize();
 			if (currentPageMovie)	currentPageMovie.resize();
-			if (currentPopUp)	currentPopUp.resize();
+			if (currentPopUp)		currentPopUp.resize();
+			
 			//	resize loading(s)
 			loadingGame1Movie.boardMovie.y = menuMovie.y + menuMovie.height;
 			loadingGame1Movie.loadingMovie.y = loadingGame1Movie.boardMovie.y + loadingGame1Movie.boardMovie.height + 20;
@@ -456,9 +458,9 @@
 		}
 		
 		private function loadPopUp(name: String):void {
-			TweenLite.to(homePageMovie, 1, { scaleX: 3, scaleY: 3,
-											x: (GlobalVars.windowsWidth - homePageMovie.pageWidth*3 - 200) / 2,
-											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 300) / 2,
+			TweenLite.to(homePageMovie, 1.5, { scaleX: 4, scaleY: 4,
+											x: (GlobalVars.windowsWidth - homePageMovie.pageWidth*3 - 200) / 2 - 680,
+											y: (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 300) / 2 - 200,
 											ease: Strong.easeOut, onUpdate: updateHandler, onComplete: function() {
 					var loader: Loader = new Loader();
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, popupCompleteHandler);
@@ -490,7 +492,10 @@
 			
 			if (SWFAddress.getValue().split("/")[1] == HOMEPAGE) {
 				pageContainerMovie.setChildIndex(homePageMovie, pageContainerMovie.numChildren - 1);
-				TweenLite.to(homePageMovie, 1, { scaleX: 1, scaleY: 1, x: 0, y:0, ease: Strong.easeOut } );
+				homePageMovie.scaleX = homePageMovie.scaleY = 4;
+				homePageMovie.x = (GlobalVars.windowsWidth - homePageMovie.pageWidth * 3 - 200) / 2 - 680;
+				homePageMovie.y = (GlobalVars.windowsHeight - homePageMovie.pageHeight*3 + 300) / 2 - 200,
+				TweenLite.to(homePageMovie, 1.5, { scaleX: 1, scaleY: 1, x: 0, y:0, alpha:1, ease: Strong.easeOut } );
 				homePageMovie.mouseCheckingMode = true;	
 			}
 			else {

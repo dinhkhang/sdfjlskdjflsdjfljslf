@@ -39,7 +39,7 @@
 		}
 		
 		private function enterFrameHandler(event: Event): void {
-			var point: Point = new Point(GlobalVars.windowsWidth - (GlobalVars.windowsWidth-GlobalVars.movieWidth)/2 - this.width + 20, GlobalVars.windowsHeight - this.height - 10);
+			var point: Point = new Point(GlobalVars.windowsWidth - (GlobalVars.windowsWidth-GlobalVars.movieWidth)/2 - this.width + 20, GlobalVars.windowsHeight - (GlobalVars.windowsHeight - GlobalVars.movieHeight)/2 - this.height - 10);
 			point = this.parent.globalToLocal(point);
 			this.x = point.x;
 			this.y = point.y;
