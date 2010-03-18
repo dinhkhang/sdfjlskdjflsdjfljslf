@@ -11,6 +11,7 @@
 		}
 		
 		public function playPopUp(): void {}
+		public function closePopUp(): void {}
 		public function resize(): void {}
 	}
 

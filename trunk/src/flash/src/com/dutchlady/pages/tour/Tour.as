@@ -25,5 +25,11 @@
 			
 			this.mouseEnabled = this.mouseChildren = true;
 		}
+		
+		override public function closePopUp(): void {
+			super.closePopUp();
+			var listMovie: TourNewsList = containerMovie.listMovie as TourNewsList;
+			listMovie.flvPlayback.stop();
+		}
 	}
 }
