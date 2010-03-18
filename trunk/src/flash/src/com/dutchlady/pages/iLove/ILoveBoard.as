@@ -39,7 +39,7 @@
 		}
 		
 		private function enterFrameHandler(event: Event): void {
-			var point: Point = new Point(GlobalVars.windowsWidth - this.width + 10 , GlobalVars.windowsHeight - this.height - 10);
+			var point: Point = new Point(GlobalVars.windowsWidth - (GlobalVars.windowsWidth-GlobalVars.movieWidth)/2 - this.width + 20, GlobalVars.windowsHeight - this.height - 10);
 			point = this.parent.globalToLocal(point);
 			this.x = point.x;
 			this.y = point.y;
@@ -48,11 +48,11 @@
 		private function buttonClickHandler(event: MouseEvent): void {
 			switch (event.currentTarget) {
 				case buttonMovie:
-					if  (boardMovie.x == 0) {
-						TweenLite.to(boardMovie, 1, { x:boardMovie.width + 20, onUpdate: updateHandler, onComplete: completeHandler} );
+					if  (boardMovie.x == 0) {	//	will collapse
+						TweenLite.to(boardMovie, 1, { x:boardMovie.width, onUpdate: updateHandler, onComplete: completeHandler} );
 						//buttonMovie.gotoAndStop(2);
 					}
-					else {
+					else {	//	will expand
 						TweenLite.to(boardMovie, 1, { x:0, onUpdate: updateHandler, onComplete: completeHandler} );
 						//buttonMovie.gotoAndStop(1);
 					}

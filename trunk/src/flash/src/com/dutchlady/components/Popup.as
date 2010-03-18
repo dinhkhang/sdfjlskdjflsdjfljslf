@@ -23,10 +23,15 @@
 		
 		public function Popup(movie: MovieClip) {			
 			zoomOutButton = new ZoomOutButton();
+			zoomOutButton.scaleX = zoomOutButton.scaleY = 0.6;
 			contentMovie = movie;
 			oldW = contentMovie.width;
 			this.addChild(contentMovie);
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			
+			this.graphics.beginFill(0xFFFFFF, 0.5);
+			this.graphics.drawRect( -139, 0, 1280, 668);
+			this.graphics.endFill();			
 		}
 		
 		private function addedToStageHandler(event: Event): void {
@@ -59,12 +64,11 @@
 			oldY = contentMovie.y;
 			newY = contentMovie.y;
 			
-			this.addEventListener(Event.ENTER_FRAME, enterFramerHandler, false, 0, true);
-			
-			this.addChild(zoomOutButton);
-			zoomOutButton.x = GlobalVars.windowsWidth - zoomOutButton.width;
-			zoomOutButton.y = zoomOutButton.height * 2;
+			this.addEventListener(Event.ENTER_FRAME, enterFramerHandler, false, 0, true);			
+			this.addChild(zoomOutButton);			
 			zoomOutButton.addEventListener(MouseEvent.CLICK, zoomOutClickHandler);
+			
+			resize();
 		}
 		
 		private function zoomOutClickHandler(event: MouseEvent): void {
@@ -115,12 +119,13 @@
 		}
 		
 		public function resize(): void {
-			contentMovie.width = GlobalVars.windowsWidth;
-			contentMovie.scaleY = contentMovie.scaleX;
-			contentMovie.x = (oldW - GlobalVars.windowsWidth) / 2;
+			//contentMovie.width = GlobalVars.windowsWidth;
+			//contentMovie.scaleY = contentMovie.scaleX;
+			//contentMovie.x = (oldW - GlobalVars.windowsWidth) / 2;
 			
-			zoomOutButton.x = GlobalVars.windowsWidth - (GlobalVars.windowsWidth - oldW)/2 - zoomOutButton.width / 2;
-			zoomOutButton.y = zoomOutButton.height;
+			zoomOutButton.x = Math.min( contentMovie.width + zoomOutButton.width/2,
+					GlobalVars.windowsWidth - (GlobalVars.windowsWidth - GlobalVars.movieWidth)/2 - zoomOutButton.width/2.5);
+			zoomOutButton.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight)/2 + zoomOutButton.height + 10;
 		}
 	}
 
