@@ -62,6 +62,11 @@
 			playButton.visible = true;
 			playButton.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 		}
+		
+		override public function closePopUp(): void {
+			super.closePopUp();
+			flvPlayback.stop();
+		}
 	}
 
 }

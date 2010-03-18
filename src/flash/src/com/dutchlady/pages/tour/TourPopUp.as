@@ -18,7 +18,8 @@
 		public var closeButton: SimpleButton;
 		
 		public function TourPopUp(htmlText: String) {			
-			contentText.htmlText = htmlText;
+			contentText.htmlText = htmlText.replace("\n", "").replace("\r", "");
+			trace( "htmlText : " + htmlText );
 			scrollbarMovie.init(contentText, null, "vertical", true, false, false);
 			scrollbarMovie.visible = true;
 			closeButton.addEventListener(MouseEvent.CLICK, closeClickHandler);
