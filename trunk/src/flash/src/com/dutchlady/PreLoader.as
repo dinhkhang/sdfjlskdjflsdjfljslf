@@ -53,7 +53,8 @@
 		}
 		
 		private function queueProgressHandler(event: ProgressEvent): void {
-			loadingMovie.gotoAndStop(queueLoader.percent);
+			loadingMovie.gotoAndStop(Math.round(queueLoader.percent));
+			loadingMovie.processText.text = loadingMovie.currentFrame + " %";
 		}
 		
 		private function ioErrorHandler(event: IOErrorEvent): void {
