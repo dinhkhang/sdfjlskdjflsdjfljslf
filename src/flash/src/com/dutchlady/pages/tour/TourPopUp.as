@@ -17,9 +17,10 @@
 		public var contentText: TextField;
 		public var closeButton: SimpleButton;
 		
-		public function TourPopUp(htmlText: String) {
-			scrollbarMovie.init(contentText);
+		public function TourPopUp(htmlText: String) {			
 			contentText.htmlText = htmlText;
+			scrollbarMovie.init(contentText, null, "vertical", true, false, false);
+			scrollbarMovie.visible = true;
 			closeButton.addEventListener(MouseEvent.CLICK, closeClickHandler);
 			this.alpha = 0;
 			TweenLite.to(this, 0.5, { alpha: 1 } );

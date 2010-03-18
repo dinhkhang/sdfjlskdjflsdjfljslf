@@ -121,8 +121,8 @@
 		
 		private function resizeHandler(event: Event): void {
 			trace("stageWidth: " + stage.stageWidth + " stageHeight: " + stage.stageHeight);  
-			GlobalVars.windowsWidth = stage.stageWidth;
-			GlobalVars.windowsHeight = stage.stageHeight;
+			GlobalVars.windowsWidth = Math.min(stage.stageWidth, 1280);
+			GlobalVars.windowsHeight = Math.min(stage.stageHeight, 668);
 			
 			var oldX: Number;
 			var oldY: Number;
