@@ -27,13 +27,16 @@
 		public var body: String;
 		
 		public function TourNewsItem() {
+			titleText.text = "";
+			descriptionText.text = "";
+			this.visible = false;
 		}
 		
 		public function update(tourId: String, thumbUrl: String, title: String, description: String):void {
 			this.tourId = tourId;
 			
 			var loader: Loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.INIT, thumbLoadInitHandler);
+			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, thumbLoadInitHandler);
 			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, thumbLoadIOErrorHandler);
 			loader.load(new URLRequest(thumbUrl));
 			
@@ -45,6 +48,8 @@
 			this.addEventListener(MouseEvent.ROLL_OVER, rollOverHanlder);
 			this.addEventListener(MouseEvent.ROLL_OUT, rollOutHanlder);
 			this.addEventListener(MouseEvent.CLICK, clickHandler);
+			
+			this.visible = true;
 		}
 		
 		private function rollOverHanlder(event: MouseEvent): void {

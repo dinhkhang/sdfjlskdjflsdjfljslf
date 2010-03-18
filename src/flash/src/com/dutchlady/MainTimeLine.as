@@ -130,8 +130,8 @@
 			menuMovie.bgMovie.width = GlobalVars.windowsWidth;
 			menuMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 20;
 			homePageMovie.resize();
-			//if (currentPageMovie)	currentPageMovie.resize();
-			//if (currentPopUp)	currentPopUp.resize();
+			if (currentPageMovie)	currentPageMovie.resize();
+			if (currentPopUp)	currentPopUp.resize();
 			//	resize loading(s)
 			loadingGame1Movie.boardMovie.y = menuMovie.y + menuMovie.height;
 			loadingGame1Movie.loadingMovie.y = loadingGame1Movie.boardMovie.y + loadingGame1Movie.boardMovie.height + 20;
@@ -139,8 +139,8 @@
 			loadingGame2Movie.loadingMovie.y = loadingGame2Movie.boardMovie.y + loadingGame2Movie.boardMovie.height + 20;
 			
 			//TEST
-			GlobalVars.windowsWidth = GlobalVars.movieWidth;
-			GlobalVars.windowsHeight = GlobalVars.movieHeight;
+			//GlobalVars.windowsWidth = GlobalVars.movieWidth;
+			//GlobalVars.windowsHeight = GlobalVars.movieHeight;
 		}
 		
 		private function cursorEventHandler(event: PageEvent): void {
@@ -476,6 +476,7 @@
 			var popup: Popup = new Popup(event.currentTarget.loader.content);
 			pageContainerMovie.addChild(popup);
 			popup.addEventListener(PageEvent.POPUP_CLOSE, popupCloseHandler);
+			popup.resize();
 			currentPopUp = popup;
 			this.stage.dispatchEvent(new Event(Event.RESIZE));
 		}
