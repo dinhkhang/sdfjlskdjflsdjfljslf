@@ -44,12 +44,13 @@
 			
 			var maskMovie: MovieClip = new MovieClip();
 			maskMovie.graphics.beginFill(0, 0);
-			maskMovie.graphics.drawRect(0, 0, 1280, 668);
+			maskMovie.graphics.drawRect(0, 0, 1280, 1024);
 			maskMovie.graphics.endFill();
 			this.addChild(maskMovie);
 			maskMovie.x = -139;
+			maskMovie.y = -178;
 			
-			queueLoader.firstItem.mask = maskMovie;
+			queueLoader.firstItem.mask = maskMovie;	
 		}
 		
 		private function queueProgressHandler(event: ProgressEvent): void {

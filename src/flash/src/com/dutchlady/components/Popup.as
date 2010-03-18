@@ -30,12 +30,13 @@
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			
 			this.graphics.beginFill(0xFFFFFF, 0.5);
-			this.graphics.drawRect( -139, 0, 1280, 668);
+			this.graphics.drawRect( -139, -178, 1280, 1024);
 			this.graphics.endFill();			
 		}
 		
 		private function addedToStageHandler(event: Event): void {
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			resize();
 			contentMovie.alpha = 0;
 			TweenLite.to(contentMovie, 1, { alpha:1, onComplete: completeHandler} );
 		}
@@ -67,8 +68,6 @@
 			this.addEventListener(Event.ENTER_FRAME, enterFramerHandler, false, 0, true);			
 			this.addChild(zoomOutButton);			
 			zoomOutButton.addEventListener(MouseEvent.CLICK, zoomOutClickHandler);
-			
-			resize();
 		}
 		
 		private function zoomOutClickHandler(event: MouseEvent): void {
@@ -82,11 +81,12 @@
 		}
 		
 		private function contentWheelHandler(event: MouseEvent): void {
-			var max: Number = 0;
-			var min: Number = GlobalVars.windowsHeight - contentMovie.height;
 			newY = contentMovie.y + 50 * event.delta;
-			if (newY > max)	newY = max;
-			if (newY < min) newY = min;
+			
+			var max: Number = (GlobalVars.movieHeight - GlobalVars.windowsHeight)/2;
+			var min: Number = max + GlobalVars.windowsHeight - contentMovie.height;
+			newY = Math.min(max, newY);
+			newY = Math.max(min, newY);
 		}
 		
 		private function contentDownHandler(event: MouseEvent): void {
@@ -104,10 +104,16 @@
 		}
 		
 		private function enterFramerHandler(event: Event): void {
-			newY = Math.min(newY, 0);
-			newY = Math.max(newY, GlobalVars.windowsHeight - contentMovie.height);
-			contentMovie.y += (newY - oldY) * 0.2;
-			oldY = contentMovie.y;
+			if (Math.abs(newY - oldY) > 1) {
+				var max: Number = (GlobalVars.movieHeight - GlobalVars.windowsHeight)/2;
+				var min: Number = max + GlobalVars.windowsHeight - contentMovie.height;
+				trace( "min : " + min );
+				newY = Math.min(max, newY);
+				newY = Math.max(min, newY);
+				contentMovie.y += (newY - oldY) * 0.2;
+				trace( "contentMovie.y : " + contentMovie.y );
+				oldY = contentMovie.y;
+			}
 		}
 		
 		private function contentUpHandler(event: Event): void {
@@ -120,8 +126,8 @@
 		
 		public function resize(): void {
 			//contentMovie.width = GlobalVars.windowsWidth;
-			//contentMovie.scaleY = contentMovie.scaleX;
-			//contentMovie.x = (oldW - GlobalVars.windowsWidth) / 2;
+			//contentMovie.scaleY = contentMovie.scaleX = GlobalVars.windowsWidth / oldW;
+			//contentMovie.x = (GlobalVars.movieWidth - GlobalVars.windowsWidth) / 2;
 			
 			zoomOutButton.x = Math.min( contentMovie.width + zoomOutButton.width/2,
 					GlobalVars.windowsWidth - (GlobalVars.windowsWidth - GlobalVars.movieWidth)/2 - zoomOutButton.width/2.5);
