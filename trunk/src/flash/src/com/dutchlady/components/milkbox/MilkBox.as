@@ -148,7 +148,8 @@
 			trace("storyAssetLoadCompleteHandler");
 			tourAssetLoader = new Loader();
 			tourAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, shareAssetLoadCompleteHandler);
-			tourAssetLoader.load(new URLRequest("box04.swf"));
+			//tourAssetLoader.load(new URLRequest("box04.swf"));
+			tourAssetLoader.load(new URLRequest("images/tour.jpg"));
 		}
 		
 		private function tourAssetLoadCompleteHandler(event: Event): void {
