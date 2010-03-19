@@ -71,10 +71,15 @@
 		private function thumbLoadInitHandler(event: Event): void {
 			while (thumbMovie.numChildren > 0) thumbMovie.removeChildAt(0);
 			
-			var content: DisplayObject = event.target.content;
+			/*var content: DisplayObject = event.target.content;
 			content.width = 206;
 			content.height = 138;
-			thumbMovie.addChild(event.target.content);
+			thumbMovie.addChild(event.target.content);*/
+			
+			var loader: Loader = event.currentTarget.loader;
+			loader.width = 206;
+			loader.height = 138;
+			thumbMovie.addChild(loader);
 		}
 		
 		private function clickHandler(event: MouseEvent): void {

@@ -335,6 +335,8 @@
 		
 		private function createMenu(): void {
 			menuMovie.visible = true;
+			menuMovie.uploadMovie.visible = false;
+			menuMovie.logoMovie.visible = false;
 			
 			menuMovie.logoMovie.addEventListener(MouseEvent.ROLL_OVER, menuButtonRollHandler);
 			menuMovie.logoMovie.addEventListener(MouseEvent.ROLL_OUT, menuButtonRollHandler);
@@ -417,8 +419,7 @@
 			
 			loadXML(url);
 			
-			//selectedMenuItem(menuMovie.farmMovie);
-			menuMovie.uploadMovie.visible = false;
+			//selectedMenuItem(menuMovie.farmMovie);			
 		}
 		
 		private function loadXML(url: String):void {
