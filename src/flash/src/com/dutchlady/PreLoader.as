@@ -39,7 +39,7 @@
 		private function queueCompleteHandler(event: Event): void {
 			queueLoader.removeEventListener(Event.COMPLETE, queueCompleteHandler);
 			queueLoader.removeEventListener(ProgressEvent.PROGRESS, queueProgressHandler);
-			while (this.numChildren)	this.removeChildAt(0);
+			//while (this.numChildren)	this.removeChildAt(0);
 			this.addChild(queueLoader.firstItem);
 			
 			var maskMovie: MovieClip = new MovieClip();
