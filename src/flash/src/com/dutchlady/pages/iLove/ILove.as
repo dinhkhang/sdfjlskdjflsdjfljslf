@@ -123,7 +123,7 @@
 			boardParentMovie.autoXY = true;
 			containerMovie.mouseEnabled = containerMovie.mouseChildren = true;
 			combox.x = 70;
-			combox.y = this.height - 70;
+			combox.y = this.height - 170;
 		}
 		
 		private function showSendToFriend(profileId: String):void {
