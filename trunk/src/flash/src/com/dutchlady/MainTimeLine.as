@@ -158,6 +158,7 @@
 			cursorMovie.y = this.mouseY;
 			this.setChildIndex(menuMovie, this.numChildren - 1);
 			this.stage.setChildIndex(cursorMovie, this.stage.numChildren - 1);
+			Mouse.hide();
 		}
 		
 		private function initSWFAddressHandler(event: SWFAddressEvent): void {
