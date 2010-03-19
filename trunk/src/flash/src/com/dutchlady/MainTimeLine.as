@@ -66,6 +66,8 @@
 		private var siteParam: String;
 		
 		public function MainTimeLine() {
+			this.visible = false;
+			
 			Security.loadPolicyFile("http://www.toiyeucogaihalan.com/crossdomain.xml");
 			
 			Tracker.trackLandingPage();
@@ -536,6 +538,7 @@
 		}
 		
 		private function homepageEventHandler(event: Event): void {
+			this.visible = true;
 			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
 			this.mouseEnabled = this.mouseChildren = true;
 			
