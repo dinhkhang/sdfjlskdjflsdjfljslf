@@ -315,7 +315,7 @@
 					break;
 				//////////////////////////////////////////////////////////////////////
 				case PageEvent.GO_TO_GETMILKPAGE:
-					Tracker.trackPlayGame();
+					Tracker.trackPlayGetMilkGame();
 				
 					this.setChildIndex(loadingGame1Movie, this.numChildren - 2);
 					loadingMovie = loadingGame1Movie;
@@ -323,7 +323,7 @@
 					//selectedMenuItem();
 					break;
 				case PageEvent.GO_TO_FACTORYPAGE:
-					Tracker.trackPlayGame();
+					Tracker.trackPlayFactoryGame();
 				
 					this.setChildIndex(loadingGame2Movie, this.numChildren - 2);
 					loadingMovie = loadingGame2Movie;
