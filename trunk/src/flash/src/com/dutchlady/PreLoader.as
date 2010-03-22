@@ -1,5 +1,6 @@
 ﻿package com.dutchlady {
 	import com.utils.QueueLoader;
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -40,7 +41,11 @@
 			queueLoader.removeEventListener(Event.COMPLETE, queueCompleteHandler);
 			queueLoader.removeEventListener(ProgressEvent.PROGRESS, queueProgressHandler);
 			//while (this.numChildren)	this.removeChildAt(0);
-			this.addChild(queueLoader.firstItem);
+			
+			//var mainMovie: DisplayObject = queueLoader.firstItem;
+			var mainMovie: DisplayObject = queueLoader.lastItem;
+			
+			this.addChild(mainMovie);
 			
 			var maskMovie: MovieClip = new MovieClip();
 			maskMovie.graphics.beginFill(0, 0);
@@ -50,7 +55,7 @@
 			maskMovie.x = -139;
 			maskMovie.y = -178;
 			
-			queueLoader.firstItem.mask = maskMovie;	
+			mainMovie.mask = maskMovie;	
 		}
 		
 		private function queueProgressHandler(event: ProgressEvent): void {

@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<item><![CDATA[main.swf]]></item>	<!-- Last item is always main.swf -->
-	<item><![CDATA[home.swf]]></item>
+	<!--<item><![CDATA[share.swf]]></item>
+	<item><![CDATA[story.swf]]></item>
+	<item><![CDATA[box04.swf]]></item>-->
+	<item><![CDATA[iLove.swf]]></item>
 	<item><![CDATA[images/share.jpg]]></item>
 	<item><![CDATA[images/story.jpg]]></item>
-	<item><![CDATA[box04.swf]]></item>
-	<item><![CDATA[iLove.swf]]></item>
+	<item><![CDATA[images/tour.jpg]]></item>
+	<item><![CDATA[home.swf]]></item>
+	<item><![CDATA[main.swf]]></item>	<!-- Last item is always main.swf -->
 </data>
