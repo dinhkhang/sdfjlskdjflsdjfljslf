@@ -19,6 +19,7 @@
 	import flash.events.IOErrorEvent;
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
+	import flash.external.ExternalInterface;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.system.Security;
@@ -171,9 +172,11 @@
 		
 		private function goToDeepLink(value: String) : void {
 			trace( "value : " + value );
+			var pageTitle: String = "";
 			switch (value) {
 				case HOMEPAGE:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_HOMEPAGE));
+					pageTitle = "Trang chủ";
 				break;
 				case ILOVEPAGE:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_ILOVEPAGE));
@@ -189,13 +192,19 @@
 				break;
 				case GAME1PAGE:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_GETMILKPAGE));
+					pageTitle = "Trò chơi chăn bò";
 				break;
 				case GAME2PAGE:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_FACTORYPAGE));
+					pageTitle = "Trò chơi nhà máy";
 				break;
 				case UPLOADPAGE:
 					this.dispatchEvent(new PageEvent(PageEvent.GO_TO_UPLOADPAGE));
+					pageTitle = "Upload ảnh";
 				break;
+			}
+			if (ExternalInterface.available) {
+				ExternalInterface.call("changePageTitle", pageTitle);
 			}
 		}
 		
