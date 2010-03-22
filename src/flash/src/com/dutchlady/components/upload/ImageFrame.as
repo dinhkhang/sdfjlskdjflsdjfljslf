@@ -79,11 +79,14 @@
 			hideLoading();
 			trace("imageLoadCompleteHandler " + event);
 			imageHolder.addChild(event.target.content);
-			imageHolder.width = 280;
-			imageHolder.height = 188;
+			if (imageHolder.width > imageHolder.height) imageHolder.scaleX = imageHolder.scaleY = 188 / imageHolder.height;
+			else imageHolder.scaleX = imageHolder.scaleY = 280 / imageHolder.width;
+			//imageHolder.width = 280;
+			//imageHolder.height = 188;
 			
 			transformTool.target = imageHolder;
 			transformTool.registration = transformTool.boundsCenter;
+			transformTool.constrainScale = true;
 		}
 		
 		private function showLoading():void {

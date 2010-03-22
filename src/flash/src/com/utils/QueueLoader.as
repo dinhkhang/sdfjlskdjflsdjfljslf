@@ -19,6 +19,7 @@
 		public var itemArray: Array;
 		
 		public var firstItem: DisplayObject;
+		public var lastItem: DisplayObject;
 		
 		public function QueueLoader() {
 			queue = new Array();
@@ -46,6 +47,7 @@
 		
 		private function itemLoaderCompleteHandler(event: Event): void {			
 			if (!firstItem)	firstItem = event.currentTarget.loader.content;
+			lastItem = event.currentTarget.loader.content;
 			trace("Current done is " + currentIndex);
 			start();
 		}

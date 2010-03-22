@@ -157,9 +157,9 @@
 		private function enterFrameHandler(event: Event): void {
 			cursorMovie.x = this.mouseX;
 			cursorMovie.y = this.mouseY;
-			this.setChildIndex(menuMovie, this.numChildren - 1);
-			this.stage.setChildIndex(cursorMovie, this.stage.numChildren - 1);
-			Mouse.hide();
+			if (this.getChildIndex(menuMovie) < this.numChildren - 1)	this.setChildIndex(menuMovie, this.numChildren - 1);
+			if (this.stage.getChildIndex(cursorMovie) < this.numChildren - 1)	this.stage.setChildIndex(cursorMovie, this.stage.numChildren - 1);
+			//Mouse.hide();
 		}
 		
 		private function initSWFAddressHandler(event: SWFAddressEvent): void {
@@ -480,6 +480,7 @@
 					loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, loaderProgessHandler);
 					loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 					loader.load(new URLRequest(xml.pages.page.(@name == name).toString()));
+					trace( "xml.pages.page.(@name == name).toString() : " + xml.pages.page.(@name == name).toString() );
 					homePageMovie.mouseCheckingMode = false;
 					activeLoading(loadingMovie);
 				} } );
@@ -630,7 +631,7 @@
 		}
 
 		private function ioErrorHandler(event: IOErrorEvent): void {
-			trace(event.text);
+			trace("ioErrorHandler: " + event.text + " --- " + event);
 		}
 		
 		private function showMovieClip(movie: MovieClip): void {

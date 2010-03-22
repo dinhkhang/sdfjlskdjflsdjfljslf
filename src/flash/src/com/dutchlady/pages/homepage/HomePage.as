@@ -39,6 +39,12 @@
 			
 			game1Button.addEventListener(MouseEvent.CLICK, gameClickHandler);
 			game2Button.addEventListener(MouseEvent.CLICK, gameClickHandler);
+			
+			fireFlyMovie.addEventListener(MouseEvent.CLICK, digitalPanelClickHandler);
+		}
+		
+		private function digitalPanelClickHandler(event: MouseEvent): void {
+			SWFAddress.setValue("upload-photo");
 		}
 		
 		private function gameClickHandler(event: MouseEvent): void {
