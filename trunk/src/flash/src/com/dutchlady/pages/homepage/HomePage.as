@@ -9,6 +9,7 @@
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.filters.GlowFilter;
 	import gs.TweenLite;
 	import swfaddress.SWFAddress;
 	/**
@@ -40,11 +41,23 @@
 			game1Button.addEventListener(MouseEvent.CLICK, gameClickHandler);
 			game2Button.addEventListener(MouseEvent.CLICK, gameClickHandler);
 			
-			fireFlyMovie.addEventListener(MouseEvent.CLICK, digitalPanelClickHandler);
+			fireFlyMovie.addEventListener(MouseEvent.ROLL_OVER, digitalPanelMouseHandler);
+			fireFlyMovie.addEventListener(MouseEvent.ROLL_OUT, digitalPanelMouseHandler);
+			fireFlyMovie.addEventListener(MouseEvent.CLICK, digitalPanelMouseHandler);
 		}
 		
-		private function digitalPanelClickHandler(event: MouseEvent): void {
-			SWFAddress.setValue("upload-photo");
+		private function digitalPanelMouseHandler(event: MouseEvent): void {
+			switch (event.type) {
+				case MouseEvent.ROLL_OVER:
+					fireFlyMovie.filters = [new GlowFilter(0xFFFFFF, 1, 15, 15, 3)];
+				break;
+				case MouseEvent.ROLL_OUT:
+					fireFlyMovie.filters = [];
+				break;
+				case MouseEvent.ROLL_OVER:
+					SWFAddress.setValue("upload-photo");
+				break;
+			}			
 		}
 		
 		private function gameClickHandler(event: MouseEvent): void {
