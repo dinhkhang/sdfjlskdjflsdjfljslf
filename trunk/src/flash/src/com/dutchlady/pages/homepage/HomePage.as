@@ -54,7 +54,7 @@
 				case MouseEvent.ROLL_OUT:
 					fireFlyMovie.filters = [];
 				break;
-				case MouseEvent.ROLL_OVER:
+				case MouseEvent.CLICK:
 					SWFAddress.setValue("upload-photo");
 				break;
 			}			
