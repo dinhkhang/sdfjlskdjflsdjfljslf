@@ -127,7 +127,7 @@
 			//trace("loadMaterial");
 			heartAssetLoader = new Loader();
 			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
-			heartAssetLoader.load(new URLRequest("iLove.swf"));
+			heartAssetLoader.load(new URLRequest("images/heart.jpg"));
 		}
 		
 		private function heartAssetLoadCompleteHandler(event: Event): void {
@@ -141,7 +141,7 @@
 			trace("shareAssetLoadCompleteHandler");
 			storyAssetLoader = new Loader();
 			storyAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, heartAssetLoadCompleteHandler);
-			storyAssetLoader.load(new URLRequest("images/story.jpg"));
+			storyAssetLoader.load(new URLRequest("images/standard.jpg"));
 		}
 		
 		private function storyAssetLoadCompleteHandler(event: Event): void {
@@ -161,7 +161,7 @@
 			var material: MovieMaterial = new MovieMaterial(content, false, animated);
 			material.interactive = true;
 			material.oneSide = true;
-			//heartMaterial.smooth = true;
+			//material.smooth = true;
 			material.name = materialName;
 			material.bitmap.applyFilter(material.bitmap, material.bitmap.rect, new Point(0, 0), new BlurFilter(4, 4, BitmapFilterQuality.LOW));
 			
@@ -182,31 +182,9 @@
 			//scene.addChild(pointLight);
 			
 			var heartMaterial: MaterialObject3D = createBoxFaceMatetial(heartAssetLoader.contentLoaderInfo.content, "heart", pointLight, true);
-			//heartMaterial.interactive = true;
-			//heartMaterial.oneSide = true;
-			//heartMaterial.smooth = true;
-			//heartMaterial.name = "heart";
-			
 			var shareMaterial: MaterialObject3D = createBoxFaceMatetial(shareAssetLoader.contentLoaderInfo.content, "share", pointLight);
-			//var shareMaterial: MovieMaterial = new MovieMaterial(shareAssetLoader.contentLoaderInfo.content);
-			//shareMaterial.interactive = true;
-			//shareMaterial.oneSide = true;
-			//shareMaterial.smooth = true;
-			//shareMaterial.name = "share";
-			
 			var storyMaterial: MaterialObject3D = createBoxFaceMatetial(storyAssetLoader.contentLoaderInfo.content, "story", pointLight);
-			//var storyMaterial: MovieMaterial = new MovieMaterial(storyAssetLoader.contentLoaderInfo.content);
-			//storyMaterial.interactive = true;
-			//storyMaterial.oneSide = true;
-			//storyMaterial.smooth = true;
-			//storyMaterial.name = "story";
-			
 			var tourMaterial: MaterialObject3D = createBoxFaceMatetial(tourAssetLoader.contentLoaderInfo.content, "tour", pointLight);
-			//var tourMaterial: MovieMaterial = new MovieMaterial(tourAssetLoader.contentLoaderInfo.content, false, true);
-			//tourMaterial.interactive = true;
-			//tourMaterial.oneSide = true;
-			//tourMaterial.smooth = true;
-			//tourMaterial.name = "tour";
 			
 			var materials: MaterialsList = new MaterialsList(
 			{
