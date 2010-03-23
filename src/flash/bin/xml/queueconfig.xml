@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <data>
-	<item><![CDATA[box04.swf]]></item>-->
-	<item><![CDATA[iLove.swf]]></item>
 	<item><![CDATA[images/share.jpg]]></item>
 	<item><![CDATA[images/standard.jpg]]></item>
 	<item><![CDATA[images/tour.jpg]]></item>
+	<item><![CDATA[images/heart.jpg]]></item>
 	<item><![CDATA[home.swf]]></item>
 	<item><![CDATA[main.swf]]></item>	<!-- Last item is always main.swf -->
 </data>
