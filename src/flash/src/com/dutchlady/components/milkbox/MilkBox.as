@@ -127,7 +127,8 @@
 			//trace("loadMaterial");
 			heartAssetLoader = new Loader();
 			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
-			heartAssetLoader.load(new URLRequest("images/heart.jpg"));
+			//heartAssetLoader.load(new URLRequest("images/heart.jpg"));
+			heartAssetLoader.load(new URLRequest("iLove.swf"));
 		}
 		
 		private function heartAssetLoadCompleteHandler(event: Event): void {

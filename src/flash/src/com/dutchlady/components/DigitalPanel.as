@@ -22,7 +22,7 @@
 		private var timer				: Timer;
 		
 		public function DigitalPanel() {
-			timer = new Timer(1000, 1);
+			timer = new Timer(10000, 1);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
 			
 			glowContentText.autoSize = TextFieldAutoSize.RIGHT;
