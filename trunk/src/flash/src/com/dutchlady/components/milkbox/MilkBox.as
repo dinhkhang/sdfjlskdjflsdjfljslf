@@ -128,7 +128,7 @@
 			heartAssetLoader = new Loader();
 			heartAssetLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, storyAssetLoadCompleteHandler);
 			//heartAssetLoader.load(new URLRequest("images/heart.jpg"));
-			heartAssetLoader.load(new URLRequest("iLove.swf"));
+			heartAssetLoader.load(new URLRequest("images/heart.jpg"));
 		}
 		
 		private function heartAssetLoadCompleteHandler(event: Event): void {
@@ -204,6 +204,8 @@
 			
 			newBoxRotationAngle = box.rotationY;
 			startRendering();
+			
+			renderer.renderScene(scene, _camera, viewport);
 			dispatchEvent(new Event(CREATION_COMPLETE));
 			
 			this.mouseEnabled = true;
