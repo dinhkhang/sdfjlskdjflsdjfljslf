@@ -108,3 +108,11 @@ Khi re chuot qua nut xoat bien mat bieu tuong zoom in/ zoom out
 # slide 27 <== DONE
 # slide 28 <-- DONE
 # slide 29: cai nay hau nhu khong the vi chat luong render trong 3D bi gioi han <-- DONE
+
+
+<item><![CDATA[main.swf]]></item>				562 KB
+<item><![CDATA[home.swf]]></item>  				863 KB
+<item><![CDATA[images/share.jpg]]></item>		311
+<item><![CDATA[images/story.jpg]]></item>		428
+<item><![CDATA[box04.swf]]></item>			   1081
+<item><![CDATA[iLove.swf]]></item>				307

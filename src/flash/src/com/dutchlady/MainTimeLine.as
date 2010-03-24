@@ -553,6 +553,7 @@
 			this.visible = true;
 			homePageMovie.removeEventListener(Event.COMPLETE, homepageEventHandler);
 			this.mouseEnabled = this.mouseChildren = true;
+			this.visible = true;
 			
 			SWFAddress.addEventListener(SWFAddressEvent.CHANGE, addressChangeHandler);
 		}
