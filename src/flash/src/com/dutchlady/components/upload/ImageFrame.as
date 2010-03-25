@@ -79,8 +79,10 @@
 			hideLoading();
 			trace("imageLoadCompleteHandler " + event);
 			imageHolder.addChild(event.target.content);
-			if (imageHolder.width > imageHolder.height) imageHolder.scaleX = imageHolder.scaleY = 188 / imageHolder.height;
-			else imageHolder.scaleX = imageHolder.scaleY = 280 / imageHolder.width;
+			//if (imageHolder.width > imageHolder.height) imageHolder.scaleX = imageHolder.scaleY = 188 / imageHolder.height;
+			//else imageHolder.scaleX = imageHolder.scaleY = 280 / imageHolder.width;
+			
+			imageHolder.scaleX = imageHolder.scaleY = 280 / imageHolder.width;
 			//imageHolder.width = 280;
 			//imageHolder.height = 188;
 			
