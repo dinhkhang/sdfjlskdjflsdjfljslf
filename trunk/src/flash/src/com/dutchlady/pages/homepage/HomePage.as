@@ -22,6 +22,7 @@
 		public var milkBoxHolder: Sprite;
 		public var milkBox: MilkBox;
 		public var fireFlyMovie: MovieClip;
+		public var cloudMovie: MovieClip;
 		
 		public function HomePage() {
 			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
@@ -115,6 +116,8 @@
 			super.resize();
 			fireFlyMovie.x = GlobalVars.windowsWidth + (GlobalVars.movieWidth - GlobalVars.windowsWidth) / 2 - fireFlyMovie.width - 20; 
 			fireFlyMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 50;
+			
+			cloudMovie.y = fireFlyMovie.y;
 			//if (GlobalVars.windowsHeight > GlobalVars.movieHeight)	fireFlyMovie.y -= (GlobalVars.windowsHeight - GlobalVars.movieHeight) / 2;
 			//trace( "fireFlyMovie.y : " + fireFlyMovie.y );
 		}
