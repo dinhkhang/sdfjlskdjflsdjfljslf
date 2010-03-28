@@ -10,6 +10,7 @@
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.net.FileReference;
+	import flash.net.sendToURL;
 	import flash.net.URLRequest;
 	import gs.TweenLite;
 	//import gs.TweenLite;
@@ -136,7 +137,9 @@
 			zoomMovie.x = GlobalVars.movieWidth/2;
 			zoomMovie.y = GlobalVars.movieHeight/2;
 			zoomMovie.alpha = 0;
-			TweenLite.to(zoomMovie, 1, {alpha: 1} );
+			TweenLite.to(zoomMovie, 1, { alpha: 1 } );
+			
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickViewProfile"));
 		}
 		
 		private function loaderIOErrorHandler(event: IOErrorEvent): void {

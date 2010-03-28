@@ -117,7 +117,7 @@
 			fireFlyMovie.x = GlobalVars.windowsWidth + (GlobalVars.movieWidth - GlobalVars.windowsWidth) / 2 - fireFlyMovie.width - 20; 
 			fireFlyMovie.y = (GlobalVars.movieHeight - GlobalVars.windowsHeight) / 2 + 50;
 			
-			cloudMovie.y = fireFlyMovie.y;
+			cloudMovie.y = fireFlyMovie.y + cloudMovie.height;
 			//if (GlobalVars.windowsHeight > GlobalVars.movieHeight)	fireFlyMovie.y -= (GlobalVars.windowsHeight - GlobalVars.movieHeight) / 2;
 			//trace( "fireFlyMovie.y : " + fireFlyMovie.y );
 		}
