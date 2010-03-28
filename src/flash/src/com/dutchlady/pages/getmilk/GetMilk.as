@@ -11,6 +11,8 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.net.sendToURL;
+	import flash.net.URLRequest;
 	import flash.ui.Mouse;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
@@ -72,6 +74,7 @@
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			init();
 			initEvents();
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game1LoadSucessful"));
 		}
 		
 		private function initEvents():void {
@@ -399,6 +402,7 @@
 			stopGame();
 			resultShowMode(true);
 			gameOver = true;
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game1Winners"));
 		}
 		
 		private function goLose(): void {
@@ -410,6 +414,7 @@
 			stopGame();
 			resultShowMode(true);
 			gameOver = true;
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game1Losers"));
 		}
 		
 		public function startGame(time:Number = 90): void {

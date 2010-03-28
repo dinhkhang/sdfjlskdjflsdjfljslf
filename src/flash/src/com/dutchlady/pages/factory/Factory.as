@@ -10,6 +10,8 @@
 	import flash.filters.ColorMatrixFilter;
 	import flash.filters.GlowFilter;
 	import flash.geom.Rectangle;
+	import flash.net.sendToURL;
+	import flash.net.URLRequest;
 	import flash.ui.Mouse;
 	import swfaddress.SWFAddress;
 	/**
@@ -52,6 +54,7 @@
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			init();
 			initEvents();
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game2LoadSucessful"));
 		}
 		
 		private function initEvents():void {
@@ -307,6 +310,7 @@
 		private function timeUpHandler(event: Event): void {
 			board2Movie.visible = true;
 			if (stage)	this.stage.dispatchEvent(new MouseEvent(MouseEvent.MOUSE_UP));
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game2Losers"));
 		}
 		
 		public function checkGame(): void {
@@ -322,6 +326,7 @@
 					this.gotoAndPlay(2);
 					this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
 					maskMovie.play();
+				sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/Game2Winners"));
 			}
 			else {
 				

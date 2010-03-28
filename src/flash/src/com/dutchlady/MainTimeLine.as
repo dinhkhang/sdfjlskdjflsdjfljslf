@@ -20,6 +20,7 @@
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
 	import flash.external.ExternalInterface;
+	import flash.net.sendToURL;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.system.Security;
@@ -120,6 +121,8 @@
 			this.stage.addEventListener(PageEvent.CURSOR_ROTATE_LEFT, cursorEventHandler);
 			this.stage.addEventListener(PageEvent.CURSOR_ROTATE_RIGHT, cursorEventHandler);
 			this.stage.addEventListener(PageEvent.CURSOR_NULL, cursorEventHandler);
+			
+			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/LoadFlash"));
 		}
 		
 		private function resizeHandler(event: Event): void {
@@ -293,7 +296,8 @@
 					//break;
 				case PageEvent.SHOW_STORY_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1000,"story");
+					setTimeout(loadPopUp, 1000, "story");
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickChuanMuc"));
 					break;
 				
 				case PageEvent.GO_TO_TOURPAGE:
@@ -302,7 +306,8 @@
 					//break;
 				case PageEvent.SHOW_TOUR_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1000,"tour");
+					setTimeout(loadPopUp, 1000, "tour");
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickHanhTrinh"));
 					break;
 				
 				case PageEvent.GO_TO_SHAREPAGE:
@@ -311,7 +316,8 @@
 					//break;
 				case PageEvent.SHOW_SHARE_POPUP:
 					SWFAddress.setValue(HOMEPAGE);
-					setTimeout(loadPopUp,1000,"share");
+					setTimeout(loadPopUp, 1000, "share");
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickChiaSe"));
 					break;
 				//////////////////////////////////////////////////////////////////////
 				case PageEvent.GO_TO_GETMILKPAGE:
@@ -321,19 +327,21 @@
 					loadingMovie = loadingGame1Movie;
 					loadPage("getMilk");
 					//selectedMenuItem();
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickGame1"));
 					break;
 				case PageEvent.GO_TO_FACTORYPAGE:
-					Tracker.trackPlayFactoryGame();
-				
+					Tracker.trackPlayFactoryGame();				
 					this.setChildIndex(loadingGame2Movie, this.numChildren - 2);
 					loadingMovie = loadingGame2Movie;
 					loadPage("factory");
 					//selectedMenuItem();
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickGame2"));
 					break;
 				case PageEvent.GO_TO_UPLOADPAGE:
 					Tracker.trackGotoUploadPage();
 					loadPage("upload");
 					//selectedMenuItem(menuMovie.uploadMovie);
+					sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/ClickUpload"));
 					break;
 				default:
 					break;
