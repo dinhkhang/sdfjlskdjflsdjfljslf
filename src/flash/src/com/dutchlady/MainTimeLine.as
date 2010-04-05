@@ -55,6 +55,7 @@
 		private var homePageMovie: BasePage;
 		private var currentPopUp: Popup;
 		private var pageMovieArray: Array;			//	array contains child-pages (loader).
+		private var isLeaveOut: Boolean = false;
 		
 		public var pageContainerMovie: MovieClip;	//	Container of pages.
 		public var cursorMovie: MovieClip;		
@@ -98,7 +99,7 @@
 			loadingGame1Movie.addEventListener(PageEvent.PAGE_LOADING_COMPLETE, game1LoadCompleteHandler);
 			loadingGame2Movie.addEventListener(PageEvent.PAGE_LOADING_COMPLETE, game1LoadCompleteHandler);
 			
-			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);			
 			
 			SWFAddress.addEventListener(SWFAddressEvent.INIT, initSWFAddressHandler);
 		}
@@ -114,7 +115,9 @@
 			cursorMovie = new MouseCursor();
 			cursorMovie.mouseChildren = cursorMovie.mouseEnabled = false;
 			stage.addChild(cursorMovie);
-			this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			
+			//this.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+			
 			this.stage.addEventListener(PageEvent.CURSOR_NORMAL, cursorEventHandler);
 			this.stage.addEventListener(PageEvent.CURSOR_BUSY, cursorEventHandler);
 			this.stage.addEventListener(PageEvent.CURSOR_SPAN, cursorEventHandler);
@@ -122,7 +125,17 @@
 			this.stage.addEventListener(PageEvent.CURSOR_ROTATE_RIGHT, cursorEventHandler);
 			this.stage.addEventListener(PageEvent.CURSOR_NULL, cursorEventHandler);
 			
+			this.stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);			
+			
 			sendToURL(new URLRequest("http://fs.toiyeucogaihalan.com/flashapi/ReportingServices.asmx/LoadFlash"));
+		}
+		
+		private function mouseMoveHandler(event: MouseEvent): void {
+			cursorMovie.x = this.mouseX;
+			cursorMovie.y = this.mouseY;
+			if (this.getChildIndex(menuMovie) < this.numChildren - 1)	this.setChildIndex(menuMovie, this.numChildren - 1);
+			if (this.stage.getChildIndex(cursorMovie) < this.numChildren - 1)	this.stage.setChildIndex(cursorMovie, this.stage.numChildren - 1);
+			Mouse.hide();
 		}
 		
 		private function resizeHandler(event: Event): void {
@@ -158,11 +171,11 @@
 		}
 		
 		private function enterFrameHandler(event: Event): void {
-			cursorMovie.x = this.mouseX;
+			/*cursorMovie.x = this.mouseX;
 			cursorMovie.y = this.mouseY;
 			if (this.getChildIndex(menuMovie) < this.numChildren - 1)	this.setChildIndex(menuMovie, this.numChildren - 1);
 			if (this.stage.getChildIndex(cursorMovie) < this.numChildren - 1)	this.stage.setChildIndex(cursorMovie, this.stage.numChildren - 1);
-			Mouse.hide();
+			Mouse.hide();*/
 		}
 		
 		private function initSWFAddressHandler(event: SWFAddressEvent): void {
