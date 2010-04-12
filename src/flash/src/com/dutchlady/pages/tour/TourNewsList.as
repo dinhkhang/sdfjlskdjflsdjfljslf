@@ -46,7 +46,7 @@
 			var newsList: XMLList = data.ns::Content;
 			var contentXml: XML;
 			
-			posY = 0;
+			posY = -69;
 			for (var i: int = 0; i < newsList.length(); i++) {
 				contentXml = newsList[i];
 				item = new TourNewsItem();
@@ -55,7 +55,7 @@
 				item.body = contentXml.ns::Body;
 				item.update(contentXml.ns::Id, contentXml.ns::PhotoUrl, contentXml.ns::Title, contentXml.ns::Description);
 				item.y = posY;
-				posY += item.height + 10;
+				posY += item.height + 2;
 			}
 			
 			//playButton.alpha = 0;
